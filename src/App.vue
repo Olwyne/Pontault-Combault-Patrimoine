@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import myMap from "./view/map.vue";
+import myMap from "./view/test.vue";
 
 export default {
   name: "app",
