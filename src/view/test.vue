@@ -1,8 +1,14 @@
 <template>
     <div>
-    <button @click="read">click</button>
-    <button @click="update">click</button>
-    <button @click="deletel">click</button>
+      <!-- <button @click="read">Lire</button>
+      <button @click="update">Update</button>
+      <button @click="deletel">Delete</button> -->
+      <button @click="addLocation">Ajout Location</button>
+      <button @click="addWalk">Ajout Promenade</button>
+      <button @click="readLocation">Read Location</button>
+      <button @click="readWalk">Read Promenade</button>
+      <button @click="updateLocation">Update Location</button>
+      <button @click="updateWalk">Update Promenade</button>
     </div>
 </template>
 
@@ -18,30 +24,70 @@ export default {
   },
 
   firebase: {
-    documents: db.ref('documents'),
+    documents: db.ref(),
+    locationsArr: db.ref('app/locations'), // loopable with v-for
+    locationsObj: { // can use keys, but v-for doesn't loop
+      source: db.ref('app/locations'),
+      asObject: true
+    },
+    walksArr: db.ref('app/walks'), // loopable with v-for
+    walksObj: { // can use keys, but v-for doesn't loop
+      source: db.ref('app/walks'),
+      asObject: true
+    }
   },
   methods:{
-      read(){
-          // retrieve a collection
-        db.ref('documents').once('value', snapshot => {
-        const documents = snapshot.val()
-        // do something with documents
-        console.log(documents)
-        })
-      },
-      update(){
-        db.ref('documents').update({ id: "hello" }).then(() => {
-            console.log('user updated!')
-        })
-        db.ref('documents/lieu').update({ id: "titi" }).then(() => {
-            console.log('titi updated!')
-        })
-      },
-      deletel(){
-          db.ref('documents/lieu/id').remove().then(() => {
-            console.log('titi delete!')
-        })
-      }
+        addLocation(){
+          db.ref('app/locations').push({
+              name: 'Eglise Saint-Denis',
+              category: 'Culte',
+              address:'Place du Général Leclerc (Vieux Pontault)',
+              gps: '48.7826000, 2.6011282',
+              photos: {
+                main: '4 Eglise Saint-Denis.JPG',
+                photo2: '4-CPA.jpg'
+              }
+          })
+        },
+        addWalk(){
+          db.ref('app/walks').push({
+            name: 'De Combault à Pontault',
+            locations:{
+              location1:'Eglise Saint-Denis',
+              location2: 'Château du Bois la Croix'
+            }  
+          })
+        }, 
+        readLocation(){
+          db.ref('app/locations').once('value', snapshot => {
+            const documents = snapshot.val()
+            console.log(documents)
+          })
+        },
+        readWalk(){
+          db.ref('app/walks').once('value', snapshot => {
+            const documents = snapshot.val()
+            console.log(documents)
+          })
+        },
+        updateLocation(){
+          for(location in locationsArr){
+             if(location.name=="")
+          }
+          db.ref(this.locationsObj[key]).equalTo('Eglise Saint-Denis').update({ gps: "hello" }).then(() => {
+              console.log('location updated!')
+          })
+        },
+        updateWalk(){
+          db.ref('app/walks').update({ id: "hello" }).then(() => {
+              console.log('walk updated!')
+          })
+        }
+      // deletel(){
+      //     db.ref('documents/lieu/id').remove().then(() => {
+      //       console.log('titi delete!')
+      //   })
+      // }
   }
 }
 
