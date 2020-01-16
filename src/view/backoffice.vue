@@ -1,73 +1,25 @@
 <template>
     <div>
-      <form
-      id="app"
-      @submit="checkForm"
-      novalidate="true"
-    >
-
-      <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="error in errors">{{ error }}</li>
-        </ul>
-      </p>
-
-      <p>
-        <label for="name">Name</label>
-        <input
-          id="name"
-          v-model="name"
-          type="text"
-          name="name"
-        >
-      </p>
-
-      <p>
-        <label for="address">Address</label>
-        <input
-          id="address"
-          v-model="address"
-          type="address"
-          name="address"
-        >
-      </p>
-
-      <p>
-        <label for="categories">Category</label>
-        <select
-          id="category"
-          v-model="category"
-          name="category"
-        >
-          <option>Culte</option>
-          <option>Histoire</option>
-        </select>
-      </p>
-
-      <p>
-        <input
-          type="submit"
-          value="Submit"
-        >
-      </p>
-
-    </form>
+     <FormAddLocation></FormAddLocation>
+    <FormDeleteLocation></FormDeleteLocation>
     </div>
 </template>
 
 <script>
 // RecentDocuments.vue
 import { db } from '../config/db'
+import FormDeleteLocation from '../components/FormDeleteLocation'
+import FormAddLocation from '../components/FormAddLocation'
 
 export default {
+  components: {
+    FormDeleteLocation,
+    FormAddLocation
+  },
   data() {
     return {
       documents: [],
       errors: [],
-      name: null,
-      address: null,
-      category: null
     }
   },
 
@@ -75,22 +27,7 @@ export default {
     documents: db.ref()
   },
   methods:{
-        checkForm(){
-          var postData = {
-            name: this.name,
-            category: this.category,
-            address:this.address,
-            gps: '48.7826000, 2.6011282',
-            photos: {
-              main: '4 Eglise Saint-Denis.JPG',
-              photo2: '4-CPA.jpg'
-            }
-          };
-          // Write the new post's data simultaneously in the posts list and the user's post list.
-          var updates = {};
-          updates[this.name] = postData;
-          db.ref('app/locations').update(updates);
-        },
+       
         addLocation(name, category, address, gps) {
           var postData = {
             name: 'Eglise Saint-Denis',
