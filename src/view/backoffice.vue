@@ -1,14 +1,58 @@
 <template>
     <div>
-      <!-- <button @click="read">Lire</button>
-      <button @click="update">Update</button> -->
-      <button @click="deletel">Delete</button>
-      <button @click="addLocation">Ajout Location</button>
-      <button @click="addWalk">Ajout Promenade</button>
-      <button @click="readAddress">Read Location</button>
-      <button @click="readWalk">Read Promenade</button>
-      <button @click="updateLocationCategory">Update Location</button>
-      <button @click="updateWalk">Update Promenade</button>
+      <form
+      id="app"
+      @submit="checkForm"
+      novalidate="true"
+    >
+
+      <p v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="error in errors">{{ error }}</li>
+        </ul>
+      </p>
+
+      <p>
+        <label for="name">Name</label>
+        <input
+          id="name"
+          v-model="name"
+          type="text"
+          name="name"
+        >
+      </p>
+
+      <p>
+        <label for="address">Address</label>
+        <input
+          id="address"
+          v-model="address"
+          type="address"
+          name="address"
+        >
+      </p>
+
+      <p>
+        <label for="categories">Category</label>
+        <select
+          id="category"
+          v-model="category"
+          name="category"
+        >
+          <option>Culte</option>
+          <option>Histoire</option>
+        </select>
+      </p>
+
+      <p>
+        <input
+          type="submit"
+          value="Submit"
+        >
+      </p>
+
+    </form>
     </div>
 </template>
 
@@ -20,23 +64,33 @@ export default {
   data() {
     return {
       documents: [],
+      errors: [],
+      name: null,
+      address: null,
+      category: null
     }
   },
 
   firebase: {
     documents: db.ref()
-    // locationsArr: db.ref('app/locations'), // loopable with v-for
-    // locationsObj: { // can use keys, but v-for doesn't loop
-    //   source: db.ref('app/locations'),
-    //   asObject: true
-    // },
-    // walksArr: db.ref('app/walks'), // loopable with v-for
-    // walksObj: { // can use keys, but v-for doesn't loop
-    //   source: db.ref('app/walks'),
-    //   asObject: true
-    // }
   },
   methods:{
+        checkForm(){
+          var postData = {
+            name: this.name,
+            category: this.category,
+            address:this.address,
+            gps: '48.7826000, 2.6011282',
+            photos: {
+              main: '4 Eglise Saint-Denis.JPG',
+              photo2: '4-CPA.jpg'
+            }
+          };
+          // Write the new post's data simultaneously in the posts list and the user's post list.
+          var updates = {};
+          updates[this.name] = postData;
+          db.ref('app/locations').update(updates);
+        },
         addLocation(name, category, address, gps) {
           var postData = {
             name: 'Eglise Saint-Denis',
