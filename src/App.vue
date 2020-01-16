@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import myMap from "./components/map.vue";
 import backoffice from "./view/backoffice.vue";
 
 export default {
