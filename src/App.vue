@@ -1,5 +1,8 @@
 <template>
-  <backoffice />
+  <div>
+       <myMap />
+      <backoffice />
+  </div>    
 </template>
 
 <script>
@@ -9,6 +12,7 @@ import backoffice from "./view/backoffice.vue";
 export default {
   name: "app",
   components: {
+    myMap,
     backoffice
   }
 };
