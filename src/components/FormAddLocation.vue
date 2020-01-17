@@ -66,18 +66,22 @@
           name="gps"
         >
       </p>
+
+       <p>
+          <label for="photos">Photo</label>
+            <input type="file" id="photos" name="photos"
+                accept="image/png, image/jpeg">
+
+    </p>
+
+    
       <p>
         <input
           type="submit"
           value="Submit"
         >
       </p>
-      <p>
-          <label for="photos">Photo</label>
-            <input type="file" id="photos" name="photos"
-                accept="image/png, image/jpeg">
-
-    </p>
+     
 
     </form>
 
