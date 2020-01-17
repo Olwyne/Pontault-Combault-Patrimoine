@@ -69,8 +69,10 @@
 
        <p>
           <label for="photos">Photo</label>
-            <input type="file" id="photos" name="photos"
-                accept="image/png, image/jpeg">
+        
+                <input type="file" id="photos" name="photos"
+                accept="image/png, image/jpeg" @change="processFile($event)">
+
 
     </p>
 
@@ -102,16 +104,22 @@ export default {
             category: null,
             description: null,
             gps: null,
-            photos:null
+            photos:null,
+            main:null
         }
     },
     methods:{
+          processFile(event) {
+            let self=this
+            self.photos = event.target.files[0]
+            console.log("main : "+self.photos.name)
+          },
          checkForm(e){
-           var files = e.target.photos || e.dataTransfer.photos;
-          var reader = new FileReader();
-           reader.onload = (e) => {
-               this.photos = e.target.result;
-           };
+          //  var files = e.target.photos || e.dataTransfer.photos;
+          // var reader = new FileReader();
+          //  reader.onload = (e) => {
+          //      this.photos = e.target.result;
+          //  };
 
           var postData = {
             name: this.name,
@@ -119,15 +127,15 @@ export default {
             address:this.address,
             gps: this.gps,
             photos: {
-              main: reader.readAsDataURL(files[0]),
+              main: this.photos.name,
               photo2: '4-CPA.jpg'
             }
           };
-          console.log(reader.readAsDataURL(files[0]))
+          console.log("photo: "+ photos.name)
           // Write the new post's data simultaneously in the posts list and the user's post list.
           var updates = {};
-          // updates[this.name] = postData;
-          // db.ref('app/locations').update(updates);
+          updates[this.name] = postData;
+          db.ref('app/locations').update(updates);
         },
     }
 }
