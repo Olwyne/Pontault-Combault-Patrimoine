@@ -68,7 +68,6 @@ export default {
             .then(function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
                     self.locations.push(childSnapshot.key);
-                    console.log(self.locations)
                 });
             });
       
