@@ -1,8 +1,42 @@
 <template>
     <div class="formAddLocation">
-        <h1> Ajout d'un lieu</h1>
+        <h1> Ajout d'une balade</h1>
         <form
-      id="addLocation"
+            id="AddWalkLocation"
+            @submit="checkFormAddWalk"
+            novalidate="true"
+        >
+
+        <p v-if="errors.length">
+            <b>Please correct the following error(s):</b>
+            <ul>
+            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+            </ul>
+        </p>
+
+        <p>
+            <label for="locations">Lieux</label>
+            <select
+            id="choicelocation"
+            v-model="choicelocation"
+            name="choicelocation"
+            >
+            <option v-for="location in locations" v-bind:key="location" v-bind:value="location">
+                    {{location}}
+            </option>
+            </select>
+        </p>
+
+        <p>
+            <input
+            type="submit"
+            value="Add"
+            >
+        </p>
+
+        </form>
+        <form
+      id="addWalk"
       @submit="checkForm"
       novalidate="true"
     >
@@ -24,15 +58,7 @@
         >
       </p>
 
-      <p>
-        <label for="address">Address</label>
-        <input
-          id="address"
-          v-model="address"
-          type="address"
-          name="address"
-        >
-      </p>
+
 
       <p>
         <label for="categories">Category</label>
@@ -57,24 +83,7 @@
       
         </textarea>
       </p>
-        <p>
-        <label for="gps">GPS</label>
-        <input
-          id="gps"
-          v-model="gps"
-          type="gps"
-          name="gps"
-        >
-      </p>
 
-       <p>
-          <label for="photos">Photo</label>
-        
-                <input type="file" id="photos" name="photos"
-                accept="image/png, image/jpeg" @change="processFile($event)">
-
-
-    </p>
 
     
       <p>
@@ -105,21 +114,32 @@ export default {
             description: null,
             gps: null,
             photos:null,
-            main:null
+            main:null,
+            locations: [],
+            choicelocation: null,
+            locationsWalk: []
         }
     },
+    mounted:function(){
+        this.readLocation()
+    },
     methods:{
-          processFile(event) {
+         readLocation(){
             let self=this
-            self.photos = event.target.files[0]
-            console.log("main : "+self.photos.name)
-          },
-         checkForm(e){
-          //  var files = e.target.photos || e.dataTransfer.photos;
-          // var reader = new FileReader();
-          //  reader.onload = (e) => {
-          //      this.photos = e.target.result;
-          //  };
+            var query =  db.ref('app/locations/').orderByKey();
+            query.once("value")
+            .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    self.locations.push(childSnapshot.key);
+                });
+            });
+            console.log("test " +self.locationsWalk)
+        },
+        checkFormAddWalk(){
+            let self=this
+            self.locationsWalk.push(this.choicelocation)
+        },
+        checkForm(e){
 
           var postData = {
             name: this.name,
