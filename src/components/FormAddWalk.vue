@@ -67,8 +67,9 @@
           v-model="category"
           name="category"
         >
-          <option>Culte</option>
-          <option>Histoire</option>
+            <option v-for="category in categories" v-bind:key="category" v-bind:value="category">
+                    {{category}}
+            </option>
         </select>
       </p>
         
@@ -115,13 +116,15 @@ export default {
             gps: null,
             photos:null,
             main:null,
+            categories: [],
             locations: [],
             choicelocation: null,
             locationsWalk: []
         }
     },
     mounted:function(){
-        this.readLocation()
+        this.readLocation(),
+        this.readCategory()
     },
     methods:{
          readLocation(){
@@ -134,6 +137,16 @@ export default {
                 });
             });
         },
+        readCategory(){
+            let self=this
+            var query =  db.ref('app/categories/').orderByKey();
+            query.once("value")
+            .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    self.categories.push(childSnapshot.val());
+                });
+            });
+        },
         checkFormAddWalk(){
             this.locationsWalk.push(this.choicelocation)
             console.log(this.locationsWalk)
@@ -143,18 +156,13 @@ export default {
           var postData = {
             name: this.name,
             category: this.category,
-            address:this.address,
-            gps: this.gps,
-            photos: {
-              main: this.photos.name,
-              photo2: '4-CPA.jpg'
-            }
+            description: this.description,
+            locations:this.locationsWalk,
           };
-          console.log("photo: "+ photos.name)
           // Write the new post's data simultaneously in the posts list and the user's post list.
           var updates = {};
           updates[this.name] = postData;
-          db.ref('app/locations').update(updates);
+          db.ref('app/walks').update(updates);
         },
     }
 }
