@@ -99,9 +99,9 @@ export default {
       let self = this
 
       reader.onload = function(e) { 
-        const datas = e.explicitOriginalTarget.result
+        console.log(e)
+        const datas = e.target.result
         let json = JSON.parse(datas);
-        
         self.polyline.latlngs = [];
         for (let i = 0; i < json.features.length; i++) {
             self.polyline.latlngs.push(
