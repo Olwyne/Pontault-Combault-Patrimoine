@@ -5,6 +5,7 @@
             id="AddWalkLocation"
             @submit="checkFormAddWalk"
             novalidate="true"
+
         >
 
         <p v-if="errors.length">
@@ -27,12 +28,11 @@
             </select>
         </p>
 
-        <p>
-            <input
-            type="submit"
+        
+            <div
+            @click="checkFormAddWalk"
             value="Add"
-            >
-        </p>
+            >Add</div>
 
         </form>
         <form
@@ -40,6 +40,13 @@
       @submit="checkForm"
       novalidate="true"
     >
+
+<div>
+  <h2> Lieux ajoutés :</h2>
+  <ul>
+          <li v-for="locationWalk in locationsWalk" v-bind:key="locationWalk">{{ locationWalk }}</li>
+  </ul>
+</div>
 
       <p v-if="errors.length">
         <b>Please correct the following error(s):</b>
@@ -67,8 +74,11 @@
           v-model="category"
           name="category"
         >
-          <option>Culte</option>
-          <option>Histoire</option>
+
+            <option v-for="category in categories" v-bind:key="category" v-bind:value="category">
+                    {{category}}
+            </option>
+
         </select>
       </p>
         
@@ -83,6 +93,12 @@
       
         </textarea>
       </p>
+
+      <label for="coord">Json file</label>
+        
+                <input type="file" id="coord" name="coord"
+                accept="json" @change="processFile($event)">
+
 
 
     
@@ -115,15 +131,25 @@ export default {
             gps: null,
             photos:null,
             main:null,
+
+            categories: [],
             locations: [],
             choicelocation: null,
-            locationsWalk: []
+            locationsWalk: [],
+            coord: null
         }
     },
     mounted:function(){
-        this.readLocation()
+        this.readLocation(),
+        this.readCategory()
     },
     methods:{
+      processFile(event) {
+            let self=this
+            self.coord = event.target.files[0]
+            console.log("main : "+self.coord.name)
+          },
+
          readLocation(){
             let self=this
             var query =  db.ref('app/locations/').orderByKey();
@@ -133,29 +159,38 @@ export default {
                     self.locations.push(childSnapshot.key);
                 });
             });
-            console.log("test " +self.locationsWalk)
+
+        },
+        readCategory(){
+            let self=this
+            var query =  db.ref('app/categories/').orderByKey();
+            query.once("value")
+            .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    self.categories.push(childSnapshot.val());
+                });
+            });
         },
         checkFormAddWalk(){
-            let self=this
-            self.locationsWalk.push(this.choicelocation)
+            this.locationsWalk.push(this.choicelocation)
+            console.log(this.locationsWalk)
+
         },
         checkForm(e){
 
           var postData = {
             name: this.name,
             category: this.category,
-            address:this.address,
-            gps: this.gps,
-            photos: {
-              main: this.photos.name,
-              photo2: '4-CPA.jpg'
-            }
+
+            description: this.description,
+            locations:this.locationsWalk,
+            gps: this.coord
           };
-          console.log("photo: "+ photos.name)
           // Write the new post's data simultaneously in the posts list and the user's post list.
           var updates = {};
           updates[this.name] = postData;
-          db.ref('app/locations').update(updates);
+          db.ref('app/walks').update(updates);
+
         },
     }
 }

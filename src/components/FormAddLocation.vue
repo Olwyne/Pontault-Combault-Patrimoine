@@ -41,8 +41,9 @@
           v-model="category"
           name="category"
         >
-          <option>Culte</option>
-          <option>Histoire</option>
+          <option v-for="category in categories" v-bind:key="category" v-bind:value="category">
+                    {{category}}
+            </option>
         </select>
       </p>
         
@@ -105,8 +106,13 @@ export default {
             description: null,
             gps: null,
             photos:null,
-            main:null
+
+            main:null,
+            categories: []
         }
+    },
+     mounted:function(){
+        this.readCategory()
     },
     methods:{
           processFile(event) {
@@ -114,6 +120,18 @@ export default {
             self.photos = event.target.files[0]
             console.log("main : "+self.photos.name)
           },
+
+          readCategory(){
+            let self=this
+            var query =  db.ref('app/categories/').orderByKey();
+            query.once("value")
+            .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    self.categories.push(childSnapshot.val());
+                });
+            });
+        },
+
          checkForm(e){
           //  var files = e.target.photos || e.dataTransfer.photos;
           // var reader = new FileReader();
