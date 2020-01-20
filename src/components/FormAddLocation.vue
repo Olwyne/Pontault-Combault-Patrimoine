@@ -106,6 +106,7 @@ export default {
             description: null,
             gps: null,
             photos:null,
+
             main:null,
             categories: []
         }
@@ -119,6 +120,7 @@ export default {
             self.photos = event.target.files[0]
             console.log("main : "+self.photos.name)
           },
+
           readCategory(){
             let self=this
             var query =  db.ref('app/categories/').orderByKey();
@@ -129,6 +131,7 @@ export default {
                 });
             });
         },
+
          checkForm(e){
           //  var files = e.target.photos || e.dataTransfer.photos;
           // var reader = new FileReader();
