@@ -40,7 +40,12 @@
       @submit="checkForm"
       novalidate="true"
     >
-
+<div>
+  <h2> Lieux ajoutés :</h2>
+  <ul>
+          <li v-for="locationWalk in locationsWalk" v-bind:key="locationWalk">{{ locationWalk }}</li>
+  </ul>
+</div>
       <p v-if="errors.length">
         <b>Please correct the following error(s):</b>
         <ul>
@@ -84,6 +89,10 @@
       
         </textarea>
       </p>
+      <label for="coord">Json file</label>
+        
+                <input type="file" id="coord" name="coord"
+                accept="json" @change="processFile($event)">
 
 
     
@@ -119,7 +128,8 @@ export default {
             categories: [],
             locations: [],
             choicelocation: null,
-            locationsWalk: []
+            locationsWalk: [],
+            coord: null
         }
     },
     mounted:function(){
@@ -127,6 +137,11 @@ export default {
         this.readCategory()
     },
     methods:{
+      processFile(event) {
+            let self=this
+            self.coord = event.target.files[0]
+            console.log("main : "+self.coord.name)
+          },
          readLocation(){
             let self=this
             var query =  db.ref('app/locations/').orderByKey();
@@ -158,6 +173,7 @@ export default {
             category: this.category,
             description: this.description,
             locations:this.locationsWalk,
+            gps: this.coord
           };
           // Write the new post's data simultaneously in the posts list and the user's post list.
           var updates = {};
