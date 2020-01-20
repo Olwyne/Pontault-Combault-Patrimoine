@@ -77,18 +77,9 @@
             </option>
         </select>
       </p>
-        
-        <p>
-        <label for="description">Description</label>
-        <textarea
-          id="description"
-          v-model="description"
-          name="description"
-        >
+      <RichEditorText></RichEditorText>
 
-      
-        </textarea>
-      </p>
+       
       <label for="coord">Json file</label>
         
                 <input type="file" id="coord" name="coord"
@@ -112,8 +103,13 @@
 
 <script>
 import { db } from '../config/db'
+import RichEditorText from '../components/RichEditorText'
 
 export default {
+  components: {
+    RichEditorText
+
+  },
     data() {
         return {
            documents: [],
