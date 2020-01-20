@@ -3,7 +3,6 @@
      <FormAddLocation></FormAddLocation>
     <FormDeleteLocation></FormDeleteLocation>
     <FormAddWalk></FormAddWalk>
-
     <FormDeleteWalk></FormDeleteWalk>
     </div>
 </template>
@@ -17,13 +16,11 @@ import FormAddWalk from '../components/FormAddWalk'
 
 import FormDeleteWalk from '../components/FormDeleteWalk'
 
-
-
 export default {
   components: {
     FormDeleteLocation,
     FormAddLocation,
-
+   
     FormAddWalk,
     FormDeleteWalk,
 

@@ -12,7 +12,7 @@
                 :title="title"
               />
         </l-map>
-        <input type="file" @change="loadTextFromFile">
+       {{newcoords}}
     </div>
 </template>
 
@@ -24,6 +24,8 @@ import { latLng } from "leaflet";
 
 export default {
   name: "maptest",
+  props:["newcoords"],
+ 
   data () {
     return {
       coords: [],
@@ -36,25 +38,18 @@ export default {
       text: "my marker popup text",
       title: "My marker popup title",
       polyline: {
-        latlngs: [
-          [48.83839853524648, 2.5851035382022802],
-          [48.84003605157573, 2.5846116803536305],
-
-          [48.83776870701918, 2.5881202257597162],
-          [48.83805423013018, 2.5856190078412933],
-          [48.838390137588874, 2.585466631488918],
-          [48.83838, 2.58548],
-          [48.83836, 2.58543],
-          [48.83835, 2.58539],
-          [48.83836, 2.58529],
-          [48.83835, 2.58518],
-          [48.83841, 2.58516],
-          [48.83839853524648, 2.5851035382022802]
-        ],
+        latlngs: [ ],
         color: "green"
       }
     };
   },
+  watch:{
+  
+   newcoords:function(){
+      this.polyline.latlngs=this.newcoords
+      console.log("hola"+this.polyline.latlngs)
+    }
+  }, 
   components: {
     LMap,
     LTileLayer,
@@ -119,6 +114,7 @@ export default {
   },
     mounted() {
     this.trackPosition()
+
   },
 };
 /*

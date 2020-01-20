@@ -83,13 +83,10 @@
       </p>
       <RichEditorText></RichEditorText>
 
-       
-      <label for="coord">Json file</label>
-        
                 <input type="file" id="coord" name="coord"
-                accept="json" @change="processFile($event)">
+                accept="json" @change="loadTextFromFile">
 
-
+      <myMap :newcoords="polyline.latlngs"></myMap>
 
     
       <p>
@@ -108,18 +105,21 @@
 
 <script>
 import { db } from '../config/db'
-import RichEditorText from '../components/RichEditorText'
+import RichEditorText from './RichEditorText'
+import myMap from './map'
+
 
 export default {
   components: {
-    RichEditorText
+    RichEditorText,
+    myMap
 
   },
     data() {
         return {
            documents: [],
             errors: [],
-            name: null,
+            name: 'toto',
             address: null,
             category: null,
             description: null,
@@ -131,7 +131,11 @@ export default {
             locations: [],
             choicelocation: null,
             locationsWalk: [],
-            coord: null
+            coord: null,
+            polyline: {
+                latlngs: []
+              }
+
         }
     },
     mounted:function(){
@@ -139,6 +143,30 @@ export default {
         this.readCategory()
     },
     methods:{
+      loadTextFromFile(ev) {
+      const file = ev.target.files[0];
+      const reader = new FileReader();
+
+      let self = this
+
+      reader.onload = function(e) { 
+        console.log(e)
+        const datas = e.target.result
+        let json = JSON.parse(datas);
+        self.polyline.latlngs = [];
+        for (let i = 0; i < json.features.length; i++) {
+            self.polyline.latlngs.push(
+               [json.features[i].geometry.coordinates[1],json.features[i].geometry.coordinates[0]]
+            )
+        }
+        self.polyline.latlngs.push(
+            [json.features[0].geometry.coordinates[1],json.features[0].geometry.coordinates[0]]
+
+        )
+        console.log(self.polyline.latlngs)
+    };
+      reader.readAsText(file);
+    },
       processFile(event) {
             let self=this
             self.coord = event.target.files[0]
@@ -179,7 +207,7 @@ export default {
 
             description: this.description,
             locations:this.locationsWalk,
-            gps: this.coord
+            gps: this.polyline.latlngs
           };
           // Write the new post's data simultaneously in the posts list and the user's post list.
           var updates = {};
