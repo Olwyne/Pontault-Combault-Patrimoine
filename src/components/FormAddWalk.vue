@@ -5,6 +5,7 @@
             id="AddWalkLocation"
             @submit="checkFormAddWalk"
             novalidate="true"
+
         >
 
         <p v-if="errors.length">
@@ -27,12 +28,11 @@
             </select>
         </p>
 
-        <p>
-            <input
-            type="submit"
+        
+            <div
+            @click="checkFormAddWalk"
             value="Add"
-            >
-        </p>
+            >Add</div>
 
         </form>
         <form
@@ -133,11 +133,10 @@ export default {
                     self.locations.push(childSnapshot.key);
                 });
             });
-            console.log("test " +self.locationsWalk)
         },
         checkFormAddWalk(){
-            let self=this
-            self.locationsWalk.push(this.choicelocation)
+            this.locationsWalk.push(this.choicelocation)
+            console.log(this.locationsWalk)
         },
         checkForm(e){
 
