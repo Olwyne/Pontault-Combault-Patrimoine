@@ -1,41 +1,28 @@
 <template>
     <div class="formDeleteWalk">
         <h1>Suppression d'une balade</h1>
-        <form
-            id="DeleteWalk"
-            @submit="checkFormDelete"
-            novalidate="true"
-        >
+        <form id="DeleteWalk" @submit="checkFormDelete" novalidate="true">
 
-        <p v-if="errors.length">
-            <b>Please correct the following error(s):</b>
-            <ul>
-            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-            </ul>
-        </p>
+            <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+                </ul>
+            </p>
 
-        <p>
-            <label for="walks">Balade</label>
-            <select
-            id="choicewalk"
-            v-model="choicewalk"
-            name="choicewalk"
-            >
-            <option v-for="walk in walks" v-bind:key="walk" v-bind:value="walk">
-                    {{walk}}
-            </option>
-            </select>
-        </p>
+            <p>
+                <label for="walks">Balade</label>
+                <select id="choiceWalkDelete" v-model="choiceWalkDelete" name="choiceWalkDelete">
+                    <option v-for="walk in walks" v-bind:key="walk" v-bind:value="walk">
+                        {{walk}}
+                    </option>
+                </select>
+            </p>
 
-        <p>
-            <input
-            type="submit"
-            value="Submit"
-            >
-        </p>
-
+            <p>
+                <input type="submit" value="Submit">
+            </p>
         </form>
-
     </div>
 </template>
 
@@ -48,8 +35,7 @@ export default {
             documents: [],
             errors: [],
             walks: [],
-            choicewalk: null
-
+            choiceWalkDelete: null
         }
     },
     mounted:function(){
@@ -57,8 +43,8 @@ export default {
     },
     methods:{
         checkFormDelete(){
-            db.ref('app/walks/'+this.choicewalk).remove().then(() => {
-            console.log('Balade delete!')
+            db.ref('app/walks/'+this.choiceWalkDelete).remove().then(() => {
+            
             })
         },
         readWalks(){

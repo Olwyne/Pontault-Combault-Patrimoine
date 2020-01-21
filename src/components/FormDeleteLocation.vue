@@ -1,41 +1,28 @@
 <template>
     <div class="formDeleteLocation">
         <h1>Suppression d'un lieu</h1>
-        <form
-            id="DeleteLocation"
-            @submit="checkFormDelete"
-            novalidate="true"
-        >
+        <form id="DeleteLocation" @submit="checkFormDelete" novalidate="true">
 
-        <p v-if="errors.length">
-            <b>Please correct the following error(s):</b>
-            <ul>
-            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-            </ul>
-        </p>
+            <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+                </ul>
+            </p>
 
-        <p>
-            <label for="locations">Lieux</label>
-            <select
-            id="choicelocation"
-            v-model="choicelocation"
-            name="choicelocation"
-            >
-            <option v-for="location in locations" v-bind:key="location" v-bind:value="location">
-                    {{location}}
-            </option>
-            </select>
-        </p>
+            <p>
+                <label for="locations">Lieux</label>
+                <select id="choiceLocationDelete" v-model="choiceLocationDelete" name="choiceLocationDelete">
+                    <option v-for="location in locations" v-bind:key="location" v-bind:value="location">
+                        {{location}}
+                    </option>
+                </select>
+            </p>
 
-        <p>
-            <input
-            type="submit"
-            value="Submit"
-            >
-        </p>
-
+            <p>
+                <input type="submit" value="Submit">
+            </p>
         </form>
-
     </div>
 </template>
 
@@ -48,8 +35,7 @@ export default {
             documents: [],
             errors: [],
             locations: [],
-            choicelocation: null
-
+            choiceLocationDelete: null
         }
     },
     mounted:function(){
@@ -57,8 +43,8 @@ export default {
     },
     methods:{
         checkFormDelete(){
-            db.ref('app/locations/'+this.choicelocation).remove().then(() => {
-            console.log('Location delete!')
+            db.ref('app/locations/'+this.choiceLocationDelete).remove().then(() => {
+
             })
         },
         readLocation(){
@@ -70,7 +56,6 @@ export default {
                     self.locations.push(childSnapshot.key);
                 });
             });
-      
         }
     }
 }

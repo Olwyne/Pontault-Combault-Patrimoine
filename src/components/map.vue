@@ -28,7 +28,6 @@ import { latLng } from "leaflet";
 export default {
   name: "maptest",
   props:["newcoords"],
- 
   data () {
     return {
       markerList: [],
@@ -41,9 +40,7 @@ export default {
       text: "my marker popup text",
       title: "My marker popup title",
       polyline: {
-
         latlngs: [ ],
-
         color: "green"
       }
     };
@@ -56,7 +53,6 @@ export default {
   
    newcoords:function(){
       this.polyline.latlngs=this.newcoords
-      console.log("hola"+this.polyline.latlngs)
     }
   }, 
   components: {
