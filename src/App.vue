@@ -1,19 +1,19 @@
 <template>
   <div>
        <myMap />
-       <Backoffice />
+
   </div>    
 </template>
 
 <script>
 import myMap from "./components/map.vue";
-import Backoffice from "./view/backoffice.vue";
+
 
 export default {
   name: "app",
   components: {
     myMap,
-    Backoffice
+
   }
 };
 </script>

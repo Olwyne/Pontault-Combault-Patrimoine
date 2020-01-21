@@ -126,32 +126,39 @@
           });
         });
       },
-      loadTextFromFile(ev) {
-        const file = ev.target.files[0];
-        const reader = new FileReader();
-        let self = this
-        reader.onload = function(e) { 
-          //console.log(e)
-          const datas = e.target.result
-          let json = JSON.parse(datas);
-          self.polyline.latlngs = [];
-          for (let i = 0; i < json.features.length; i++) {
-            self.polyline.latlngs.push(
-            [json.features[i].geometry.coordinates[1],json.features[i].geometry.coordinates[0]]
-            )
-          }
-          self.polyline.latlngs.push(
-          [json.features[0].geometry.coordinates[1],json.features[0].geometry.coordinates[0]]
-
-          )
-          //console.log(self.polyline.latlngs)
-        };
-        reader.readAsText(file);
+      addWalk(){
+        let self=this
+        var query =  db.ref('app/walks/').orderByKey();
+        query.once("value")
+        .then(function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            var name = (childSnapshot.val());
+            let catIcon;
+            console.log(name.gps)
+            self.polyline.latlngs.push(name.gps)
+            if (name.category == "Histoire"){
+              self.polyline.color = "#ff66ff"
+            }
+            if (name.category == "Culte"){
+              self.polyline.color = "#0099ff"
+            }
+            if (name.category == "Nature"){
+              self.polyline.color = "#00ff99"
+            }
+            if (name.category == "Culture"){
+              self.polyline.color = "#9900cc"
+            }
+            if (name.category == "Parc"){
+              self.polyline.color = "#cc3300"
+            }    
+          });
+        });
       }
     },
     mounted() {
       this.trackPosition()
       this.addMarkerLocation()
+      this.addWalk()
     }
   };
 
