@@ -15,7 +15,6 @@ import FormDeleteLocation from '../components/FormDeleteLocation'
 import FormAddLocation from '../components/FormAddLocation'
 import FormAddWalk from '../components/FormAddWalk'
 import FormDeleteWalk from '../components/FormDeleteWalk'
-
 export default {
   components: {
     FormDeleteLocation,
@@ -82,5 +81,4 @@ export default {
     }
   }
 }
-
 </script>
