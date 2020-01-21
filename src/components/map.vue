@@ -8,10 +8,15 @@
             />
             <marker-popup
                 :position="formated(center)"
-                :text="text"
-                :title="title"
+                :text="'Vous êtes ici'"
+                :icontest="'https://cdn0.iconfinder.com/data/icons/map-locations-glyph-1/100/pin-location-map-place-spot-position-512.png'"
               />
-            <l-marker v-for="(marker,i) in markerList" :key="i" :lat-lng="marker"></l-marker>
+              <marker-popup
+                v-for="(marker,i) in markerList" :key="i"
+                :position="formated(marker.coord)"
+                :text="marker.text"
+                :icontest="marker.category"
+              />
 
         </l-map>
        {{newcoords}}
@@ -38,12 +43,8 @@ export default {
       bounds: null, 
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      text: "my marker popup text",
-      title: "My marker popup title",
       polyline: {
-
-        latlngs: [ ],
-
+        latlngs: [],
         color: "green"
       }
     };
@@ -68,7 +69,7 @@ export default {
   },
   methods: {
     formated(coords) {
-        return latLng(coords)
+      return latLng(coords)
     },
     increaseCenter() {
         this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
@@ -99,7 +100,25 @@ export default {
       .then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
               var name = (childSnapshot.val());
-              self.markerList.push(name.gps2)
+              let catIcon;
+              if (name.category == "Histoire"){
+                catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+              }
+              if (name.category == "Culte"){
+                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+              }
+              if (name.category == "Nature"){
+                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+              }
+              if (name.category == "Culture"){
+                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+              }
+              if (name.category == "Parc"){
+                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+              }
+              if(name.gps2) {
+                self.markerList.push({coord: name.gps2, text: name.name, category: catIcon})
+              }
           });
       });
   
@@ -131,7 +150,6 @@ export default {
   },
     mounted() {
     this.trackPosition()
-
     this.addMarkerLocation()
 
   },

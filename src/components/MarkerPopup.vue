@@ -4,22 +4,24 @@
     :title="title"
     :draggable="false"
   >
+    <l-icon :icon-url="icontest"  />
     <l-popup :content="text" />
   </l-marker>
 </template>
 
 <script>
-import { LMarker, LPopup } from "vue2-leaflet";
+import { LMarker, LPopup, LIcon } from "vue2-leaflet";
 export default {
   name: "MarkerPopup",
   components: {
     LMarker,
-    LPopup
+    LPopup,
+    LIcon
   },
   props: {
     text: {
       type: String,
-      default: ""
+      default: "Aucune indication"
     },
     position: {
       type: Object,
@@ -28,6 +30,11 @@ export default {
     title: {
       type: String,
       default: ""
+    },
+    icontest: {
+      type: String,
+      default: ""
+      
     }
   }
 };

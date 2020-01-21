@@ -13,9 +13,7 @@ import { db } from '../config/db'
 import FormDeleteLocation from '../components/FormDeleteLocation'
 import FormAddLocation from '../components/FormAddLocation'
 import FormAddWalk from '../components/FormAddWalk'
-
 import FormDeleteWalk from '../components/FormDeleteWalk'
-
 export default {
   components: {
     FormDeleteLocation,
@@ -23,7 +21,6 @@ export default {
    
     FormAddWalk,
     FormDeleteWalk,
-
   },
   data() {
     return {
@@ -31,7 +28,6 @@ export default {
       errors: [],
     }
   },
-
   firebase: {
     documents: db.ref()
   },
@@ -83,14 +79,11 @@ export default {
           // });
           var postData = {
             category: 'Cultes',
-
           };
           // Write the new post's data simultaneously in the posts list and the user's post list.
           var updates = {};
           updates['Eglise Saint-Denis'] = postData;
           db.ref('app/locations/Eglise Saint-Denis').update(postData);
-
-
         },
         updateWalk(){
           db.ref('app/walks').update({ id: "hello" }).then(() => {
@@ -111,5 +104,4 @@ export default {
         }
   }
 }
-
 </script>
