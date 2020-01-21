@@ -3,7 +3,8 @@
     <div class="editor">
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
         <div class="menubar">
-            <span class="menubar__p" @click="showImagePrompt(commands.image)">
+            <input type="file" ref="file" @change="processFile($event, commands.image)" style="display: none">
+            <span class="menubar__p" @click="$refs.file.click()">
               Image        
             </span>
             <span class="menubar__p" :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
@@ -92,6 +93,8 @@ import {
   Image
 
 } from 'tiptap-extensions'
+import { db,storageRef,storage, firebase } from '../config/db'
+
 
 export default {
   components: {
@@ -135,11 +138,23 @@ export default {
       this.setContent()
   },
   methods: {
-      showImagePrompt(command) {
-      const src = prompt('Enter the url of your image here')
-      if (src !== null) {
-        command({ src })
-      }
+    processFile(event,command) {
+        let self=this
+        self.photos = event.target.files[0]
+        let uploadTask = storageRef.child('app/images/'+self.photos.name).put(self.photos);
+        uploadTask.on('state_changed', function(snapshot){
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          uploader.value = progress;
+        }, function(error) {
+        }, function() {
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            self.url=downloadURL;
+            const src = self.url
+            if (src !== null) {
+              command({ src })
+            }
+          });
+        }); 
     },
     setContent() {
       this.editor.setContent({

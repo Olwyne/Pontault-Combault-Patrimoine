@@ -84,7 +84,7 @@ export default {
       nameWalk: null,
       address: null,
       categoryWalk: null,
-      descriptionWalk: null,
+      description: null,
       categories: [],
       locations: [],
       choiceLocationAddWalk: null,
@@ -152,7 +152,7 @@ export default {
       var postData = {
         name: this.nameWalk,
         category: this.categoryWalk,
-        description: this.descriptionWalk,
+        description: this.description,
         locations:this.locationsWalk,
         gps: this.polyline.latlngs
       };

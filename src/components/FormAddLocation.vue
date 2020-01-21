@@ -30,8 +30,8 @@
       </p>
     
       <p>
-        <label for="descriptionLocation">Description</label>
-        <textarea id="descriptionLocation" v-model="descriptionLocation" name="descriptionLocation"></textarea>
+        <label for="description">Description</label>
+        <textarea id="description" v-model="description" name="description"></textarea>
       </p>
 
       <p>
@@ -65,7 +65,7 @@ export default {
           nameLocation: null,
           addressLocation: null,
           categoryLocation: null,
-          descriptionLocation: null,
+          description: null,
           photos:null,
           categories: [],
           url: null,
@@ -105,7 +105,7 @@ export default {
               name: self.nameLocation,
               category: self.categoryLocation,
               address: self.addressLocation,
-              description: self.descriptionLocation,
+              description: self.description,
               gps:{
                 0: self.latitudeLocation, 
                 1: self.longitudeLocation
