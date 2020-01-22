@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import myMap from "./components/map.vue";
 import Backoffice from "./view/backoffice";
 import Navigation from './view/Navigation'
 import Accueil from './view/Accueil'
