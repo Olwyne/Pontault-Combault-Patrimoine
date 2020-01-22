@@ -169,8 +169,11 @@
             }
             let textContent = "<b>"+name.name+"</b>"+"<div><img style = 'height: 40px;' src='"+name.photos+"' alt='err'></div>"
             if(name.gps) {
-            console.log(name.gps)
-            self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
+                for (var i = 0; i < self.walk.locations.length; i++) {
+                    if (name.name == self.walk.locations[i]){
+                        self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
+                    }
+                }
             }
           });
         });
@@ -182,24 +185,27 @@
         .then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
             var name = (childSnapshot.val());
-            let catIcon;
-            console.log(name.gps)
-            self.polyline.latlngs.push(name.gps)
-            if (name.category == "Histoire"){
-              self.polyline.color = "#ff66ff"
+            if (name.name == self.walk.name){
+                self.polyline.latlngs.push(name.gps)
+                if (name.category == "Histoire"){
+                  self.polyline.color = "#ff66ff"
+                }
+                else if (name.category == "Culte"){
+                  self.polyline.color = "#0099ff"
+                }
+                else if (name.category == "Nature"){
+                  self.polyline.color = "#00ff99"
+                }
+                else if (name.category == "Culture"){
+                  self.polyline.color = "#9900cc"
+                }
+                else if (name.category == "Parc"){
+                  self.polyline.color = "#cc3300"
+                }  
+                else {
+                    self.polyline.color = "#000000"
+                }  
             }
-            if (name.category == "Culte"){
-              self.polyline.color = "#0099ff"
-            }
-            if (name.category == "Nature"){
-              self.polyline.color = "#00ff99"
-            }
-            if (name.category == "Culture"){
-              self.polyline.color = "#9900cc"
-            }
-            if (name.category == "Parc"){
-              self.polyline.color = "#cc3300"
-            }    
           });
         });
       }

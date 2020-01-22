@@ -192,40 +192,11 @@
             }
           });
         });
-      },
-      addWalk(){
-        let self=this
-        var query =  db.ref('app/walks/').orderByKey();
-        query.once("value")
-        .then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            var name = (childSnapshot.val());
-            let catIcon;
-            console.log(name.gps)
-            self.polyline.latlngs.push(name.gps)
-            if (name.category == "Histoire"){
-              self.polyline.color = "#ff66ff"
-            }
-            if (name.category == "Culte"){
-              self.polyline.color = "#0099ff"
-            }
-            if (name.category == "Nature"){
-              self.polyline.color = "#00ff99"
-            }
-            if (name.category == "Culture"){
-              self.polyline.color = "#9900cc"
-            }
-            if (name.category == "Parc"){
-              self.polyline.color = "#cc3300"
-            }    
-          });
-        });
       }
     },
     mounted() {
       this.trackPosition()
       this.addMarkerLocation()
-      this.addWalk()
     }
   };
 
