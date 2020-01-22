@@ -1,11 +1,12 @@
 <template>
-    <div class="" @click="updatePage('Balade', balade)">
+    <div class="">
+        <a>
             <div class="baladeBox row">
                 <div class="thumbnailSize col-5">
-                    <img class="baladeThumbnail" v-bind:src="balade.photos" />
+                    <img class="baladeThumbnail" v-bind:src="balade.imagePath" />
                 </div>
                 <div class="baladeInfo col-7 d-flex flex-column justify-content-between">
-                    <div class="baladeTitle">{{ balade.name }}</div>
+                    <div class="baladeTitle">{{ balade.title }}</div>
                     <div class="d-flex justify-content-between">
                         <div class="baladeDistance d-flex">
                             <div><img src="../img/distance-blue.svg" /></div>
@@ -18,6 +19,7 @@
                     </div>
                 </div>
             </div>
+        </a>
     </div>
 
 </template>
@@ -26,15 +28,6 @@
     export default {
         name:'BaladeBox',
         props:['balade'],
-        methods:{
-            updatePage: function (location,balade) {
-                const datas={
-                    location: location,
-                    walk:balade
-                }
-                this.$emit('updateCurrentWalk', datas)
-            },
-        }
     }
 </script>
 

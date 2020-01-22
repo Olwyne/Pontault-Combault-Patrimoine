@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="homeTitle">DÃ©couvrir<br />Pontault-Combault</div>
+        <div class="homeTitle">Découvrir<br />Pontault-Combault</div>
         <img class="homeImage" src="../img/home-image.jpg" />
         <div class="homeBody">
             <div class="d-flex">
                 <img class="float-left logoAsso" src="../img/logo-asso.svg" />
-                <div class="caseLine">Partez ï¿½ la dï¿½couverte du patrimoine historique et naturel de Pontault-Combault !</div>
+                <div class="caseLine">Partez à la découverte du patrimoine historique et naturel de Pontault-Combault !</div>
             </div>
             <div class="homeText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
         </div>
