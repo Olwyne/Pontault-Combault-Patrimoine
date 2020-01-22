@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import myMap from "./components/map.vue";
 import Backoffice from "./view/backoffice";
 import Navigation from './view/Navigation'
 import Accueil from './view/Accueil'
@@ -31,9 +30,7 @@ export default {
         Balades,
         Carnet,
         Lieu,
-        Balade,
-        myMap,
-        Backoffice
+        Balade
     },
     data: function () {
         return {
