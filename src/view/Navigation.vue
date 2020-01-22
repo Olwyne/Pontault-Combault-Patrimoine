@@ -59,8 +59,8 @@
         },
         methods: {
             updatePage: function (location) {
-                this.$emit('updatePage', location),
-                    this.activePage = location
+                this.$emit('updatePage', {location:location}),
+                this.activePage = location
             }
         }
     }
