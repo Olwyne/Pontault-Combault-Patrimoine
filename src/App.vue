@@ -12,44 +12,37 @@
 </template>
 
 <script>
-import Backoffice from "./view/backoffice";
-import Navigation from './view/Navigation'
-import Accueil from './view/Accueil'
-import VisiteLibre from './view/VisiteLibre'
-import Balades from './view/Balades'
-import Carnet from './view/Carnet'
-import Lieu from './view/Lieu'
-import Balade from './view/Balade'
+    import Backoffice from "./view/backoffice";
+    import Navigation from './view/Navigation'
+    import Accueil from './view/Accueil'
+    import VisiteLibre from './view/VisiteLibre'
+    import Balades from './view/Balades'
+    import Carnet from './view/Carnet'
+    import Lieu from './view/Lieu'
+    import Balade from './view/Balade'
 
-export default {
-    name: "app",
-    components: {
-        Navigation,
-        Accueil,
-        VisiteLibre,
-        Balades,
-        Carnet,
-        Lieu,
-        Balade
-    },
-    data: function () {
-        return {
-            activePage: 'Accueil',
-            pageTitle: 'Accueil',
-            walk:null,
-            lieu: null
-        }
-    },
-    methods: {
-        changeCurrentContent(props) {
-            this.activePage = props.location
-            if (this.activePage === "Accueil") {
-                this.pageTitle = "Accueil"
+    export default {
+        name: "app",
+        components: {
+            Navigation,
+            Accueil,
+            VisiteLibre,
+            Balades,
+            Carnet,
+            Lieu,
+            Balade
+        },
+        data: function () {
+            return {
+                activePage: 'Accueil',
+                pageTitle: 'Accueil',
+                walk: null,
+                lieu: null
             }
         },
         methods: {
-            changeCurrentContent(destination) {
-                this.activePage = destination
+            changeCurrentContent(props) {
+                this.activePage = props.location
                 if (this.activePage === "Accueil") {
                     this.pageTitle = "Accueil"
                 }
@@ -62,26 +55,18 @@ export default {
                 if (this.activePage === "Carnet") {
                     this.pageTitle = "Carnet de visite"
                 }
-            }
-            if (this.activePage === "VisiteLibre") {
-                this.pageTitle = "Visite libre"
-            }
-            if (this.activePage === "Carnet") {
-                this.pageTitle = "Carnet de visite"
-            }
-            if (this.activePage === "Balade") {
-                this.walk=props.walk
-                this.pageTitle = "Balade"
-            }
-            if (this.activePage === "Lieu") {
-                this.lieu=props.lieu
-                this.pageTitle = "Lieu"
+                if (this.activePage === "Balade") {
+                    this.walk = props.walk
+                    this.pageTitle = "Balade"
+                }
+                if (this.activePage === "Lieu") {
+                    this.lieu = props.lieu
+                    this.pageTitle = "Lieu"
+                }
             }
         }
         
-         
-}
-}
+    }
 </script>
 
 <style>
