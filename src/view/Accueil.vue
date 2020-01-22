@@ -44,10 +44,12 @@
     .caseLine {
         text-align: center;
         margin: auto;
+        color: var(--darkbluePC);
     }
 
     .homeText {
         margin-top: 0.5em;
+        color: var(--darkbluePC);
     }
 </style>
 

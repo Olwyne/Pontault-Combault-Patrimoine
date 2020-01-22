@@ -11,7 +11,7 @@
 
                     </svg>
                     </div>
-                    <div>Culture</div>
+                    <div class="categoriesText">Culture</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -22,7 +22,7 @@
 
                     </svg>
                     </div>
-                    <div>Histoire</div>
+                    <div class="categoriesText">Histoire</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -35,7 +35,7 @@
 
                     </svg>
                     </div>
-                    <div>Culte</div>
+                    <div class="categoriesText">Culte</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -48,7 +48,7 @@
 
                     </svg>
                     </div>
-                    <div>Nature</div>
+                    <div class="categoriesText">Nature</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -61,7 +61,7 @@
 
                     </svg>
                     </div>
-                    <div>Parc</div>
+                    <div class="categoriesText">Parc</div>
                 </li>
             </ul>
         </div>
@@ -83,9 +83,11 @@
                 :text="marker.text"
                 :icontest="marker.category"
               />
-              <l-control> 
-                <button @click="increaseCenter">Localisez-moi</button>
-              </l-control>
+                  <l-control>
+                      <button @click="increaseCenter" class="localisationButton">
+                          <img src="../img/target-me.svg" />
+                      </button>
+                  </l-control>
             </l-map>
         </div>
     </div>
@@ -204,12 +206,44 @@
 
 
 <style>
+    #vuemap {
+        width:100%;
+    }
+
     .categoriesBar {
         color: var(--darkbluePC);
+        height:11vh;
+        width: 100%;
+    }
+
+    .categoriesBar ul {
+        width: 100%;
+    }
+
+    .categoriesBar .nav-item {
+        height:100%;
+    }
+
+    .categoriesBar .nav {
+        padding-bottom: 2%;
+        padding-top:2%;
+        height:100%;
+    }
+
+    .categoriesBar .nav-link {
+        padding:0;
+        height:70%;
     }
 
     .icon-cat {
-        height: 2.3em;
+        height: 100%;
+    }
+
+    .categoriesText {
+        height:26%;
+        display: flex;
+        flex-direction:column;
+        font-size: 87%;
     }
 
     .colorCatCulture {
@@ -231,13 +265,26 @@
     .colorCatParc {
         fill: var(--catParc);
     }
+    
+    #vuemap {
+        width: 100%;
+        height:75vh;
+    }
 
-    /*.visiteMap {
-        height: 30.5em;
-    }*/
+    .localisationButton img {
+        width: 40px;
+    }
 
-        .visiteMap img {
-            width: 100%;
-            height: 100%;
-        }
+    .localisationButton {
+            padding: 3px;
+            background-color: white;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+            border-radius: 4px;
+            border:none;
+    }
+
+    .leaflet-bar a, leaflet-bar, .leaflet-bar a:hover {
+        color:var(--darkbluePC);
+    }
+           
 </style>
