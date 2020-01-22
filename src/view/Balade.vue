@@ -84,17 +84,6 @@
           latlngs: [],
           color: "green"
         },
-        imagePath: './home-image.jpg',
-        title: 'le titre de la balade 1',
-        duration: '3h00',
-        distance: '11km',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, ',
-        lieuxBalade: [
-            { name: 'château du bois de la croix'},
-            { name: 'parc de la madelein'},
-            {name:  'abreuvoir des vaches'},
-            {name: 'la vieille gare vintage'}
-        ]
       };
     },
     firebase: {
@@ -116,52 +105,55 @@
       BaladeFooter
     },
     methods: {
-      formated(coords) {
-        return latLng(coords)
-      },
-      increaseCenter() {
-        this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
-        //console.log(this.center)
-      },  
-      trackPosition() {
-        if (navigator.geolocation) {
-          navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-              timeout: 15000,
-              maximumAge: 0,
-              })
-        } 
-        else {
-          alert(`Browser doesn't support Geolocation`)
-        }
-      },
-      successPosition: function(position) {
-        this.center = [position.coords.latitude, position.coords.longitude]
-        //console.log(this.center)
-      },
-      failurePosition: function(err) {
-        alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
-      },
-      addMarkerLocation(){
-        let self=this
-        var query =  db.ref('app/locations/').orderByKey();
-        query.once("value")
-        .then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            var name = (childSnapshot.val());
-            let catIcon;
-            if (name.category == "Histoire"){
-              catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+        updatePage: function (location,lieu) {
+            const datas={
+                location: location,
+                lieu:lieu
             }
-            updatePage: function (location,lieu) {
-                const datas={
-                    location: location,
-                    lieu:lieu
-                }
-                this.$emit('updatePage', datas)
-            },
+            this.$emit('updatePage', datas)
+        },
+        formated(coords) {
+            return latLng(coords)
+        },
+        increaseCenter() {
+            this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
+            //console.log(this.center)
+        },  
+        trackPosition() {
+            if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0,
+                })
+            } 
+            else {
+            alert(`Browser doesn't support Geolocation`)
+            }
+        },
+        successPosition: function(position) {
+            this.center = [position.coords.latitude, position.coords.longitude]
+            //console.log(this.center)
+        },
+        failurePosition: function(err) {
+            alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+        },
+        addMarkerLocation(){
+            let self=this
+            var query =  db.ref('app/locations/').orderByKey();
+            query.once("value")
+            .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    var name = (childSnapshot.val());
+                    let catIcon;
+                    if (name.category == "Histoire"){
+                    catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+                    }
+            
+                });
+            });
         },
     }
-  };
+  }
 
 </script>
 
