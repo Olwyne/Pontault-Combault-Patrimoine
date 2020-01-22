@@ -20,7 +20,7 @@
                 :icontest="marker.category"
               />
               <l-control> 
-                <button @click="increaseCenter">Localisez-moi</button>
+                <button @click="increaseCenter"  class="localisationButton"><img src="../img/target-me.svg" /></button>
               </l-control>
             </l-map>
         </div>
@@ -37,8 +37,8 @@
                 </div>
             </div>
         </div>
-        <div class="thumbnailSize ">
-            <img class="baladeThumbnail" v-bind:src="walk.photos" />
+        <div class="text-center">
+            <img class="placeImage" v-bind:src="walk.photos" />
         </div>
         <div class="lieuxList">
             <!-- mettre le lien du lieu dans le src suivant -->
@@ -228,7 +228,6 @@
 <style>
     .baladeMap{
     width: 100%;    
-    height: 57vh;
     }
 
     .baladeContainer {
