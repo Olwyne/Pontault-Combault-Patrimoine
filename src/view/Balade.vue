@@ -63,7 +63,7 @@
   export default {
     name: 'Balade',
     components: {
-        BaladeFooter
+        BaladeFooter,
     },
     props:["walk"],
 
@@ -109,7 +109,8 @@
       LMarker,
       LPolyline,
       LControl,
-      MarkerPopup
+      MarkerPopup,
+      BaladeFooter
     },
     methods: {
       formated(coords) {
