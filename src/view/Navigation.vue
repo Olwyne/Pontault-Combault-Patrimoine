@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="navigation">
         <ul class="nav nav-fill">
             <li class="nav-item">
                 <a class="nav-link" @click="updatePage('Accueil')">
@@ -67,12 +67,28 @@
 </script>
 
 <style>
-    .nav {
+    .navigation {
+        height:50%;
+    }
+
+    .topPage ul{
+       height:100%;
+    }
+
+    .topPage .nav-item{
+        height:100%;
+    }
+
+    .topPage .nav-link {
+        height:100%;
+    }
+
+    .topPage .nav {
         padding-bottom: 0.2em;
     }
 
     .icon-nav {
-        height: 2.3rem;
+        height: 100%;
     }
 
    .colorNavDefault {

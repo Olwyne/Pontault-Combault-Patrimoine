@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="topPage sticky-top">
-            <div class="pageTitle">{{ pageTitle }}</div>
+            <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ pageTitle }}</div></div>
             <Navigation @updatePage="changeCurrentContent" />
         </div>
         <component :is="activePage"  :walk="walk" :lieu="lieu" @updatePage="changeCurrentContent"></component> 
         <!-- <Backoffice />
       <myMap /> -->
         <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
-    </div>    
+    </div>
 </template>
 
 <script>
@@ -50,8 +50,30 @@ export default {
             if (this.activePage === "Accueil") {
                 this.pageTitle = "Accueil"
             }
-            if (this.activePage === "Balades") {
-                this.pageTitle = "Balades"
+        },
+        methods: {
+            changeCurrentContent(props) {
+                this.activePage = props.location
+                if (this.activePage === "Accueil") {
+                    this.pageTitle = "Accueil"
+                }
+                if (this.activePage === "Balades") {
+                    this.pageTitle = "Balades"
+                }
+                if (this.activePage === "VisiteLibre") {
+                    this.pageTitle = "Visite libre"
+                }
+                if (this.activePage === "Carnet") {
+                    this.pageTitle = "Carnet de visite"
+                }
+                if (this.activePage === "Balade") {
+                    this.walk = props.walk
+                    this.pageTitle = "Balade"
+                }
+                if (this.activePage === "Lieu") {
+                    this.lieu = props.lieu
+                    this.pageTitle = "Lieu"
+                }
             }
             if (this.activePage === "VisiteLibre") {
                 this.pageTitle = "Visite libre"
@@ -91,11 +113,11 @@ export default {
     :root {
         --bluePC: #5b9bd5;
         --darkbluePC: #44546a;
-        --catCulture:#E66F13;
-        --catHistoire: #741d89 ;
-        --catCulte:#A21414;
+        --catCulture: #E66F13;
+        --catHistoire: #741d89;
+        --catCulte: #A21414;
         --catNature: #539312;
-        --catParc:#d9d217;
+        --catParc: #d9d217;
     }
 
     html,
@@ -109,12 +131,22 @@ export default {
 
     .topPage {
         background-color: var(--bluePC);
+        height: 14vh;
     }
 
     .pageTitle {
         color: white;
         text-align: center;
-        font-size: 1.5rem;
-        padding-top: 0.3em;
+        font-size: 1.3rem;
+        height: 50%;
+        position: relative;
+    }
+
+    .centerPageTitle {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
     }
 </style>
