@@ -5,8 +5,7 @@
             <Navigation @updatePage="changeCurrentContent" />
         </div>
         <component :is="activePage" :walk="walk" @updatePage="changeCurrentContent" ></component> 
-        <!-- <Backoffice />
-      <myMap /> -->
+
         <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
     </div>    
 </template>
@@ -30,9 +29,7 @@ export default {
         Balades,
         Carnet,
         Lieu,
-        Balade,
-        myMap,
-        Backoffice
+        Balade
     },
     data: function () {
         return {

@@ -65,6 +65,7 @@
     components: {
         BaladeFooter
     },
+    props:["walk"],
 
     data () {
       return {
