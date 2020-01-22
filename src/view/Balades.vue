@@ -1,6 +1,6 @@
 <template>
     <div>
-        <BaladeBox @updateCurrentWalk="changeCurrentContent"  v-for="balade in balades" :balade="balade" :key="balade.title"/>
+        <BaladeBox @updatePage="updatePage"  v-for="balade in balades" :balade="balade" :key="balade.title"/>
     </div>
 </template>
 
@@ -33,7 +33,7 @@
                 });
             },
             
-            changeCurrentContent: function(datas){
+            updatePage: function(datas){
                 this.activepage=datas.location
                 this.$emit('updatePage', datas)
                 console.log(datas)
