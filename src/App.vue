@@ -4,8 +4,9 @@
             <div class="pageTitle">{{ pageTitle }}</div>
             <Navigation @updatePage="changeCurrentContent" />
         </div>
-        <component :is="activePage" :walk="walk" @updatePage="changeCurrentContent" ></component> 
-
+        <component :is="activePage" :walk="walk" :lieu="lieu" @updatePage="changeCurrentContent" ></component> 
+        <!-- <Backoffice />
+      <myMap /> -->
         <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
     </div>    
 </template>
@@ -35,7 +36,8 @@ export default {
         return {
             activePage: 'Accueil',
             pageTitle: 'Accueil',
-            walk:null
+            walk:null,
+            lieu: null
         }
     },
     methods: {
@@ -56,6 +58,10 @@ export default {
             if (this.activePage === "Balade") {
                 this.walk=props.walk
                 this.pageTitle = "Balade"
+            }
+            if (this.activePage === "Lieu") {
+                this.lieu=props.lieu
+                this.pageTitle = "Lieu"
             }
         }
         

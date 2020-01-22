@@ -28,8 +28,8 @@
             <div class="placeTitle">{{ walk.name }}</div>
             <div class="d-flex justify-content-center">
                 <div class="baladeDistance d-flex justify-content-center">
-                    <div class="align-self-end"><img :src="walk.photos" /></div>
-                    <div class="align-self-end km">{{walk.distance }}</div>
+                    <div class="align-self-end"><img src="../img/distance-blue.svg" /></div>
+                    <div class="align-self-end km">{{ walk.distance }}</div>
                 </div>
                 <div class="baladeDuration d-flex justify-content-center">
                     <div class="align-self-end"><img src="../img/chronometer-blue.svg" /></div>
@@ -37,10 +37,13 @@
                 </div>
             </div>
         </div>
+        <div class="thumbnailSize ">
+            <img class="baladeThumbnail" v-bind:src="walk.photos" />
+        </div>
         <div class="lieuxList">
             <!-- mettre le lien du lieu dans le src suivant -->
             <div>Sur le parcours :</div>
-            <a src="" v-for="lieuBalade in walk.locations">- {{ lieuBalade }}</a>
+            <a src="" @click="updatePage('Lieu', lieuBalade)" v-for="lieuBalade in walk.locations">- {{ lieuBalade }}</a>
         </div>
         <div class="placeBody">
             <div class="placeText" v-html="walk.description" ></div>
@@ -81,17 +84,6 @@
           latlngs: [],
           color: "green"
         },
-        imagePath: './home-image.jpg',
-        title: 'le titre de la balade 1',
-        duration: '3h00',
-        distance: '11km',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, ',
-        lieuxBalade: [
-            { name: 'château du bois de la croix'},
-            { name: 'parc de la madelein'},
-            {name:  'abreuvoir des vaches'},
-            {name: 'la vieille gare vintage'}
-        ]
       };
     },
     firebase: {
@@ -113,107 +105,54 @@
       BaladeFooter
     },
     methods: {
-      formated(coords) {
-        return latLng(coords)
-      },
-      increaseCenter() {
-        this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
-        //console.log(this.center)
-      },  
-      trackPosition() {
-        if (navigator.geolocation) {
-          navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-              timeout: 15000,
-              maximumAge: 0,
-              })
-        } 
-        else {
-          alert(`Browser doesn't support Geolocation`)
-        }
-      },
-      successPosition: function(position) {
-        this.center = [position.coords.latitude, position.coords.longitude]
-        //console.log(this.center)
-      },
-      failurePosition: function(err) {
-        alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
-      },
-      addMarkerLocation(){
-        let self=this
-        var query =  db.ref('app/locations/').orderByKey();
-        query.once("value")
-        .then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            var name = (childSnapshot.val());
-            let catIcon;
-            if (name.category == "Histoire"){
-              catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+        updatePage: function (location,lieu) {
+            const datas={
+                location: location,
+                lieu:lieu
             }
-            if (name.category == "Culte"){
-              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-            }
-            if (name.category == "Nature"){
-              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-            }
-            if (name.category == "Culture"){
-              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-            }
-            if (name.category == "Parc"){
-              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-            }
-            let textContent = "<b>"+name.name+"</b>"+"<div><img style = 'height: 40px;' src='"+name.photos+"' alt='err'></div>"
-            if(name.gps) {
-            console.log(name.gps)
-            self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
-            }
-          });
-        });
-      },
-      addWalk(){
-        let self=this
-        var query =  db.ref('app/walks/').orderByKey();
-        query.once("value")
-        .then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            var name = (childSnapshot.val());
-            let catIcon;
-            console.log("name")
-            console.log(self.walk.name)
-            if (self.walk.name == name.name){
-                self.polyline.latlngs.push(name.gps)
-            }
-            else {
-                alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
-            }
-            if (name.category == "Histoire"){
-              self.polyline.color = "#ff66ff"
-            }
-            else if (name.category == "Culte"){
-              self.polyline.color = "#0099ff"
-            }
-            else if (name.category == "Nature"){
-              self.polyline.color = "#00ff99"
-            }
-            else if (name.category == "Culture"){
-              self.polyline.color = "#9900cc"
-            }
-            else if (name.category == "Parc"){
-              self.polyline.color = "#cc3300"
+        },
+        formated(coords) {
+            return latLng(coords)
+        },
+        increaseCenter() {
+            this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
+            //console.log(this.center)
+        },  
+        trackPosition() {
+            if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0,
+                })
             } 
             else {
-              self.polyline.color = "#cc3300"
-            }     
-          });
-        });
-      }
-    },
-    mounted() {
-      this.trackPosition()
-      this.addMarkerLocation()
-      this.addWalk()
-
+            alert(`Browser doesn't support Geolocation`)
+            }
+        },
+        successPosition: function(position) {
+            this.center = [position.coords.latitude, position.coords.longitude]
+            //console.log(this.center)
+        },
+        failurePosition: function(err) {
+            alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+        },
+        addMarkerLocation(){
+            let self=this
+            var query =  db.ref('app/locations/').orderByKey();
+            query.once("value")
+            .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                    var name = (childSnapshot.val());
+                    let catIcon;
+                    if (name.category == "Histoire"){
+                    catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+                    }
+            
+                });
+            });
+        },
     }
-  };
+  }
 
 </script>
 
@@ -247,6 +186,17 @@
 
     .marginFooter{
         margin-bottom: 7em;
+    }
+    .thumbnailSize {
+        width: 9em;
+        height: 7em;
+        padding: center;
+    }
+
+    .baladeThumbnail {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
     }
 
 </style>

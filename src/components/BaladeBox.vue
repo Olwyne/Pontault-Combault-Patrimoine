@@ -32,7 +32,7 @@
                     location: location,
                     walk:balade
                 }
-                this.$emit('updateCurrentWalk', datas)
+                this.$emit('updatePage', datas)
             },
         }
     }
