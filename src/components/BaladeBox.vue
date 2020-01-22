@@ -60,4 +60,8 @@
 .baladeDistance img, .baladeDuration img, .delete img {
     height: 1.5em;
 }
+
+.duration, .km {
+    line-height: 1em;
+}
 </style>

@@ -72,7 +72,7 @@
     }
 
     .icon-nav {
-        height: 2.6rem;
+        height: 2.3rem;
     }
 
    .colorNavDefault {

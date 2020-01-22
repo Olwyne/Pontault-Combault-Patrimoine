@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="topPage">
+        <div class="topPage sticky-top">
             <div class="pageTitle">{{ pageTitle }}</div>
             <Navigation @updatePage="changeCurrentContent" />
         </div>
@@ -16,6 +16,7 @@
     import Balades from './view/Balades'
     import Carnet from './view/Carnet'
     import Lieu from './view/Lieu'
+    import Balade from './view/Balade'
     export default {
         name: "app",
         components: {
@@ -24,16 +25,12 @@
             VisiteLibre,
             Balades,
             Carnet,
-            Lieu
+            Lieu,
+            Balade
         },
         data: function () {
             return {
-                // décommenter en fin de test
-                //activePage: 'Accueil',
-
-                // supprimer en fin de test
-                activePage: 'Lieu',
-
+                activePage: 'Accueil',
                 pageTitle: 'Accueil'
             }
         },
@@ -63,6 +60,11 @@
     :root {
         --bluePC: #5b9bd5;
         --darkbluePC: #44546a;
+        --catCulture:#E66F13;
+        --catHistoire: #741d89 ;
+        --catCulte:#A21414;
+        --catNature: #539312;
+        --catParc:#d9d217;
     }
 
     html,
@@ -82,7 +84,6 @@
         color: white;
         text-align: center;
         font-size: 1.5rem;
-        padding-top: 0.5em;
-        padding-bottom: 0.4em;
+        padding-top: 0.3em;
     }
 </style>
