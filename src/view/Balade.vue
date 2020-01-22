@@ -25,25 +25,28 @@
             </l-map>
         </div>
         <div class="baladeContainer">
-            <div class="placeTitle">{{ title }}</div>
+            <div class="placeTitle">{{ walk.name }}</div>
             <div class="d-flex justify-content-center">
                 <div class="baladeDistance d-flex justify-content-center">
                     <div class="align-self-end"><img src="../img/distance-blue.svg" /></div>
-                    <div class="align-self-end km">{{ distance }}</div>
+                    <div class="align-self-end km">{{ walk.distance }}</div>
                 </div>
                 <div class="baladeDuration d-flex justify-content-center">
                     <div class="align-self-end"><img src="../img/chronometer-blue.svg" /></div>
-                    <div class="align-self-end duration">{{ duration }}</div>
+                    <div class="align-self-end duration">{{ walk.duration }}</div>
                 </div>
             </div>
+        </div>
+        <div class="thumbnailSize ">
+            <img class="baladeThumbnail" v-bind:src="walk.photos" />
         </div>
         <div class="lieuxList">
             <!-- mettre le lien du lieu dans le src suivant -->
             <div>Sur le parcours :</div>
-            <a src=""  v-for="lieuBalade in lieuxBalade">- {{ lieuBalade.name }}</a>
+            <a src="" @click="updatePage('Lieu', lieuBalade)" v-for="lieuBalade in walk.locations">- {{ lieuBalade }}</a>
         </div>
         <div class="placeBody">
-            <div class="placeText">{{ description }}</div>
+            <div class="placeText" v-html="walk.description" ></div>
         </div>
         </div>
         <BaladeFooter />
@@ -61,9 +64,7 @@
 
   export default {
     name: 'Balade',
-    components: {
-        BaladeFooter
-    },
+ 
     props:["walk"],
     data () {
       return {
@@ -107,9 +108,17 @@
       LMarker,
       LPolyline,
       LControl,
-      MarkerPopup
+      MarkerPopup,
+      BaladeFooter
     },
     methods: {
+        updatePage: function (location,lieu) {
+            const datas={
+                location: location,
+                lieu:lieu
+            }
+            this.$emit('updatePage', datas)
+        },
       formated(coords) {
         return latLng(coords)
       },

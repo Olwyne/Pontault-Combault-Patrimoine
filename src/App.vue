@@ -4,7 +4,9 @@
             <div class="pageTitle">{{ pageTitle }}</div>
             <Navigation @updatePage="changeCurrentContent" />
         </div>
-        <component :is="activePage"></component> 
+        <component :is="activePage" :walk="walk" :lieu="lieu" @updatePage="changeCurrentContent" ></component> 
+        <!-- <Backoffice />
+      <myMap /> -->
         <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
     </div>    
 </template>
@@ -18,6 +20,7 @@ import Balades from './view/Balades'
 import Carnet from './view/Carnet'
 import Lieu from './view/Lieu'
 import Balade from './view/Balade'
+
 export default {
     name: "app",
     components: {
@@ -32,12 +35,14 @@ export default {
     data: function () {
         return {
             activePage: 'Accueil',
-            pageTitle: 'Accueil'
+            pageTitle: 'Accueil',
+            walk:null,
+            lieu: null
         }
     },
     methods: {
-        changeCurrentContent(destination) {
-            this.activePage = destination
+        changeCurrentContent(props) {
+            this.activePage = props.location
             if (this.activePage === "Accueil") {
                 this.pageTitle = "Accueil"
             }
@@ -50,7 +55,16 @@ export default {
             if (this.activePage === "Carnet") {
                 this.pageTitle = "Carnet de visite"
             }
+            if (this.activePage === "Balade") {
+                this.walk=props.walk
+                this.pageTitle = "Balade"
+            }
+            if (this.activePage === "Lieu") {
+                this.lieu=props.lieu
+                this.pageTitle = "Lieu"
+            }
         }
+        
          
 }
 }
