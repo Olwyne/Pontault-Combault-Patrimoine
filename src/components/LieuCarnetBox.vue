@@ -3,16 +3,16 @@
         <a>
             <div class="baladeBox row">
                 <div class="thumbnailSize col-5">
-                    <img class="baladeThumbnail"v-bind:src="lieu.imagePath" />
+                    <img class="baladeThumbnail" v-bind:src="lieu.photos" />
                 </div>
                 <div class="baladeInfo col-7 d-flex flex-column justify-content-between">
-                    <div class="baladeTitle">{{lieu.title}}</div>
+                    <div class="baladeTitle">{{lieu.name}}</div>
                     <div class="d-flex justify-content-between">
                         <div class="baladeDistance d-flex">
                         </div>
                         <div class="baladeDuration d-flex">
                         </div>
-                        <div class="delete"><img src="../img/garbage-blue.svg" /></div>
+                        <div @click="removeLocationCarnet(lieu.name)" class="delete"><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
             </div>
@@ -25,5 +25,11 @@
     export default {
         name:'LieuCarnetBox',
         props:['lieu'],
+        methods: {
+            removeLocationCarnet(name) {
+                
+            },
+
+        }
     }
 </script>

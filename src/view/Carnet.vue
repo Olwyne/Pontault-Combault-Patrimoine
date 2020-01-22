@@ -8,40 +8,37 @@
 <script>
     import BaladeCarnetBox from '../components/BaladeBox'
     import LieuCarnetBox from '../components/LieuCarnetBox'
+    import { mapGetters } from 'vuex'
+
     export default {
         components: {
             BaladeCarnetBox,
             LieuCarnetBox
         },
+        props:["newLocation"],
         data: function () {
             return {
                 baladesCarnet: [],
                 lieuxCarnet: []
             }
         },
-        mounted: function(){
-            if (localStorage.getItem('baladesCarnet')) {
+        mounted:function(){
+            if (localStorage.getItem('StorageLocations')) {
                 try {
-                    this.baladesCarnet = JSON.parse(localStorage.getItem('baladesCarnet'));
+                    this.lieuxCarnet = JSON.parse(localStorage.getItem('StorageLocations'));
                 } catch(e) {
-                    localStorage.removeItem('baladesCarnet');
+                    localStorage.removeItem('StorageLocations');
                 }
             }
-            if (localStorage.getItem('lieuxCarnet')) {
-                try {
-                    this.lieuxCarnet = JSON.parse(localStorage.getItem('lieuxCarnet'));
-                } catch(e) {
-                    localStorage.removeItem('lieuxCarnet');
-                }
-            }
+            console.log(this.lieuxCarnet)
         },
-        watch: {
-            baladesCarnet(newBalade) {
-                localStorage.baladesCarnet.push(newBalade);
-            },
-            lieuxCarnet(newLieu) {
-                localStorage.lieuxCarnet.push(newLieu);
-            }
+        methods: {
+        
+        },
+        computed:{
+            ... mapGetters([
+                'getLocalStoreLocation'
+            ])
         }
   
     }

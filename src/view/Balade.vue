@@ -43,7 +43,7 @@
         <div class="lieuxList">
             <!-- mettre le lien du lieu dans le src suivant -->
             <div>Sur le parcours :</div>
-            <a src="" @click="updatePage('Lieu', lieuBalade)" v-for="lieuBalade in walk.locations">- {{ lieuBalade }}</a>
+            <a src="" @click="updatePage('Lieu', lieuBalade); setActiveLocation(lieuBalade)" v-for="lieuBalade in walk.locations">- {{ lieuBalade }}</a>
         </div>
         <div class="placeBody">
             <div class="placeText" v-html="walk.description" ></div>
@@ -60,7 +60,7 @@
   import MarkerPopup from "./MarkerPopup";
   import { latLng } from "leaflet";
   import BaladeFooter from '../components/BaladeFooter'
-
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'Balade',
@@ -112,12 +112,16 @@
       BaladeFooter
     },
     methods: {
+         ... mapActions([
+                'setActiveLocation'
+          ]),
         updatePage: function (location,lieu) {
             const datas={
                 location: location,
                 lieu:lieu
             }
             this.$emit('updatePage', datas)
+          
         },
       formated(coords) {
         return latLng(coords)

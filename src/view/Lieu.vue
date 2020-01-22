@@ -10,7 +10,7 @@
                 <div class="placeText" v-html="location.description"></div>
             </div>
         </div>
-        <PlaceFooter />
+       <PlaceFooter :lieu="location"></PlaceFooter >
     </div>
 </template>
 
@@ -26,13 +26,31 @@
         },
         data: function () {
             return {
-                location:null
+                location:{
+                    name: null,
+                    description: null,
+                    photos: null,
+                    address: null
+                },
+                toSave: []
             }
         },
         mounted: function(){
             this.readLocation()
         },
         methods:{
+            addLocationCarnet(love){
+                this.toSave.push(this.location)
+                console.log(this.toSave)    
+                this.saveLocationCarnet()   
+            },
+            saveLocationCarnet() {
+                console.log("save")
+              //  console.log(this.toSave)
+                
+                const parsed = JSON.stringify(this.toSave);
+                localStorage.setItem('lieuxCarnet', parsed);
+            },
             readLocation(){
                 let self=this
                 var query =  db.ref('app/locations/').orderByKey();

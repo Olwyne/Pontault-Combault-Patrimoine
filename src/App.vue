@@ -4,7 +4,7 @@
             <div class="pageTitle">{{ pageTitle }}</div>
             <Navigation @updatePage="changeCurrentContent" />
         </div>
-        <component :is="activePage" :walk="walk" :lieu="lieu" @updatePage="changeCurrentContent" ></component> 
+        <component :is="activePage"  :walk="walk" :lieu="lieu" @updatePage="changeCurrentContent"></component> 
         <!-- <Backoffice />
       <myMap /> -->
         <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
@@ -20,6 +20,7 @@ import Balades from './view/Balades'
 import Carnet from './view/Carnet'
 import Lieu from './view/Lieu'
 import Balade from './view/Balade'
+import {mapActions} from 'vuex'
 
 export default {
     name: "app",
@@ -37,10 +38,13 @@ export default {
             activePage: 'Accueil',
             pageTitle: 'Accueil',
             walk:null,
-            lieu: null
+            lieu: null,
         }
     },
     methods: {
+        ... mapActions([
+                'addLocationToStore'
+        ]),
         changeCurrentContent(props) {
             this.activePage = props.location
             if (this.activePage === "Accueil") {
@@ -63,10 +67,23 @@ export default {
                 this.lieu=props.lieu
                 this.pageTitle = "Lieu"
             }
+		},
+		
+	  },
+	   mounted: function(){
+            if (localStorage.getItem('StorageLocations')) {
+                try {
+                    const lieuxCarnet = JSON.parse(localStorage.getItem('StorageLocations'));
+                    lieuxCarnet.forEach(lieu => {
+                         this.addLocationToStore(lieu)
+                    });
+                   
+                } catch(e) {
+                    localStorage.removeItem('StorageLocations');
+                }
+               
+            }
         }
-        
-         
-}
 }
 </script>
 

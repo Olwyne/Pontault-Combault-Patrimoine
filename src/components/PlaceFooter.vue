@@ -8,7 +8,7 @@
             <img src="../img/route-white.svg" />
             <div>M'y rendre</div>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" @click="storeLocation">
             <img src="../img/heart-empty-white.svg" />
             <div>Sauvegarder</div>
         </div>
@@ -16,14 +16,39 @@
 </template>
 
 <script>
-    export default {
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
         
         name:'PlaceFooter',
+        props:["lieu"],
         data: function () {
                 return {
-                       
+                    
                 }
+            },
+        methods: {
+            ... mapActions([
+                'addLocationToStore'
+            ]),
+            storeLocation(){
+                const stored = this.getLocalStore
+                const present = stored.filter((item) => item.name === this.lieu.name)
+                if(present.length===0){
+                    this.addLocationToStore(this.lieu)
+                    const parsed = JSON.stringify(this.getLocalStore); 
+                    localStorage.setItem('StorageLocations', parsed);
+                }
+                
+            
             }
+        },
+        computed: {
+            ... mapGetters([
+                'getLocalStore'
+            ])
+        }
+        
     }
 </script>
 
