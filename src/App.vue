@@ -5,67 +5,60 @@
             <Navigation @updatePage="changeCurrentContent" />
         </div>
         <component :is="activePage"></component> 
-        <!-- il faudra pr�voir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
-    </div>
-  <div>
-      <Backoffice />
+        <Backoffice />
       <myMap />
-  </div>    
+        <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
+    </div>    
 </template>
 
 <script>
 import myMap from "./components/map.vue";
 import Backoffice from "./view/backoffice";
-    import Navigation from './view/Navigation'
-    import Accueil from './view/Accueil'
-    import VisiteLibre from './view/VisiteLibre'
-    import Balades from './view/Balades'
-    import Carnet from './view/Carnet'
-    import Lieu from './view/Lieu'
-    import Balade from './view/Balade'
-    export default {
-        name: "app",
-        components: {
-            Navigation,
-            Accueil,
-            VisiteLibre,
-            Balades,
-            Carnet,
-            Lieu,
-            Balade
-        },
-        data: function () {
-            return {
-                activePage: 'Accueil',
-                pageTitle: 'Accueil'
-            }
-        },
-        methods: {
-            changeCurrentContent(destination) {
-                this.activePage = destination
-                if (this.activePage === "Accueil") {
-                    this.pageTitle = "Accueil"
-                }
-                if (this.activePage === "Balades") {
-                    this.pageTitle = "Balades"
-                }
-                if (this.activePage === "VisiteLibre") {
-                    this.pageTitle = "Visite libre"
-                }
-                if (this.activePage === "Carnet") {
-                    this.pageTitle = "Carnet de visite"
-                }
-            }
-            
-        }
-
+import Navigation from './view/Navigation'
+import Accueil from './view/Accueil'
+import VisiteLibre from './view/VisiteLibre'
+import Balades from './view/Balades'
+import Carnet from './view/Carnet'
+import Lieu from './view/Lieu'
+import Balade from './view/Balade'
 export default {
-  name: "app",
-  components: {
-    myMap,
-    Backoffice
-  }
-};
+    name: "app",
+    components: {
+        Navigation,
+        Accueil,
+        VisiteLibre,
+        Balades,
+        Carnet,
+        Lieu,
+        Balade,
+          myMap,
+        Backoffice
+    },
+    data: function () {
+        return {
+            activePage: 'Accueil',
+            pageTitle: 'Accueil'
+        }
+    },
+    methods: {
+        changeCurrentContent(destination) {
+            this.activePage = destination
+            if (this.activePage === "Accueil") {
+                this.pageTitle = "Accueil"
+            }
+            if (this.activePage === "Balades") {
+                this.pageTitle = "Balades"
+            }
+            if (this.activePage === "VisiteLibre") {
+                this.pageTitle = "Visite libre"
+            }
+            if (this.activePage === "Carnet") {
+                this.pageTitle = "Carnet de visite"
+            }
+        }
+         
+}
+}
 </script>
 
 <style>
