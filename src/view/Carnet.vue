@@ -1,7 +1,7 @@
 <template>
     <div>
-        <BaladeCarnetBox v-for="balade in baladesCarnet" :balade="balade" :key="balade.title" />
-        <LieuCarnetBox v-for="lieu in lieuxCarnet" :lieu="lieu" :key="lieu.title" />
+        <BaladeCarnetBox v-for="balade in baladesCarnet" :balade="balade" :key="balade.name" />
+        <LieuCarnetBox v-for="lieu in lieuxCarnet" :lieu="lieu" :key="lieu.name" />
     </div>
 </template>
 
@@ -15,31 +15,34 @@
         },
         data: function () {
             return {
-                baladesCarnet: [
-                    {
-                        imagePath : './15a-CPA.jpg',
-                        title: 'le titre balade carnet 1',
-                        distance: '5km',
-                        duration: '1h'
-                    },
-                    {
-                        imagePath : './15a-CPA.jpg',
-                        title: 'le titre balade carnet 2',
-                        distance: '8km',
-                        duration: '2h'
-                    }
-                ],
-                lieuxCarnet: [
-                    {
-                        imagePath : './home-image.jpg',
-                        title: 'le titre lieu 1'
-                    },
-                    {
-                        imagePath : './home-image.jpg',
-                        title: 'le titre lieu 2'
-                    }
-                ]
+                baladesCarnet: [],
+                lieuxCarnet: []
+            }
+        },
+        mounted: function(){
+            if (localStorage.getItem('baladesCarnet')) {
+                try {
+                    this.baladesCarnet = JSON.parse(localStorage.getItem('baladesCarnet'));
+                } catch(e) {
+                    localStorage.removeItem('baladesCarnet');
+                }
+            }
+            if (localStorage.getItem('lieuxCarnet')) {
+                try {
+                    this.lieuxCarnet = JSON.parse(localStorage.getItem('lieuxCarnet'));
+                } catch(e) {
+                    localStorage.removeItem('lieuxCarnet');
+                }
+            }
+        },
+        watch: {
+            baladesCarnet(newBalade) {
+                localStorage.baladesCarnet.push(newBalade);
+            },
+            lieuxCarnet(newLieu) {
+                localStorage.lieuxCarnet.push(newLieu);
             }
         }
+  
     }
 </script>
