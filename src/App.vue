@@ -51,48 +51,31 @@ export default {
                 this.pageTitle = "Accueil"
             }
         },
-        methods: {
-            changeCurrentContent(props) {
-                this.activePage = props.location
-                if (this.activePage === "Accueil") {
-                    this.pageTitle = "Accueil"
-                }
-                if (this.activePage === "Balades") {
-                    this.pageTitle = "Balades"
-                }
-                if (this.activePage === "VisiteLibre") {
-                    this.pageTitle = "Visite libre"
-                }
-                if (this.activePage === "Carnet") {
-                    this.pageTitle = "Carnet de visite"
-                }
-                if (this.activePage === "Balade") {
-                    this.walk = props.walk
-                    this.pageTitle = "Balade"
-                }
-                if (this.activePage === "Lieu") {
-                    this.lieu = props.lieu
-                    this.pageTitle = "Lieu"
-                }
-            }
-            if (this.activePage === "VisiteLibre") {
-                this.pageTitle = "Visite libre"
-            }
-            if (this.activePage === "Carnet") {
-                this.pageTitle = "Carnet de visite"
-            }
-            if (this.activePage === "Balade") {
-                this.walk=props.walk
-                this.pageTitle = "Balade"
-            }
-            if (this.activePage === "Lieu") {
-                this.lieu=props.lieu
-                this.pageTitle = "Lieu"
-            }
-		},
-		
-	  },
-	   mounted: function(){
+		changeCurrentContent(props) {
+			this.activePage = props.location
+			if (this.activePage === "Accueil") {
+				this.pageTitle = "Accueil"
+			}
+			if (this.activePage === "Balades") {
+				this.pageTitle = "Balades"
+			}
+			if (this.activePage === "VisiteLibre") {
+				this.pageTitle = "Visite libre"
+			}
+			if (this.activePage === "Carnet") {
+				this.pageTitle = "Carnet de visite"
+			}
+			if (this.activePage === "Balade") {
+				this.walk = props.walk
+				this.pageTitle = "Balade"
+			}
+			if (this.activePage === "Lieu") {
+				this.lieu = props.lieu
+				this.pageTitle = "Lieu"
+			}
+		}
+	},
+	mounted: function(){
             if (localStorage.getItem('StorageLocations')) {
                 try {
                     const lieuxCarnet = JSON.parse(localStorage.getItem('StorageLocations'));
@@ -104,8 +87,8 @@ export default {
                     localStorage.removeItem('StorageLocations');
                 }
                
-            }
-        }
+            }      
+	}
 }
 </script>
 
