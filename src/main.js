@@ -1,3 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
 import Vue from 'vue'
 import App from './App.vue'
 import "./plugins/vue2-leaflet";
@@ -8,6 +11,7 @@ import { rtdbPlugin } from 'vuefire'
 
 Vue.use(rtdbPlugin)
 
+Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 
