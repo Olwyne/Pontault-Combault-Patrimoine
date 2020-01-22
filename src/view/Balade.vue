@@ -177,23 +177,32 @@
           snapshot.forEach(function(childSnapshot) {
             var name = (childSnapshot.val());
             let catIcon;
-            console.log(name.gps)
-            self.polyline.latlngs.push(name.gps)
+            console.log("name")
+            console.log(self.walk.name)
+            if (self.walk.name == name.name){
+                self.polyline.latlngs.push(name.gps)
+            }
+            else {
+                alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+            }
             if (name.category == "Histoire"){
               self.polyline.color = "#ff66ff"
             }
-            if (name.category == "Culte"){
+            else if (name.category == "Culte"){
               self.polyline.color = "#0099ff"
             }
-            if (name.category == "Nature"){
+            else if (name.category == "Nature"){
               self.polyline.color = "#00ff99"
             }
-            if (name.category == "Culture"){
+            else if (name.category == "Culture"){
               self.polyline.color = "#9900cc"
             }
-            if (name.category == "Parc"){
+            else if (name.category == "Parc"){
               self.polyline.color = "#cc3300"
-            }    
+            } 
+            else {
+              self.polyline.color = "#cc3300"
+            }     
           });
         });
       }
