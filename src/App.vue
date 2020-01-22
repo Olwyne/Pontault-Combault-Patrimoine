@@ -1,7 +1,7 @@
 <template>
   <div>
-       <myMap />
       <Backoffice />
+      <myMap />
   </div>    
 </template>
 
