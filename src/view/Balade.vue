@@ -64,7 +64,7 @@
     components: {
         BaladeFooter
     },
-
+    props:["walk"],
     data () {
       return {
         markerList: [],
