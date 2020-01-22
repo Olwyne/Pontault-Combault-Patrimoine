@@ -151,6 +151,30 @@
                 });
             });
         },
+        addWalk(){
+        let self=this
+        self.polyline.latlngs.push(self.walk.name)
+        if (self.walk.category == "Histoire"){
+          self.polyline.color = "#ff66ff"
+        }
+        if (self.walk.category == "Culte"){
+          self.polyline.color = "#0099ff"
+        }
+        if (self.walk.category == "Nature"){
+          self.polyline.color = "#00ff99"
+        }
+        if (self.walk.category == "Culture"){
+          self.polyline.color = "#9900cc"
+        }
+        if (self.walk.category == "Parc"){
+          self.polyline.color = "#cc3300"
+        }    
+      },
+        mounted() {
+          this.trackPosition()
+          this.addMarkerLocation()
+          this.addWalk()
+        }
     }
   }
 
