@@ -32,18 +32,18 @@ export default {
                 'addLocationToStore'
             ]),
             storeLocation(){
-                const stored = this.getLocalStore
+                const stored = this.getLocalStoreLocation
                 const present = stored.filter((item) => item.name === this.lieu.name)
                 if(present.length===0){
                     this.addLocationToStore(this.lieu)
                     console.log(this.lieu)
-                    const parsed = JSON.stringify(this.getLocalStore); 
+                    const parsed = JSON.stringify(this.getLocalStoreLocation); 
                     localStorage.setItem('StorageLocations', parsed);
                      this.heart="./img/heart-full-white.svg"
                 }
             },
             readStoreLocation(){
-                const stored = this.getLocalStore
+                const stored = this.getLocalStoreLocation
                 const present = stored.filter((item) => item.name === this.lieu.name)
                 if(present.length===0){
                     this.heart="./img/heart-empty-white.svg"
@@ -58,7 +58,7 @@ export default {
         },
         computed: {
             ... mapGetters([
-                'getLocalStore'
+                'getLocalStoreLocation'
             ])
         }
         

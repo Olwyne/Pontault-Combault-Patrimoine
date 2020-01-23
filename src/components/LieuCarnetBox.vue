@@ -33,7 +33,7 @@ import { mapActions, mapGetters } from 'vuex'
             ]),
             removeLocationCarnet(name) {
                 this.deleteLocationFromStore(this.lieu)
-                const stored = this.getLocalStore
+                const stored = this.getLocalStoreLocation
                 const parsed = JSON.stringify(stored); 
                 localStorage.setItem('StorageLocations', parsed);
             },
@@ -41,7 +41,7 @@ import { mapActions, mapGetters } from 'vuex'
         },
         computed:{
             ... mapGetters([
-                'getLocalStore',
+                'getLocalStoreLocation',
             ]),
         },
     }

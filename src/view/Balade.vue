@@ -49,7 +49,7 @@
             <div class="placeText" v-html="walk.description" ></div>
         </div>
         </div>
-        <BaladeFooter />
+        <BaladeFooter :walk="walk" />
     </div>
 </template>
 
@@ -87,6 +87,7 @@
           photos: null,
           locations: []
         },
+        balade:null,
         lieuxBalade: []
       };
     },
@@ -96,7 +97,6 @@
     watch:{
       newcoords:function(){
         this.polyline.latlngs=this.newcoords
-        //console.log("hola"+this.polyline.latlngs)
       }
     }, 
     components: {
@@ -204,7 +204,7 @@
         });
       }
     },
-    mounted() {
+    mounted: function() {
       this.trackPosition()
       this.addMarkerLocation()
       this.addWalk()

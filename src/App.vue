@@ -44,7 +44,8 @@ export default {
     methods: {
         ... mapActions([
                 'addLocationToStore',
-                'setActivePage'
+                'setActivePage',
+                'addWalkToStore'
         ]),
 		changeCurrentContent(props) {
 			this.activePage = this.getActivePage
@@ -87,8 +88,19 @@ export default {
                 } catch(e) {
                     localStorage.removeItem('StorageLocations');
                 }
-               
-            }      
+            }
+            if (localStorage.getItem('StorageWalk')) {
+                try {
+                    const walkCarnet = JSON.parse(localStorage.getItem('StorageWalk'));
+                    walkCarnet.forEach(walk => {
+                         this.addWalkToStore(walk)
+                    });
+                    console.log(walkCarnet)
+                   
+                } catch(e) {
+                    localStorage.removeItem('StorageWalk');
+                }
+            }         
     },
 }
 </script>
