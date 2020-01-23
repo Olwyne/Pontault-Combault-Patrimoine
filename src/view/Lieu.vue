@@ -7,7 +7,8 @@
             </div>
             <div class="placeBody">
                 <div class="placeAddress">{{  location.address }}</div>
-                <div class="placeText" v-html="location.description"></div>
+                <!--<div class="placeText" v-html="location.description"></div>-->
+                <div class="placeText" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
             </div>
         </div>
        <PlaceFooter :lieu="location"></PlaceFooter >
@@ -70,13 +71,14 @@
 
 <style>
     .placeContainer {
-    margin-bottom:6em;
+    margin-bottom: 14vh;
+    padding-bottom: 0.5em;
+    margin-top: 0.5em;
 }
 .placeTitle {
     color: var(--darkbluePC);
     text-align: center;
     font-size: 1.3em;
-    margin-top: 0.5em;
     margin-bottom: 0.5em;
     line-height: 1.2em;
     padding-right: 1em;
@@ -96,6 +98,7 @@
 
 .placeAddress {
     margin: 1em;
+    color:var(--bluePC);
 }
 </style>
 
