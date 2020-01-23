@@ -1,7 +1,7 @@
 <template>
     <div>
         <BaladeCarnetBox v-for="balade in baladesCarnet" :balade="balade" :key="balade.name" />
-        <LieuCarnetBox v-for="lieu in lieuxCarnet" :lieu="lieu" :key="lieu.name" />
+        <LieuCarnetBox v-for="lieu in getLocalStore" :lieu="lieu" :key="lieu.name" />
     </div>
 </template>
 
@@ -23,21 +23,14 @@
             }
         },
         mounted:function(){
-            if (localStorage.getItem('StorageLocations')) {
-                try {
-                    this.lieuxCarnet = JSON.parse(localStorage.getItem('StorageLocations'));
-                } catch(e) {
-                    localStorage.removeItem('StorageLocations');
-                }
-            }
-            console.log(this.lieuxCarnet)
+           
         },
         methods: {
         
         },
         computed:{
             ... mapGetters([
-                'getLocalStoreLocation'
+                'getLocalStore'
             ])
         }
   

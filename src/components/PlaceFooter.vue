@@ -9,7 +9,7 @@
             <div>M'y rendre</div>
         </div>
         <div class="nav-item" @click="storeLocation">
-            <img src="../img/heart-empty-white.svg" />
+            <img v-bind:src="heart" />
             <div>Sauvegarder</div>
         </div>
     </div>
@@ -24,7 +24,7 @@ export default {
         props:["lieu"],
         data: function () {
                 return {
-                    
+                    heart: "./img/heart-empty-white.svg"
                 }
             },
         methods: {
@@ -36,12 +36,25 @@ export default {
                 const present = stored.filter((item) => item.name === this.lieu.name)
                 if(present.length===0){
                     this.addLocationToStore(this.lieu)
+                    console.log(this.lieu)
                     const parsed = JSON.stringify(this.getLocalStore); 
                     localStorage.setItem('StorageLocations', parsed);
+                     this.heart="./img/heart-full-white.svg"
                 }
-                
-            
+            },
+            readStoreLocation(){
+                const stored = this.getLocalStore
+                const present = stored.filter((item) => item.name === this.lieu.name)
+                if(present.length===0){
+                    this.heart="./img/heart-empty-white.svg"
+                }
+                else{
+                    this.heart="./img/heart-full-white.svg"
+                }
             }
+        },
+        mounted: function(){
+            this.readStoreLocation()
         },
         computed: {
             ... mapGetters([

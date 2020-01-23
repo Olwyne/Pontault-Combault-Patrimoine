@@ -24,6 +24,11 @@ const mutations= {
     SET_ACTIVE_WALK(state, props){
         state.activeWalk=props
     },
+    DELETE_LOCATION(state,props){
+        state.localStoreLocation=state.localStoreLocation.filter((item) => item.name !== props.name)
+        console.log("ici")
+        console.log(state.localStoreLocation)
+    }
     
 }
 const getters={
@@ -54,6 +59,9 @@ const actions={
     setActiveWalk : (store,props) => {
         store.commit('SET_ACTIVE_WALK', props)
     },
+    deleteLocationFromStore: (store, props) => {
+        store.commit('DELETE_LOCATION', props)
+    }
 }
 
 export default new Vuex.Store({

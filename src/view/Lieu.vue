@@ -54,8 +54,6 @@
             },
             saveLocationCarnet() {
                 console.log("save")
-              //  console.log(this.toSave)
-                
                 const parsed = JSON.stringify(this.toSave);
                 localStorage.setItem('lieuxCarnet', parsed);
             },
