@@ -2,15 +2,15 @@
     <div class="placeFooter fixed-bottom nav nav-fill">
         <div class="nav-item">
             <img src="../img/back-white.svg" />
-            <div>Retour</div>
+            <div class="footerText">Retour</div>
         </div>
         <div class="nav-item">
             <img src="../img/route-white.svg" />
-            <div>Aller au depart</div>
+            <div class="footerText">Aller au depart</div>
         </div>
         <div class="nav-item">
             <img src="../img/heart-empty-white.svg" />
-            <div>Sauvegarder</div>
+            <div class="footerText">Sauvegarder</div>
         </div>
     </div>
 </template>

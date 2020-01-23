@@ -74,7 +74,7 @@
               />
               <marker-popup
                 :position="formated(center)"
-                :text="'Vous êtes ici'"
+                :text="'Le titre du lieu'"
                 :icontest="'https://cdn0.iconfinder.com/data/icons/map-locations-glyph-1/100/pin-location-map-place-spot-position-512.png'"
               />
               <marker-popup
@@ -285,6 +285,20 @@
 
     .leaflet-bar a, leaflet-bar, .leaflet-bar a:hover {
         color:var(--darkbluePC);
+    }
+
+    .leaflet-popup-tip, .leaflet-popup-content-wrapper {
+        background-color: var(--catCulte); /* à varier selon la couleur du marker */
+    }
+
+    .leaflet-popup-content-wrapper {
+        color: white;
+        font-family: Roboto;
+        border-radius: 0;
+    }
+
+    .leaflet-container a.leaflet-popup-close-button {
+        color:white;
     }
            
 </style>

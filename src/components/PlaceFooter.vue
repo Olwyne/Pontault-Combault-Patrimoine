@@ -2,15 +2,15 @@
     <div class="placeFooter fixed-bottom nav nav-fill">
         <div class="nav-item">
             <img src="../img/back-white.svg" />
-            <div>Retour</div>
+            <div class="footerText">Retour</div>
         </div>
         <div class="nav-item">
             <img src="../img/route-white.svg" />
-            <div>M'y rendre</div>
+            <div class="footerText">M'y rendre</div>
         </div>
         <div class="nav-item" @click="storeLocation">
             <img src="../img/heart-empty-white.svg" />
-            <div>Sauvegarder</div>
+            <div class="footerText">Sauvegarder</div>
         </div>
     </div>
 </template>
@@ -54,19 +54,25 @@ export default {
 
 <style>
 .placeFooter {
+    height: 10vh;
     background-color: var(--bluePC);
     color: white;
     padding:0;
 }
 
     .placeFooter img {
-        height: 2.2rem;
+        height: 80%;
     }
 
     .placeFooter .nav-item {
         display: block;
         padding: .5rem 0rem;
-        width: 33.3%
+        height: 100%;
+    }
+
+    .placeFooter .footerText {
+        height: 20%;
+        font-size: 100%;
     }
 </style>
 

@@ -226,8 +226,9 @@
 
 
 <style>
-    .baladeMap{
-    width: 100%;    
+    .baladeMap #vuemap{
+    width: 100%;
+    height: 76vh;
     }
 
     .baladeContainer {
