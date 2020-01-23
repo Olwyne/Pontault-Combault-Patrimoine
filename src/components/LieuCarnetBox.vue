@@ -22,14 +22,27 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
     export default {
         name:'LieuCarnetBox',
         props:['lieu'],
         methods: {
+            ... mapActions([
+                'deleteLocationFromStore'
+            ]),
             removeLocationCarnet(name) {
-                
+                this.deleteLocationFromStore(this.lieu)
+                const stored = this.getLocalStoreLocation
+                const parsed = JSON.stringify(stored); 
+                localStorage.setItem('StorageLocations', parsed);
             },
 
-        }
+        },
+        computed:{
+            ... mapGetters([
+                'getLocalStoreLocation',
+            ]),
+        },
     }
 </script>

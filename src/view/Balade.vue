@@ -43,13 +43,13 @@
         <div class="lieuxList">
             <!-- mettre le lien du lieu dans le src suivant -->
             <div>Sur le parcours :</div>
-            <a src="" @click="updatePage('Lieu', lieuBalade); setActiveLocation(lieuBalade)" v-for="lieuBalade in walk.locations">- {{ lieuBalade }}</a>
+            <a src="" @click="setActivePage('Lieu', lieuBalade); setActiveLocation(lieuBalade)"  v-for="lieuBalade in walk.locations" v-bind:key="lieuBalade" >- {{ lieuBalade }}</a>
         </div>
         <div class="placeBody">
             <div class="placeText" v-html="walk.description" ></div>
         </div>
         </div>
-        <BaladeFooter />
+        <BaladeFooter :walk="walk" />
     </div>
 </template>
 
@@ -60,12 +60,11 @@
   import MarkerPopup from "./MarkerPopup";
   import { latLng } from "leaflet";
   import BaladeFooter from '../components/BaladeFooter'
-  import { mapActions } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'Balade',
  
-    props:["walk"],
     data () {
       return {
         markerList: [],
@@ -80,17 +79,16 @@
           latlngs: [],
           color: "green"
         },
-        imagePath: './home-image.jpg',
-        title: 'le titre de la balade 1',
-        duration: '3h00',
-        distance: '11km',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, ',
-        lieuxBalade: [
-            { name: 'château du bois de la croix'},
-            { name: 'parc de la madelein'},
-            {name:  'abreuvoir des vaches'},
-            {name: 'la vieille gare vintage'}
-        ]
+        walk:{
+          name: null,
+          description: null,
+          distance: null,
+          duration: null,
+          photos: null,
+          locations: []
+        },
+        balade:null,
+        lieuxBalade: []
       };
     },
     firebase: {
@@ -99,7 +97,6 @@
     watch:{
       newcoords:function(){
         this.polyline.latlngs=this.newcoords
-        //console.log("hola"+this.polyline.latlngs)
       }
     }, 
     components: {
@@ -113,16 +110,9 @@
     },
     methods: {
          ... mapActions([
-                'setActiveLocation'
+                'setActiveLocation',
+                'setActivePage'
           ]),
-        updatePage: function (location,lieu) {
-            const datas={
-                location: location,
-                lieu:lieu
-            }
-            this.$emit('updatePage', datas)
-          
-        },
       formated(coords) {
         return latLng(coords)
       },
@@ -214,11 +204,18 @@
         });
       }
     },
-    mounted() {
+    mounted: function() {
       this.trackPosition()
       this.addMarkerLocation()
       this.addWalk()
-    }
+      this.walk=this.getActiveWalk
+    },
+    computed:{
+            ... mapGetters([
+                'getActivePage',
+                'getActiveWalk'
+            ]),
+    },
   };
 
 </script>

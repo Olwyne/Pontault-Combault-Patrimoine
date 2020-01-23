@@ -1,43 +1,44 @@
 <template>
     <div>
-        <BaladeCarnetBox v-for="balade in baladesCarnet" :balade="balade" :key="balade.name" />
-        <LieuCarnetBox v-for="lieu in lieuxCarnet" :lieu="lieu" :key="lieu.name" />
+        <BaladeCarnetBox @click.native="setActivePage('Balade'), setActiveWalk(balade)" v-for="balade in getLocalStoreWalk" :balade="balade" :key="balade.name" />
+        <LieuCarnetBox @click.native="setActivePage('Lieu'), setActiveLocation(lieu.name)" v-for="lieu in getLocalStoreLocation" :lieu="lieu" :key="lieu.name" />
     </div>
 </template>
 
 <script>
-    import BaladeCarnetBox from '../components/BaladeBox'
+    import BaladeCarnetBox from '../components/BaladeCarnetBox'
     import LieuCarnetBox from '../components/LieuCarnetBox'
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         components: {
             BaladeCarnetBox,
             LieuCarnetBox
         },
-        props:["newLocation"],
         data: function () {
             return {
-                baladesCarnet: [],
-                lieuxCarnet: []
+                baladesCarnet: {
+                    name:null
+                },
+                lieuxCarnet: {
+                    name:null
+                }
             }
         },
         mounted:function(){
-            if (localStorage.getItem('StorageLocations')) {
-                try {
-                    this.lieuxCarnet = JSON.parse(localStorage.getItem('StorageLocations'));
-                } catch(e) {
-                    localStorage.removeItem('StorageLocations');
-                }
-            }
-            console.log(this.lieuxCarnet)
         },
         methods: {
+            ... mapActions([
+                'setActiveLocation',
+                'setActivePage',
+                'setActiveWalk'
+          ]),
         
         },
         computed:{
             ... mapGetters([
-                'getLocalStoreLocation'
+                'getLocalStoreLocation',
+                'getLocalStoreWalk'
             ])
         }
   

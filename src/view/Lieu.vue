@@ -17,15 +17,17 @@
 <script>
     import PlaceFooter from '../components/PlaceFooter'
     import { db,storageRef } from '../config/db'
+    import { mapActions, mapGetters } from 'vuex'
+
 
     export default {
         name: 'Lieu',
-        props:["lieu"],
         components: {
             PlaceFooter
         },
         data: function () {
             return {
+                lieu:null,
                 location:{
                     name: null,
                     description: null,
@@ -36,7 +38,13 @@
             }
         },
         mounted: function(){
+            this.lieu=this.getActiveLocation
             this.readLocation()
+        },
+         computed:{
+            ... mapGetters([
+                'getActiveLocation',
+            ]),
         },
         methods:{
             addLocationCarnet(love){
@@ -46,8 +54,6 @@
             },
             saveLocationCarnet() {
                 console.log("save")
-              //  console.log(this.toSave)
-                
                 const parsed = JSON.stringify(this.toSave);
                 localStorage.setItem('lieuxCarnet', parsed);
             },
