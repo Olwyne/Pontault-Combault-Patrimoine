@@ -16,63 +16,66 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+    import { mapActions, mapGetters } from 'vuex'
 
-export default {
-        
-        name:'PlaceFooter',
-        props:["lieu"],
+    export default {
+
+        name: 'PlaceFooter',
+        props: ["lieu"],
         data: function () {
-                return {
-                    
-                }
-            },
+            return {
+
+            }
+        },
         methods: {
-            ... mapActions([
+            ...mapActions([
                 'addLocationToStore'
             ]),
-            storeLocation(){
+            storeLocation() {
                 const stored = this.getLocalStore
                 const present = stored.filter((item) => item.name === this.lieu.name)
-                if(present.length===0){
+                if (present.length === 0) {
                     this.addLocationToStore(this.lieu)
-                    const parsed = JSON.stringify(this.getLocalStore); 
+                    const parsed = JSON.stringify(this.getLocalStore);
                     localStorage.setItem('StorageLocations', parsed);
                 }
-                
-            
+
+
             }
         },
         computed: {
-            ... mapGetters([
+            ...mapGetters([
                 'getLocalStore'
             ])
         }
-        
+
     }
 </script>
 
 <style>
-.placeFooter {
-    height: 10vh;
-    background-color: var(--bluePC);
-    color: white;
-    padding:0;
-}
-
-    .placeFooter img {
-        height: 80%;
+    .placeFooter {
+        height: 14vh;
+        background-color: var(--bluePC);
+        color: white;
+        padding: 0;
     }
 
-    .placeFooter .nav-item {
-        display: block;
-        padding: .5rem 0rem;
-        height: 100%;
-    }
+        .placeFooter img {
+            height: 66%;
+        }
 
-    .placeFooter .footerText {
-        height: 20%;
-        font-size: 100%;
-    }
+        .placeFooter .nav-item {
+            display: block;
+            padding: .5rem 0rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .placeFooter .footerText {
+            padding-top: 0.1em;
+            font-size: 86%;
+        }
 </style>
 
