@@ -1,14 +1,14 @@
 <template>
     <div>
-        <BaladeCarnetBox v-for="balade in getLocalStoreWalk" :balade="balade" :key="balade.name" />
-        <LieuCarnetBox v-for="lieu in getLocalStoreLocation" :lieu="lieu" :key="lieu.name" />
+        <BaladeCarnetBox @click.native="setActivePage('Balade'), setActiveWalk(balade)" v-for="balade in getLocalStoreWalk" :balade="balade" :key="balade.name" />
+        <LieuCarnetBox @click.native="setActivePage('Lieu'), setActiveLocation(lieu.name)" v-for="lieu in getLocalStoreLocation" :lieu="lieu" :key="lieu.name" />
     </div>
 </template>
 
 <script>
     import BaladeCarnetBox from '../components/BaladeCarnetBox'
     import LieuCarnetBox from '../components/LieuCarnetBox'
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         components: {
@@ -28,6 +28,11 @@
         mounted:function(){
         },
         methods: {
+            ... mapActions([
+                'setActiveLocation',
+                'setActivePage',
+                'setActiveWalk'
+          ]),
         
         },
         computed:{

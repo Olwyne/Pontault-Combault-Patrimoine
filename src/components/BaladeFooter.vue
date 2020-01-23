@@ -47,9 +47,6 @@ import { mapActions, mapGetters } from 'vuex'
             readStoreWalk(){
                 const stored = this.getLocalStoreWalk
                 const present = stored.filter((item) => item.name === this.getActiveWalk.name )
-                console.log("iic")
-                console.log(present)
-                console.log(this.walk.name)
                 if(present.length===0){
                     this.heart="./img/heart-empty-white.svg"
                 }
@@ -61,9 +58,6 @@ import { mapActions, mapGetters } from 'vuex'
             }
         },
         mounted: function(){
-            console.log("ciicic")
-            console.log(this.getActiveWalk)
-            console.log(this.walk.name)
             this.readStoreWalk()
         },
         computed: {

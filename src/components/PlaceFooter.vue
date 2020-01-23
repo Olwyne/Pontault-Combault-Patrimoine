@@ -54,7 +54,6 @@ export default {
             }
         },
         mounted: function(){
-            console.log(this.getActiveLocation)
             this.readStoreLocation()
         },
         computed: {
