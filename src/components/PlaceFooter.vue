@@ -44,7 +44,7 @@ export default {
             },
             readStoreLocation(){
                 const stored = this.getLocalStoreLocation
-                const present = stored.filter((item) => item.name === this.lieu.name)
+                const present = stored.filter((item) => item.name === this.getActiveLocation)
                 if(present.length===0){
                     this.heart="./img/heart-empty-white.svg"
                 }
@@ -54,11 +54,13 @@ export default {
             }
         },
         mounted: function(){
+            console.log(this.getActiveLocation)
             this.readStoreLocation()
         },
         computed: {
             ... mapGetters([
-                'getLocalStoreLocation'
+                'getLocalStoreLocation',
+                'getActiveLocation'
             ])
         }
         
