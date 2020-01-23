@@ -1,12 +1,14 @@
 <template>
     <div>
-        <BaladeBox @updatePage="updatePage"  v-for="balade in balades" :balade="balade" :key="balade.title"/>
+        <BaladeBox @click.native="setActivePage('Balade')"  v-for="balade in balades" :balade="balade" :key="balade.title"/>
     </div>
 </template>
 
 <script>
     import BaladeBox from '../components/BaladeBox'
     import { db,storageRef } from '../config/db'
+    import { mapActions } from 'vuex'
+
 
     export default {
         components: {
@@ -22,6 +24,9 @@
             this.readWalks()
         },
         methods: {
+            ... mapActions([
+                'setActivePage'
+          ]),
             readWalks(){
                 let self=this
                 var query =  db.ref('app/walks/').orderByKey();
@@ -32,12 +37,7 @@
                     });
                 });
             },
-            
-            updatePage: function(datas){
-                this.activepage=datas.location
-                this.$emit('updatePage', datas)
-                console.log(datas)
-            }
+
         }
         
     }

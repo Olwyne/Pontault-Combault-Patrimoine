@@ -2,9 +2,9 @@
     <div>
         <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ pageTitle }}</div></div>
-            <Navigation @updatePage="changeCurrentContent" />
+            <Navigation />
         </div>
-        <component :is="activePage"  :walk="walk" :lieu="lieu" @updatePage="changeCurrentContent"></component> 
+        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component> 
         <!-- <Backoffice />
       <myMap /> -->
         <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
@@ -20,7 +20,7 @@ import Balades from './view/Balades'
 import Carnet from './view/Carnet'
 import Lieu from './view/Lieu'
 import Balade from './view/Balade'
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
     name: "app",
@@ -43,16 +43,11 @@ export default {
     },
     methods: {
         ... mapActions([
-                'addLocationToStore'
+                'addLocationToStore',
+                'setActivePage'
         ]),
-        changeCurrentContent(props) {
-            this.activePage = props.location
-            if (this.activePage === "Accueil") {
-                this.pageTitle = "Accueil"
-            }
-        },
 		changeCurrentContent(props) {
-			this.activePage = props.location
+			this.activePage = this.getActivePage
 			if (this.activePage === "Accueil") {
 				this.pageTitle = "Accueil"
 			}
@@ -74,8 +69,14 @@ export default {
 				this.pageTitle = "Lieu"
 			}
 		}
-	},
+    },
+    computed:{
+            ... mapGetters([
+                'getActivePage'
+            ]),
+    },
 	mounted: function(){
+            this.setActivePage(this.activePage)
             if (localStorage.getItem('StorageLocations')) {
                 try {
                     const lieuxCarnet = JSON.parse(localStorage.getItem('StorageLocations'));
@@ -88,7 +89,7 @@ export default {
                 }
                
             }      
-	}
+    },
 }
 </script>
 

@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const state= {
     localStoreLocation:[],
-    activeLocation: {}
+    activeLocation: {},
+    activePage:null
 }
 
 const mutations= {
@@ -15,6 +16,10 @@ const mutations= {
     },
     SET_ACTIVE_LOCATION(state, props){
         state.activeLocation=props
+    },
+    SET_ACTIVE_PAGE(state, props){
+        state.activePage=props
+
     }
     
 }
@@ -24,6 +29,9 @@ const getters={
     },
     getActiveLocation(state){
         return state.activeLocation
+    },
+    getActivePage(state){
+        return state.activePage
     }
 }
 
@@ -31,11 +39,11 @@ const actions={
     addLocationToStore(store,props){
         store.commit('ADD_LOCATION',props)
     },
-    addNewLocationToStore(store,props){
-        store.commit('ADD_NEW_LOCATION',props)
-    },
     setActiveLocation : (store,props) => {
         store.commit('SET_ACTIVE_LOCATION', props)
+    },
+    setActivePage : (store,props) => {
+        store.commit('SET_ACTIVE_PAGE', props)
     }
 }
 
