@@ -1,16 +1,16 @@
 <template>
-    <div>
+    <div class="navigation">
         <ul class="nav nav-fill">
             <li class="nav-item">
-                <a class="nav-link" @click="updatePage('Accueil')">
+                <a class="nav-link" @click="setActivePage('Accueil'),activePage='Accueil'">
                     <svg class="icon-nav" version="1.1"  x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
                         <path :class="activePage==='Accueil'?'colorNavActive':'colorNavDefault'" d="M9.6,23.8v-6.3h4.7v6.3h5.9V12.7h3.5L12,0.3L0.2,12.7h3.5v11.1H9.6z" />
                     </svg>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" @click="updatePage('VisiteLibre')">
-                    <svg version="1.1"class="icon-nav" x="0px" y="0px"
+                <a class="nav-link" @click="setActivePage('VisiteLibre'),activePage='VisiteLibre'">
+                    <svg version="1.1" class="icon-nav" x="0px" y="0px"
                          viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
                         <path :class="activePage==='VisiteLibre'?'colorNavActive':'colorNavDefault'" d="M12,0.2c-4.6,0-8.3,3.7-8.3,8.3c0,6.2,8.3,15.3,8.3,15.3s8.3-9.1,8.3-15.3C20.3,3.9,16.6,0.2,12,0.2z M12,11.4
 	                        c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" @click="updatePage('Balades')">
+                <a class="nav-link" @click="setActivePage('Balades'),activePage='Balades'">
                     <svg class="icon-nav" version="1.1" x="0px" y="0px" viewBox="0 0 463.5 463.5" style="enable-background:new 0 0 463.5 463.5;" xml:space="preserve">
                     <g>
                     <path :class="activePage==='Balades'?'colorNavActive':'colorNavDefault'" d="M246.4,78.5c21.7,0,39.3-17.6,39.3-39.3c0-21.7-17.6-39.2-39.3-39.2c-21.7,0-39.2,17.6-39.2,39.2
@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" @click="updatePage('Carnet')">
+                <a class="nav-link" @click="setActivePage('Carnet'),activePage='Carnet'">
                     <svg version="1.1" class="icon-nav" x="0px" y="0px"
                          viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                         <g>
@@ -51,6 +51,9 @@
 </template>
 
 <script>
+
+  import { mapActions, mapGetters } from 'vuex'
+
     export default {
         data: function () {
             return {
@@ -58,21 +61,44 @@
             }
         },
         methods: {
-            updatePage: function (location) {
-                this.$emit('updatePage', location),
-                    this.activePage = location
-            }
-        }
+            ... mapActions([
+                'setActivePage'
+          ]),
+        },
+        mounted: function(){
+             this.activePage=this.getActivePage
+        },
+         computed:{
+            ... mapGetters([
+                'getActivePage'
+            ])
+        },
     }
 </script>
 
 <style>
-    .nav {
+    .navigation {
+        height:50%;
+    }
+
+    .topPage ul{
+       height:100%;
+    }
+
+    .topPage .nav-item{
+        height:100%;
+    }
+
+    .topPage .nav-link {
+        height:100%;
+    }
+
+    .topPage .nav {
         padding-bottom: 0.2em;
     }
 
     .icon-nav {
-        height: 2.3rem;
+        height: 100%;
     }
 
    .colorNavDefault {

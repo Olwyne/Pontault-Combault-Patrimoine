@@ -1,21 +1,25 @@
 <template>
     <div>
         <div class="placeContainer">
-            <div class="placeTitle">{{ title }}</div>
+            <div class="placeTitle">{{ location.name }}</div>
             <div class="text-center">
-                <img class="placeImage" v-bind:src="imagePath" />
+                <img class="placeImage" v-bind:src="location.photos" />
             </div>
             <div class="placeBody">
-                <div class="placeAddress">{{ address }}</div>
-                <div class="placeText">{{ description }}</div>
+                <div class="placeAddress">{{  location.address }}</div>
+                <div class="placeText" v-html="location.description"></div>
             </div>
         </div>
-        <PlaceFooter />
+       <PlaceFooter :lieu="location"></PlaceFooter >
     </div>
 </template>
 
 <script>
     import PlaceFooter from '../components/PlaceFooter'
+    import { db,storageRef } from '../config/db'
+    import { mapActions, mapGetters } from 'vuex'
+
+
     export default {
         name: 'Lieu',
         components: {
@@ -23,10 +27,48 @@
         },
         data: function () {
             return {
-                imagePath: './home-image.jpg',
-                title: 'le titre du lieu 1',
-                address: '66 rue adresse 1, 77340 Pontault-Combault',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, '
+                lieu:null,
+                location:{
+                    name: null,
+                    description: null,
+                    photos: null,
+                    address: null
+                },
+                toSave: []
+            }
+        },
+        mounted: function(){
+            this.lieu=this.getActiveLocation
+            this.readLocation()
+        },
+         computed:{
+            ... mapGetters([
+                'getActiveLocation',
+            ]),
+        },
+        methods:{
+            addLocationCarnet(love){
+                this.toSave.push(this.location)
+                console.log(this.toSave)    
+                this.saveLocationCarnet()   
+            },
+            saveLocationCarnet() {
+                console.log("save")
+                const parsed = JSON.stringify(this.toSave);
+                localStorage.setItem('lieuxCarnet', parsed);
+            },
+            readLocation(){
+                let self=this
+                var query =  db.ref('app/locations/').orderByKey();
+                query.once("value")
+                .then(function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        if(childSnapshot.key==self.lieu){
+                            self.location=(childSnapshot.val());
+                        }
+                    
+                    });
+                });
             }
         }
     }

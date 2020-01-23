@@ -163,14 +163,3 @@
   };
 
 </script>
-
-
-
-<style>
-  #vuemap {
-    height: 500px;
-    width: 500px;
-  }
-</style>
-
-

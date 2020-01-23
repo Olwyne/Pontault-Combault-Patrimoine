@@ -11,7 +11,7 @@
 
                     </svg>
                     </div>
-                    <div>Culture</div>
+                    <div class="categoriesText">Culture</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -22,7 +22,7 @@
 
                     </svg>
                     </div>
-                    <div>Histoire</div>
+                    <div class="categoriesText">Histoire</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -35,7 +35,7 @@
 
                     </svg>
                     </div>
-                    <div>Culte</div>
+                    <div class="categoriesText">Culte</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -48,7 +48,7 @@
 
                     </svg>
                     </div>
-                    <div>Nature</div>
+                    <div class="categoriesText">Nature</div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
@@ -61,35 +61,189 @@
 
                     </svg>
                     </div>
-                    <div>Parc</div>
+                    <div class="categoriesText">Parc</div>
                 </li>
             </ul>
         </div>
         <div class="visiteMap">
-            <img src="../img/map-test.png" />
+            <l-map id="vuemap" :zoom="zoom" :center="center">
+              <l-tile-layer :url="url"></l-tile-layer>
+              <l-polyline
+                :lat-lngs="polyline.latlngs"
+                :color="polyline.color"
+              />
+              <marker-popup
+                :position="formated(center)"
+                :text="'Vous êtes ici'"
+                :icontest="'https://cdn0.iconfinder.com/data/icons/map-locations-glyph-1/100/pin-location-map-place-spot-position-512.png'"
+              />
+              <marker-popup
+                v-for="(marker,i) in markerList" :key="i"
+                :position="formated(marker.coord)"
+                :text="marker.text"
+                :icontest="marker.category"
+              />
+                  <l-control>
+                      <button @click="increaseCenter" class="localisationButton">
+                          <img src="../img/target-me.svg" />
+                      </button>
+                  </l-control>
+            </l-map>
         </div>
     </div>
 </template>
 
-<script>
-    export default {
-        data: function () {
-            return {
-            }
-        },
-        methods: {
 
+<script>
+  import { db } from '../config/db'
+  import {LMap, LTileLayer, LMarker, LPolyline, LControl} from 'vue2-leaflet'
+  import MarkerPopup from "./MarkerPopup";
+  import { latLng } from "leaflet";
+
+
+  export default {
+    name: "maptest",
+    props:["newcoords"],
+
+    data () {
+      return {
+        markerList: [],
+        url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+        //url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+        zoom: 13,
+        center: [48.801255, 2.607598],
+        bounds: null, 
+        attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        polyline: {
+          latlngs: [],
+          color: "green"
         }
+      };
+    },
+    firebase: {
+      documents: db.ref()
+    },
+    watch:{
+      newcoords:function(){
+        this.polyline.latlngs=this.newcoords
+        //console.log("hola"+this.polyline.latlngs)
+      }
+    }, 
+    components: {
+      LMap,
+      LTileLayer,
+      LMarker,
+      LPolyline,
+      LControl,
+      MarkerPopup
+    },
+    methods: {
+      formated(coords) {
+        return latLng(coords)
+      },
+      increaseCenter() {
+        this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
+        //console.log(this.center)
+      },  
+      trackPosition() {
+        if (navigator.geolocation) {
+          navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
+              timeout: 15000,
+              maximumAge: 0,
+              })
+        } 
+        else {
+          alert(`Browser doesn't support Geolocation`)
+        }
+      },
+      successPosition: function(position) {
+        this.center = [position.coords.latitude, position.coords.longitude]
+        //console.log(this.center)
+      },
+      failurePosition: function(err) {
+        alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+      },
+      addMarkerLocation(){
+        let self=this
+        var query =  db.ref('app/locations/').orderByKey();
+        query.once("value")
+        .then(function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            var name = (childSnapshot.val());
+            let catIcon;
+            if (name.category == "Histoire"){
+              catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+            }
+            if (name.category == "Culte"){
+              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+            }
+            if (name.category == "Nature"){
+              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+            }
+            if (name.category == "Culture"){
+              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+            }
+            if (name.category == "Parc"){
+              catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+            }
+            let textContent = "<b>"+name.name+"</b>"+"<div><img style = 'height: 40px;' src='"+name.photos+"' alt='err'></div>"
+            if(name.gps) {
+            console.log(name.gps)
+            self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
+            }
+          });
+        });
+      }
+    },
+    mounted() {
+      this.trackPosition()
+      this.addMarkerLocation()
     }
+  };
+
 </script>
 
+
 <style>
+    #vuemap {
+        width:100%;
+    }
+
     .categoriesBar {
         color: var(--darkbluePC);
+        height:11vh;
+        width: 100%;
+    }
+
+    .categoriesBar ul {
+        width: 100%;
+    }
+
+    .categoriesBar .nav-item {
+        height:100%;
+    }
+
+    .categoriesBar .nav {
+        padding-bottom: 2%;
+        padding-top:2%;
+        height:100%;
+    }
+
+    .categoriesBar .nav-link {
+        padding:0;
+        height:70%;
     }
 
     .icon-cat {
-        height: 2.3em;
+        height: 100%;
+    }
+
+    .categoriesText {
+        height:26%;
+        display: flex;
+        flex-direction:column;
+        font-size: 87%;
     }
 
     .colorCatCulture {
@@ -111,13 +265,26 @@
     .colorCatParc {
         fill: var(--catParc);
     }
+    
+    #vuemap {
+        width: 100%;
+        height:75vh;
+    }
 
-    /*.visiteMap {
-        height: 30.5em;
-    }*/
+    .localisationButton img {
+        width: 40px;
+    }
 
-        .visiteMap img {
-            width: 100%;
-            height: 100%;
-        }
+    .localisationButton {
+            padding: 3px;
+            background-color: white;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+            border-radius: 4px;
+            border:none;
+    }
+
+    .leaflet-bar a, leaflet-bar, .leaflet-bar a:hover {
+        color:var(--darkbluePC);
+    }
+           
 </style>

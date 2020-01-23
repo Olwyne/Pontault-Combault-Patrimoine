@@ -1,13 +1,15 @@
 <template>
     <div>
-        <BaladeCarnetBox v-for="balade in baladesCarnet" :balade="balade" :key="balade.title" />
-        <LieuCarnetBox v-for="lieu in lieuxCarnet" :lieu="lieu" :key="lieu.title" />
+        <BaladeCarnetBox @click.native="setActivePage('Balade'), setActiveWalk(balade)" v-for="balade in getLocalStoreWalk" :balade="balade" :key="balade.name" />
+        <LieuCarnetBox @click.native="setActivePage('Lieu'), setActiveLocation(lieu.name)" v-for="lieu in getLocalStoreLocation" :lieu="lieu" :key="lieu.name" />
     </div>
 </template>
 
 <script>
-    import BaladeCarnetBox from '../components/BaladeBox'
+    import BaladeCarnetBox from '../components/BaladeCarnetBox'
     import LieuCarnetBox from '../components/LieuCarnetBox'
+    import { mapGetters, mapActions } from 'vuex'
+
     export default {
         components: {
             BaladeCarnetBox,
@@ -15,31 +17,30 @@
         },
         data: function () {
             return {
-                baladesCarnet: [
-                    {
-                        imagePath : './15a-CPA.jpg',
-                        title: 'le titre balade carnet 1',
-                        distance: '5km',
-                        duration: '1h'
-                    },
-                    {
-                        imagePath : './15a-CPA.jpg',
-                        title: 'le titre balade carnet 2',
-                        distance: '8km',
-                        duration: '2h'
-                    }
-                ],
-                lieuxCarnet: [
-                    {
-                        imagePath : './home-image.jpg',
-                        title: 'le titre lieu 1'
-                    },
-                    {
-                        imagePath : './home-image.jpg',
-                        title: 'le titre lieu 2'
-                    }
-                ]
+                baladesCarnet: {
+                    name:null
+                },
+                lieuxCarnet: {
+                    name:null
+                }
             }
+        },
+        mounted:function(){
+        },
+        methods: {
+            ... mapActions([
+                'setActiveLocation',
+                'setActivePage',
+                'setActiveWalk'
+          ]),
+        
+        },
+        computed:{
+            ... mapGetters([
+                'getLocalStoreLocation',
+                'getLocalStoreWalk'
+            ])
         }
+  
     }
 </script>
