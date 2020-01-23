@@ -187,7 +187,7 @@
             if (name.category == "Parc"){
               catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
             }
-            let textContent = "<b>"+name.name+"</b>"+"<div><img style = 'height: 40px;' src='"+name.photos+"' alt='err'></div>"
+            let textContent = "<div class='popupTitle'>"+name.name+"</div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
             if(name.gps) {
             console.log(name.gps)
             self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
@@ -205,11 +205,7 @@
 </script>
 
 
-<style>
-    #vuemap {
-        width:100%;
-    }
-
+<style>    
     .categoriesBar {
         color: var(--darkbluePC);
         height:11vh;
@@ -291,14 +287,37 @@
         background-color: var(--catCulte); /* à varier selon la couleur du marker */
     }
 
+    .leaflet-popup-tip-container{
+        margin-top: -1px;
+    }
+
     .leaflet-popup-content-wrapper {
         color: white;
         font-family: Roboto;
         border-radius: 0;
     }
 
+    .leaflet-popup-content{
+        margin:0.7em;
+        line-height: initial;
+    }
+
     .leaflet-container a.leaflet-popup-close-button {
         color:white;
+        font-size: 1em;
+        display: none;
+    }
+    
+    .popupImage {
+        max-width:100%;
+        max-height: 10em;
+    }
+
+    .popupTitle {
+        font-size:1em;
+        text-align: center;
+        
+        padding-bottom: 0.7em;
     }
            
 </style>
