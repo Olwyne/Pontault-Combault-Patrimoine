@@ -60,12 +60,11 @@
   import MarkerPopup from "./MarkerPopup";
   import { latLng } from "leaflet";
   import BaladeFooter from '../components/BaladeFooter'
-  import { mapActions } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'Balade',
  
-    props:["walk"],
     data () {
       return {
         markerList: [],
@@ -79,6 +78,14 @@
         polyline: {
           latlngs: [],
           color: "green"
+        },
+        walk:{
+          name: null,
+          description: null,
+          distance: null,
+          duration: null,
+          photos: null,
+          locations: []
         },
         lieuxBalade: []
       };
@@ -106,14 +113,6 @@
                 'setActiveLocation',
                 'setActivePage'
           ]),
-        updatePage: function (location,lieu) {
-            const datas={
-                location: location,
-                lieu:lieu
-            }
-            this.$emit('updatePage', datas)
-          
-        },
       formated(coords) {
         return latLng(coords)
       },
@@ -209,7 +208,14 @@
       this.trackPosition()
       this.addMarkerLocation()
       this.addWalk()
-    }
+      this.walk=this.getActiveWalk
+    },
+    computed:{
+            ... mapGetters([
+                'getActivePage',
+                'getActiveWalk'
+            ]),
+    },
   };
 
 </script>

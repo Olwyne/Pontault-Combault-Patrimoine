@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const state= {
     localStoreLocation:[],
     activeLocation: {},
-    activePage:null
+    activePage:null,
+    activeWalk:{}
 }
 
 const mutations= {
@@ -19,8 +20,10 @@ const mutations= {
     },
     SET_ACTIVE_PAGE(state, props){
         state.activePage=props
-
-    }
+    },
+    SET_ACTIVE_WALK(state, props){
+        state.activeWalk=props
+    },
     
 }
 const getters={
@@ -32,7 +35,10 @@ const getters={
     },
     getActivePage(state){
         return state.activePage
-    }
+    },
+    getActiveWalk(state){
+        return state.activeWalk
+    },
 }
 
 const actions={
@@ -44,7 +50,10 @@ const actions={
     },
     setActivePage : (store,props) => {
         store.commit('SET_ACTIVE_PAGE', props)
-    }
+    },
+    setActiveWalk : (store,props) => {
+        store.commit('SET_ACTIVE_WALK', props)
+    },
 }
 
 export default new Vuex.Store({
