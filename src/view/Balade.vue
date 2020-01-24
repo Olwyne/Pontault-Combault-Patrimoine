@@ -1,53 +1,51 @@
 <template>
     <div>
         <div class="marginFooter">
-        <div class="baladeMap">
-            <l-map id="vuemap" :zoom="zoom" :center="center">
-              <l-tile-layer :url="url"></l-tile-layer>
-              <l-polyline
-                :lat-lngs="polyline.latlngs"
-                :color="polyline.color"
-              />
-              <marker-popup
-                :position="formated(center)"
-                :text="'Vous êtes ici'"
-                :icontest="'https://cdn0.iconfinder.com/data/icons/map-locations-glyph-1/100/pin-location-map-place-spot-position-512.png'"
-              />
-              <marker-popup
-                v-for="(marker,i) in markerList" :key="i"
-                :position="formated(marker.coord)"
-                :text="marker.text"
-                :icontest="marker.category"
-              />
-              <l-control> 
-                <button @click="increaseCenter"  class="localisationButton"><img src="../img/target-me.svg" /></button>
-              </l-control>
-            </l-map>
-        </div>
-        <div class="baladeContainer">
-            <div class="placeTitle">{{ walk.name }}</div>
-            <div class="d-flex justify-content-center">
-                <div class="baladeDistance d-flex justify-content-center">
-                    <div class="align-self-end"><img src="../img/distance-blue.svg" /></div>
-                    <div class="align-self-end km">{{ walk.distance }}</div>
-                </div>
-                <div class="baladeDuration d-flex justify-content-center">
-                    <div class="align-self-end"><img src="../img/chronometer-blue.svg" /></div>
-                    <div class="align-self-end duration">{{ walk.duration }}</div>
+            <div class="baladeMap">
+                <l-map id="vuemap" :zoom="zoom" :center="center">
+                    <l-tile-layer :url="url"></l-tile-layer>
+                    <l-polyline :lat-lngs="polyline.latlngs"
+                                :color="polyline.color" />
+                    <marker-popup :position="formated(center)"
+                                  :text="'Vous êtes ici'"
+                                  :icontest="'https://cdn0.iconfinder.com/data/icons/map-locations-glyph-1/100/pin-location-map-place-spot-position-512.png'" />
+                    <marker-popup v-for="(marker,i) in markerList" :key="i"
+                                  :position="formated(marker.coord)"
+                                  :text="marker.text"
+                                  :icontest="marker.category" />
+                    <l-control>
+                        <button @click="increaseCenter" class="localisationButton"><img src="../img/target-me.svg" /></button>
+                    </l-control>
+                </l-map>
+            </div>
+            <div class="baladeContainer">
+                <div class="placeTitle">{{ title }}</div>
+                <div class="underPlaceTitle">
+                    <div class="d-flex justify-content-between">
+                        <div class="baladeDistance d-flex justify-content-center">
+                            <div class="align-self-end"><img src="../img/distance-blue.svg" /></div>
+                            <div class="align-self-end km">{{ distance }}</div>
+                        </div>
+                        <div class="baladeDetails d-flex justify-content-center"><div class="align-self-end det">Détails</div></div>
+                        <div class="baladeDuration d-flex justify-content-center">
+                            <div class="align-self-end"><img src="../img/chronometer-blue.svg" /></div>
+                            <div class="align-self-end duration">{{ duration }}</div>
+                        </div>
+                    </div>
+                    <div class="text-center"><img class="downArrow" src="../img/down-arrow.svg" /></div>
                 </div>
             </div>
-        </div>
-        <div class="text-center">
-            <img class="placeImage" v-bind:src="walk.photos" />
-        </div>
-        <div class="lieuxList">
-            <!-- mettre le lien du lieu dans le src suivant -->
-            <div>Sur le parcours :</div>
-            <a src="" @click="setActivePage('Lieu', lieuBalade); setActiveLocation(lieuBalade)"  v-for="lieuBalade in walk.locations" v-bind:key="lieuBalade" >- {{ lieuBalade }}</a>
-        </div>
-        <div class="placeBody">
-            <div class="placeText" v-html="walk.description" ></div>
-        </div>
+            <div class="text-center">
+                <img class="placeImage" v-bind:src="walk.photos" />
+            </div>
+            <div class="lieuxList">
+                <!-- mettre le lien du lieu dans le src suivant -->
+                <div>Sur le parcours :</div>
+                <a src="" @click="updatePage('Lieu', lieuBalade); setActiveLocation(lieuBalade)" v-for="lieuBalade in walk.locations">- {{ lieuBalade }}</a>
+            </div>
+            <div class="placeBody">
+                <div class="placeText" v-html="walk.description"></div>
+            </div>
         </div>
         <BaladeFooter :walk="walk" />
     </div>
@@ -168,37 +166,99 @@
                         self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
                     }
                 }
-            }
-          });
-        });
-      },
-      addWalk(){
-        let self=this
-        var query =  db.ref('app/walks/').orderByKey();
-        query.once("value")
-        .then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            var name = (childSnapshot.val());
-            if (name.name == self.walk.name){
-                self.polyline.latlngs.push(name.gps)
-                if (name.category == "Histoire"){
-                  self.polyline.color = "#ff66ff"
+                this.$emit('updatePage', datas)
+
+            },
+            formated(coords) {
+                return latLng(coords)
+            },
+            increaseCenter() {
+                this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
+                //console.log(this.center)
+            },
+            trackPosition() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 0,
+                    })
                 }
-                else if (name.category == "Culte"){
-                  self.polyline.color = "#0099ff"
-                }
-                else if (name.category == "Nature"){
-                  self.polyline.color = "#00ff99"
-                }
-                else if (name.category == "Culture"){
-                  self.polyline.color = "#9900cc"
-                }
-                else if (name.category == "Parc"){
-                  self.polyline.color = "#cc3300"
-                }  
                 else {
-                    self.polyline.color = "#000000"
-                }  
+                    alert(`Browser doesn't support Geolocation`)
+                }
+            },
+            successPosition: function (position) {
+                this.center = [position.coords.latitude, position.coords.longitude]
+                //console.log(this.center)
+            },
+            failurePosition: function (err) {
+                alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+            },
+            addMarkerLocation() {
+                let self = this
+                var query = db.ref('app/locations/').orderByKey();
+                query.once("value")
+                    .then(function (snapshot) {
+                        snapshot.forEach(function (childSnapshot) {
+                            var name = (childSnapshot.val());
+                            let catIcon;
+                            if (name.category == "Histoire") {
+                                catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+                            }
+                            if (name.category == "Culte") {
+                                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                            }
+                            if (name.category == "Nature") {
+                                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                            }
+                            if (name.category == "Culture") {
+                                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                            }
+                            if (name.category == "Parc") {
+                                catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                            }
+                            let textContent = "<div class='popupTitle'>" + name.name + "</div>" + "<div class='text-center'><img class='popupImage'  src='" + name.photos + "' alt='err'></div>"
+                            if (name.gps) {
+                                for (var i = 0; i < self.walk.locations.length; i++) {
+                                    if (name.name == self.walk.locations[i]) {
+                                        self.markerList.push({ coord: name.gps, text: textContent, category: catIcon })
+                                    }
+                                }
+                            }
+                        });
+                    });
+            },
+            addWalk() {
+                let self = this
+                var query = db.ref('app/walks/').orderByKey();
+                query.once("value")
+                    .then(function (snapshot) {
+                        snapshot.forEach(function (childSnapshot) {
+                            var name = (childSnapshot.val());
+                            if (name.name == self.walk.name) {
+                                self.polyline.latlngs.push(name.gps)
+                                if (name.category == "Histoire") {
+                                    self.polyline.color = "#ff66ff"
+                                }
+                                else if (name.category == "Culte") {
+                                    self.polyline.color = "#0099ff"
+                                }
+                                else if (name.category == "Nature") {
+                                    self.polyline.color = "#00ff99"
+                                }
+                                else if (name.category == "Culture") {
+                                    self.polyline.color = "#9900cc"
+                                }
+                                else if (name.category == "Parc") {
+                                    self.polyline.color = "#cc3300"
+                                }
+                                else {
+                                    self.polyline.color = "#000000"
+                                }
+                            }
+                        });
+                    });
             }
           });
         });
@@ -223,12 +283,32 @@
 
 
 <style>
-    .baladeMap{
-    width: 100%;    
+    .baladeMap #vuemap {
+        width: 100%;
+        height: 55vh;
     }
 
     .baladeContainer {
-        margin: 1em;
+        padding: 0.5em;
+        height: 17vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .baladeContainer .placeTitle {
+            margin: 0;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+    .underPlaceTitle {
+        height: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .baladeDistance, .baladeDuration, .baladeDetails {
@@ -236,20 +316,28 @@
         text-align: center;
         color: var(--darkbluePC);
     }
-    
-    .lieuxList{
-        margin:2em;
+
+    .downArrow {
+        height: 0.9em;
+    }
+
+    .det {
+        line-height: 1em;
         color: var(--darkbluePC);
     }
 
-    .lieuxList a{
-        color: var(--bluePC);
-        display: block;
+    .lieuxList {
+        margin: 2em;
+        color: var(--darkbluePC);
     }
 
-    .marginFooter{
+        .lieuxList a {
+            color: var(--bluePC);
+            display: block;
+        }
+
+    .marginFooter {
         margin-bottom: 7em;
     }
-
 </style>
 
