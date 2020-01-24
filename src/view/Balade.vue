@@ -8,7 +8,7 @@
                                 :color="polyline.color" />
                     <marker-popup :position="formated(center)"
                                   :text="'Vous êtes ici'"
-                                  :icontest="'https://cdn0.iconfinder.com/data/icons/map-locations-glyph-1/100/pin-location-map-place-spot-position-512.png'" />
+                                  :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fuser-location-darkblue.svg?alt=media&token=227a942e-1183-4252-99fe-9ea4cdebfa8e'" />
                     <marker-popup v-for="(marker,i) in markerList" :key="i"
                                   :position="formated(marker.coord)"
                                   :text="marker.text"
@@ -136,41 +136,7 @@
         failurePosition: function(err) {
             alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
         },
-        addMarkerLocation(){
-            let self=this
-            var query =  db.ref('app/locations/').orderByKey();
-            query.once("value").then(function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                    var name = (childSnapshot.val());
-                    let catIcon;
-                    if (name.category == "Histoire"){
-                    catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
-                    }
-                    if (name.category == "Culte"){
-                    catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-                    }
-                    if (name.category == "Nature"){
-                    catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-                    }
-                    if (name.category == "Culture"){
-                    catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-                    }
-                    if (name.category == "Parc"){
-                    catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
-                    }
-                    let textContent = "<b>"+name.name+"</b>"+"<div><img style = 'height: 40px;' src='"+name.photos+"' alt='err'></div>"
-                    if(name.gps) {
-                        for (var i = 0; i < self.walk.locations.length; i++) {
-                            if (name.name == self.walk.locations[i]){
-                                self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
-                            }
-                        }
-                        this.$emit('updatePage', datas)
 
-                    }
-                })
-            })
-        },
         formated(coords) {
             return latLng(coords)
         },
@@ -205,20 +171,20 @@
                     snapshot.forEach(function (childSnapshot) {
                         var name = (childSnapshot.val());
                         let catIcon;
-                        if (name.category == "Histoire") {
-                            catIcon = 'https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color/254000/66-512.png'
+                        if (name.category == "Histoire"){
+                          catIcon = "https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-histoire.svg?alt=media&token=ef37c804-6ddb-4505-a3c3-c62aad80e139"
                         }
-                        if (name.category == "Culte") {
-                            catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                        if (name.category == "Culte"){
+                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culte.svg?alt=media&token=6f1b79fd-d690-489f-abd8-4e4b964a9155'
                         }
-                        if (name.category == "Nature") {
-                            catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                        if (name.category == "Nature"){
+                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-nature.svg?alt=media&token=92822626-4c3b-47c8-9b3c-e1a4a9b96dcf'
                         }
-                        if (name.category == "Culture") {
-                            catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                        if (name.category == "Culture"){
+                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culture.svg?alt=media&token=6fdea4b4-2d43-4027-ae24-7ad838a171e3'
                         }
-                        if (name.category == "Parc") {
-                            catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
+                        if (name.category == "Parc"){
+                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-parc.svg?alt=media&token=d6632431-5d31-4584-9071-b129b9f710b4'
                         }
                         let textContent = "<div class='popupTitle'>" + name.name + "</div>" + "<div class='text-center'><img class='popupImage'  src='" + name.photos + "' alt='err'></div>"
                         if (name.gps) {
