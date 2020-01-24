@@ -170,7 +170,7 @@
                             if (name.category == "Parc") {
                                 catIcon = 'http://simpleicon.com/wp-content/uploads/map-marker-2.png'
                             }
-                            let textContent = "<b>" + name.name + "</b>" + "<div><img style = 'height: 40px;' src='" + name.photos + "' alt='err'></div>"
+                            let textContent = "<div class='popupTitle'>" + name.name + "</div>" + "<div class='text-center'><img class='popupImage'  src='" + name.photos + "' alt='err'></div>"
                             if (name.gps) {
                                 for (var i = 0; i < self.walk.locations.length; i++) {
                                     if (name.name == self.walk.locations[i]) {
