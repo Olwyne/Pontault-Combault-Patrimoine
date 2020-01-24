@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container containerBackoffice">
     <FormAddLocation></FormAddLocation>
     <FormDeleteLocation></FormDeleteLocation>
     <FormAddWalk></FormAddWalk>
@@ -15,7 +15,8 @@ import FormDeleteLocation from '../components/FormDeleteLocation'
 import FormAddLocation from '../components/FormAddLocation'
 import FormAddWalk from '../components/FormAddWalk'
 import FormDeleteWalk from '../components/FormDeleteWalk'
-export default {
+    export default {
+  name: "Backoffice",
   components: {
     FormDeleteLocation,
     FormAddLocation,
@@ -82,3 +83,9 @@ export default {
   }
 }
 </script>
+
+<style>
+    .containerBackoffice, .containerBackoffice h1,  input, #photos, option  {
+        color: #44546a;
+    }
+ </style>

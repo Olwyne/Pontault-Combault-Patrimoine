@@ -1,55 +1,60 @@
 <template>
-  <div class="formAddLocation">
+  <div class="formAddLocation form-group">
     <h1>Ajout d'un lieu</h1>
     <form id="addLocation" novalidate="true">
 
-      <p v-if="errors.length">
+      <div v-if="errors.length">
         <b>Please correct the following error(s):</b>
         <ul>
           <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
         </ul>
-      </p>
+      </div>
 
-      <p>
+      <div class="form-group">
         <label for="nameLocation">Nom du lieu</label>
-        <input id="nameLocation" v-model="nameLocation" type="text" name="nameLocation">
-      </p>
+        <input id="nameLocation" v-model="nameLocation" type="text" name="nameLocation" class="form-control">
+      </div>
 
-      <p>
+      <div class="form-group">
         <label for="addressLocation">Addresse du lieu</label>
-        <input id="addressLocation" v-model="addressLocation" type="addressLocation" name="addressLocation">
-      </p>
+        <input id="addressLocation" v-model="addressLocation" type="addressLocation" name="addressLocation"  class="form-control">
+      </div>
 
-      <p>
+      <div class="form-group">
         <label for="categories">Catégorie du lieu</label>
-        <select id="categoryLocation" v-model="categoryLocation" name="categoryLocation">
+        <select id="categoryLocation" v-model="categoryLocation" name="categoryLocation" class="form-control">
           <option v-for="category in categories" v-bind:key="category" v-bind:value="category">
             {{category}}
           </option>
         </select>
-      </p>
+      </div>
     
-      <p>
+      <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="description" v-model="description" name="description"></textarea>
-      </p>
+        <textarea id="description" v-model="description" name="description" class="form-control"></textarea>
+      </div>
 
-      <p>
-        <label for="latitudeLocation">Latitude</label>
-        <input type="number" v-model="latitudeLocation" id="latitudeLocation" name="latitudeLocation">
-        
-        <label for="longitudeLocation">Longitude</label>
-        <input type="number" v-model="longitudeLocation" id="longitudeLocation" name="longitudeLocation">
-      </p>
+      <div class="form-group row">
+          <div class="col">
+              <label for="latitudeLocation">Latitude</label>
+              <input type="number" v-model="latitudeLocation" id="latitudeLocation" name="latitudeLocation" class="form-control">
+          </div>
+          <div class="col">
+              <label for="longitudeLocation">Longitude</label>
+              <input type="number" v-model="longitudeLocation" id="longitudeLocation" name="longitudeLocation" class="form-control">
+          </div>
+      </div>
   
-      <p>
+      <div class="form-group">
         <label for="photos">Photo</label>
+          <br />
         <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
-      </p>
+      </div>
       
-      <div @click="checkForm">Ajouter le lieu</div>
-  
-      <progress id="uploader" value="0" max="100">0%</progress>
+      <div @click="checkForm" class="btn btn-primary form-group">Ajouter le lieu</div>
+      <div class="progress">
+          <progress id="uploader" value="0" max="100">0%</progress>
+      </div>
     </form>
   </div>
 </template>
@@ -122,5 +127,35 @@ export default {
 }
 </script>
 
-<style >
+<style>
+    #uploader {
+        width: 100%;
+        height: 100%;
+    }
+
+    .btn-primary {
+        background-color: #5b9bd5;
+        border: none;
+    }
+
+        .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+            background-color: #42719a;
+            border: none;
+        }
+
+    progress[value] {
+        /* Reset the default appearance */
+        -webkit-appearance: none;
+        appearance: none;
+        width: 250px;
+        height: 20px;
+    }
+
+        progress[value]::-webkit-progress-bar {
+            background-color: #eee;
+        }
+
+        progress[value]::-webkit-progress-value {
+            background-color: #5b9bd5;
+        }
 </style>

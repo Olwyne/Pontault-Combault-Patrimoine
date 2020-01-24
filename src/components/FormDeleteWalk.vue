@@ -10,18 +10,18 @@
                 </ul>
             </p>
 
-            <p>
-                <label for="walks">Balade</label>
-                <select id="choiceWalkDelete" v-model="choiceWalkDelete" name="choiceWalkDelete">
+            <div class="form-group">
+                <label for="walks">Sélectionner la balade à supprimer</label>
+                <select multiple id="choiceWalkDelete" v-model="choiceWalkDelete" name="choiceWalkDelete" class="form-control">
                     <option v-for="walk in walks" v-bind:key="walk" v-bind:value="walk">
                         {{walk}}
                     </option>
                 </select>
-            </p>
+            </div>
 
-            <p>
-                <input type="submit" value="Submit">
-            </p>
+            <div class="form-group">
+                <input type="submit" value="Supprimer" class="btn btn-primary">
+            </div>
         </form>
     </div>
 </template>

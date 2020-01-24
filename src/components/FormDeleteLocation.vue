@@ -10,18 +10,18 @@
                 </ul>
             </p>
 
-            <p>
+            <div class="form-group">
                 <label for="locations">Lieux</label>
-                <select id="choiceLocationDelete" v-model="choiceLocationDelete" name="choiceLocationDelete">
+                <select id="choiceLocationDelete" v-model="choiceLocationDelete" name="choiceLocationDelete0 "  class="form-control">
                     <option v-for="location in locations" v-bind:key="location" v-bind:value="location">
                         {{location}}
                     </option>
                 </select>
-            </p>
+            </div>
 
-            <p>
-                <input type="submit" value="Submit">
-            </p>
+            <div class="form-group">
+                <input type="submit" value="Supprimer" class="btn btn-primary ">
+            </div>
         </form>
     </div>
 </template>

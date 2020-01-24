@@ -10,59 +10,51 @@
         </ul>
       </p>
 
-      <p>
+      <div class="form-group">
         <label for="locations">Lieux à ajouter</label>
-        <select id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk">
+        <select multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
           <option v-for="location in locations" v-bind:key="location" v-bind:value="location">
             {{location}}
           </option>
         </select>
-      </p>
+      </div>
 
-      <div @click="checkFormAddWalk">Ajouter le lieu à la balade</div>
+      <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
 
     </form>
           
     <form id="addWalk" @submit="checkForm" novalidate="true">
-      <div>
-        <h2> Lieux ajoutés :</h2>
-        <ul>
-          <li v-for="locationWalk in locationsWalk" v-bind:key="locationWalk">
-            {{ locationWalk }}
-          </li>
-        </ul>
-      </div>
+        <div>
+            <div> Lieux ajoutés :</div>
+            <ul>
+                <li v-for="locationWalk in locationsWalk" v-bind:key="locationWalk" class="lieuAjoute">
+                    {{ locationWalk }}
+                </li>
+            </ul>
+        </div>
 
-      <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-        </ul>
-      </p>
+        <p v-if="errors.length">
+            <b>Please correct the following error(s):</b>
+            <ul>
+                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+            </ul>
+        </p>
 
-      <p>
-        <label for="nameWalk">Nom de la balade</label>
-        <input id="nameWalk" v-model="nameWalk" type="text" name="nameWalk">
-      </p>
+        <div class="form-group">
+            <label for="nameWalk">Nom de la balade</label>
+            <input id="nameWalk" v-model="nameWalk" type="text" name="nameWalk" class="form-control">
+        </div>
+        <div class="form-group">
+            <RichEditorText></RichEditorText>
+        </div>
 
-      <p>
-        <label for="categories">Categorie de la balade</label>
-        <select id="categoryWalk" v-model="categoryWalk" name="categoryWalk">
-          <option v-for="category in categories" v-bind:key="category" v-bind:value="category">
-            {{category}}
-          </option>
-        </select>
-      </p>
-      
-      <RichEditorText></RichEditorText>
+        <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
 
-      <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
+        <myMap :newcoords="polyline.latlngs"></myMap>
 
-      <myMap :newcoords="polyline.latlngs"></myMap>
-  
-      <p>
-        <input type="submit" value="Submit">
-      </p>
+        <div class="form-group">
+            <input type="submit" value="Ajouter la balade" class="btn btn-primary">
+        </div>
     </form>
   </div>
 </template>
@@ -166,4 +158,5 @@ export default {
 </script>
 
 <style >
+
 </style>
