@@ -7,7 +7,10 @@
                 <img class="float-left logoAsso" src="../img/logo-asso.svg" />
                 <div class="caseLine">Partez à la découverte du patrimoine historique et naturel de Pontault-Combault !</div>
             </div>
-            <div class="homeText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            <div class="homeText">
+                L'Association pour la protection du patrimoine de Pontault-Combault œuvre pour la sauvegarde et la valorisation du patrimoine de la ville.
+                <br />Attachés à le faire connaître à chacun, nous avons développé cette application. Nous vous souhaitons de belles découvertes !
+            </div>
         </div>
     </div>
 </template>
