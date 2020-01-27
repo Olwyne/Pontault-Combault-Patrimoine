@@ -171,22 +171,29 @@
                     snapshot.forEach(function (childSnapshot) {
                         var name = (childSnapshot.val());
                         let catIcon;
-                        if (name.category == "Histoire"){
-                          catIcon = "https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-histoire.svg?alt=media&token=ef37c804-6ddb-4505-a3c3-c62aad80e139"
-                        }
-                        if (name.category == "Culte"){
-                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culte.svg?alt=media&token=6f1b79fd-d690-489f-abd8-4e4b964a9155'
-                        }
-                        if (name.category == "Nature"){
-                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-nature.svg?alt=media&token=92822626-4c3b-47c8-9b3c-e1a4a9b96dcf'
-                        }
-                        if (name.category == "Culture"){
-                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culture.svg?alt=media&token=6fdea4b4-2d43-4027-ae24-7ad838a171e3'
-                        }
-                        if (name.category == "Parc"){
-                          catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-parc.svg?alt=media&token=d6632431-5d31-4584-9071-b129b9f710b4'
-                        }
-                        let textContent = "<div class='popupTitle'>" + name.name + "</div>" + "<div class='text-center'><img class='popupImage'  src='" + name.photos + "' alt='err'></div>"
+            let catColor;
+            if (name.category == "Histoire"){
+              catIcon = "https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-histoire.svg?alt=media&token=ef37c804-6ddb-4505-a3c3-c62aad80e139"
+              catColor = "#741d89"
+            }
+            if (name.category == "Culte"){
+              catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culte.svg?alt=media&token=6f1b79fd-d690-489f-abd8-4e4b964a9155'
+              catColor = "#a21414"
+
+            }
+            if (name.category == "Nature"){
+              catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-nature.svg?alt=media&token=92822626-4c3b-47c8-9b3c-e1a4a9b96dcf'
+              catColor = "#539312"
+            }
+            if (name.category == "Culture"){
+              catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culture.svg?alt=media&token=6fdea4b4-2d43-4027-ae24-7ad838a171e3'
+              catColor = "#e66f13"
+            }
+            if (name.category == "Parc"){
+              catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-parc.svg?alt=media&token=d6632431-5d31-4584-9071-b129b9f710b4'
+              catColor = "#d9d217"
+            }
+            let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
                         if (name.gps) {
                             for (var i = 0; i < self.walk.locations.length; i++) {
                                 if (name.name == self.walk.locations[i]) {
@@ -206,19 +213,19 @@
                     if (name.name == self.walk.name) {
                         self.polyline.latlngs.push(name.gps)
                         if (name.category == "Histoire") {
-                            self.polyline.color = "#ff66ff"
+                            self.polyline.color = "#741d89"
                         }
                         else if (name.category == "Culte") {
-                            self.polyline.color = "#0099ff"
+                            self.polyline.color = "#a21414"
                         }
                         else if (name.category == "Nature") {
-                            self.polyline.color = "#00ff99"
+                            self.polyline.color = "#539312"
                         }
                         else if (name.category == "Culture") {
-                            self.polyline.color = "#9900cc"
+                            self.polyline.color = "#e66f13"
                         }
                         else if (name.category == "Parc") {
-                            self.polyline.color = "#cc3300"
+                            self.polyline.color = "#d9d217"
                         }
                         else {
                             self.polyline.color = "#000000"
@@ -302,5 +309,11 @@
     .marginFooter {
         margin-bottom: 7em;
     }
+
+    .leaflet-popup-tip, .leaflet-popup-content-wrapper {
+      background-color: #fff; /* à varier selon la couleur du marker */
+    }
+
+
 </style>
 
