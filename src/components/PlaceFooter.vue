@@ -4,7 +4,7 @@
             <img src="../img/back-white.svg" />
             <div class="footerText">Retour</div>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" @click="openMap">
             <img src="../img/route-white.svg" />
             <div class="footerText">M'y rendre</div>
         </div>
@@ -41,6 +41,9 @@
                     localStorage.setItem('StorageLocations', parsed);
                      this.heart="./img/heart-full-white.svg"
                 }
+            },
+            openMap(){
+                document.location.href="http://maps.google.com/?q="+ this.lieu.address +" ,Pontault Combault, 77340"; 
             },
             readStoreLocation(){
                 const stored = this.getLocalStoreLocation
