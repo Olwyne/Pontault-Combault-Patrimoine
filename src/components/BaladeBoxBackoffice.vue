@@ -41,9 +41,10 @@ import { db } from '../config/db'
         },
         methods: {
             ... mapActions([
-                'deleteWalkFromStore'
+                'deleteBackofficeWalk'
             ]),
             removeWalkCarnet(name) {
+                this.deleteBackofficeWalk(this.walk)
                 db.ref('app/walks/'+name).remove().then(() => {
             
             })
@@ -55,6 +56,7 @@ import { db } from '../config/db'
         computed:{
             ... mapGetters([
                 'getLocalStoreWalk',
+                
             ]),
         },
     }

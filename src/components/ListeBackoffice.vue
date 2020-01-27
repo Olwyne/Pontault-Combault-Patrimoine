@@ -1,9 +1,9 @@
 <template>
   <div class="container containerBackoffice">
 	<h1>Lieux <span  @click="setActivePageBackoffice('FormAddLocation')">+</span></h1>  
-    <LocationBoxBackoffice v-for="location in locations" :key="location.name" :location='location'></LocationBoxBackoffice>
+    <LocationBoxBackoffice v-for="location in getBackofficeLocation" :key="location.name" :location='location'></LocationBoxBackoffice>
 	<h1>Balades <span @click="setActivePageBackoffice('FormAddWalk')">+</span></h1>
-    <BaladeBoxBackoffice v-for="walk in walks" :key="walk.name" :walk='walk'></BaladeBoxBackoffice>
+    <BaladeBoxBackoffice v-for="walk in getBackofficeWalk" :key="walk.name" :walk='walk'></BaladeBoxBackoffice>
 	
     <!-- <FormAddLocation></FormAddLocation>
     <FormDeleteLocation></FormDeleteLocation>
@@ -49,6 +49,8 @@ import FormDeleteWalk from '../components/FormDeleteWalk'
   methods:{
       ... mapActions([
                 'setActivePageBackoffice',
+                'setBackofficeLocation',
+                'setBackofficeWalk'
         ]),
     readLocations(){
         let self=this
@@ -56,8 +58,9 @@ import FormDeleteWalk from '../components/FormDeleteWalk'
 		query.once("value")
 		.then(function(snapshot) {
 			snapshot.forEach(function(childSnapshot) {
-				self.locations.push(childSnapshot.val());  
-			});
+        self.locations.push(childSnapshot.val());  
+      });
+      self.setBackofficeLocation(self.locations)
 		});
 	},
 	readWalks(){
@@ -67,11 +70,19 @@ import FormDeleteWalk from '../components/FormDeleteWalk'
 		.then(function(snapshot) {
 			snapshot.forEach(function(childSnapshot) {
 				self.walks.push(childSnapshot.val());  
-			});
+      });
+            self.setBackofficeWalk(self.walks)
+
 		});
     },
   
   },
+  computed:{
+            ... mapGetters([
+                'getBackofficeLocation',
+                'getBackofficeWalk'
+            ]),
+    },
 	mounted: function(){
 		this.readLocations()
 		this.readWalks()

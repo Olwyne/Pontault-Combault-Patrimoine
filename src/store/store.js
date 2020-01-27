@@ -9,7 +9,9 @@ const state= {
     activeLocation: {},
     activePage:null,
     activePageBackoffice:null,
-    activeWalk:{}
+    activeWalk:{},
+    backofficeLocation:[],
+    backofficeWalk:[]
 }
 
 const mutations= {
@@ -36,7 +38,19 @@ const mutations= {
     },
     DELETE_WALK(state,props){
         state.localStoreWalk=state.localStoreWalk.filter((item) => item.name !== props.name)
-    }
+    },
+    DELETE_BACKOFFICE_LOCATION(state,props){
+        state.backofficeLocation=state.backofficeLocation.filter((item) => item.name !== props.name)
+    },
+    DELETE_BACKOFFICE_WALK(state,props){
+        state.backofficeWalk=state.backofficeWalk.filter((item) => item.name !== props.name)
+    },
+    SET_BACKOFFICE_LOCATION(state, props){
+        state.backofficeLocation=props
+    },
+    SET_BACKOFFICE_WALK(state, props){
+        state.backofficeWalk=props
+    },
 }
 const getters={
     getLocalStoreLocation(state){
@@ -59,6 +73,12 @@ const getters={
     },
     getActiveWalk(state){
         return state.activeWalk
+    },
+    getBackofficeLocation(state){
+        return state.backofficeLocation
+    },
+    getBackofficeWalk(state){
+        return state.backofficeWalk
     },
 }
 
@@ -86,6 +106,18 @@ const actions={
     },
     deleteWalkFromStore: (store, props) => {
         store.commit('DELETE_WALK', props)
+    },
+    deleteBackofficeLocation: (store, props) => {
+        store.commit('DELETE_BACKOFFICE_LOCATION', props)
+    },
+    deleteBackofficeWalk: (store, props) => {
+        store.commit('DELETE_BACKOFFICE_WALK', props)
+    },
+    setBackofficeLocation: (store, props) => {
+        store.commit('SET_BACKOFFICE_LOCATION', props)
+    },
+    setBackofficeWalk: (store, props) => {
+        store.commit('SET_BACKOFFICE_WALK', props)
     }
 }
 

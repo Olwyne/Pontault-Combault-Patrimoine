@@ -12,7 +12,7 @@
                         </div>
                         <div class="baladeDuration d-flex">
                         </div>
-                        <div class="modif"><img src="../img/pen.svg" /></div>
+                         <div class="modif"><img src="../img/pen.svg" /></div>
                         <div @click="removeLocationCarnet(location.name)" class="delete"><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
@@ -30,14 +30,42 @@ import { db } from '../config/db'
     export default {
         name:'LieuCarnetBox',
         props:['location'],
+        data() {
+            return {
+            documents: [],
+            errors: [],
+            toDelete:[]
+            }
+        },
         methods: {
             ... mapActions([
-                'deleteLocationFromStore'
+                'deleteBackofficeLocation'
             ]),
             removeLocationCarnet(name) {
-                 db.ref('app/locations/'+name).remove().then(() => {
-                     console.log("lieu effacé")
-                  })
+                this.deleteBackofficeLocation(this.location)
+                 
+                db.ref('app/locations/'+name).remove().then(() => {
+                    let self=this
+                    var query =  db.ref('app/walks/').orderByKey();
+                    query.once("value").then(function(snapshot) {
+                        snapshot.forEach(function(childSnapshot) {
+                            let present=childSnapshot.val()
+                            let stored = present.locations
+                            let tmp=0
+                            stored.forEach(function(child){
+                                   
+                                    if(child==self.location.name){
+                                        db.ref('app/walks/'+present.name+'/locations/'+tmp).remove()
+                                    }else{
+                                        tmp++
+                                    }
+                            })
+                        });
+                    });                    
+                })
+            },
+            readWalks(){
+                
             },
 
         },
