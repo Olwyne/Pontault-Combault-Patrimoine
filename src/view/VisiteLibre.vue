@@ -293,7 +293,7 @@
 
     .leaflet-popup-content-wrapper {
         color: white;
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;
         border-radius: 0;
     }
 
