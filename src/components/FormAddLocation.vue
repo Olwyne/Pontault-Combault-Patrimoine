@@ -17,7 +17,7 @@
       </div>
 
       <div class="form-group">
-        <label for="addressLocation">Addresse du lieu</label>
+        <label for="addressLocation">Adresse du lieu</label>
         <input id="addressLocation" v-model="addressLocation" type="addressLocation" name="addressLocation"  class="form-control">
       </div>
 

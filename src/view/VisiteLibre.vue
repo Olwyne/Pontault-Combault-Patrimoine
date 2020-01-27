@@ -74,7 +74,7 @@
               />
               <marker-popup
                 :position="formated(center)"
-                :text="'Le titre du lieu'"
+                :text="'<b>Vous êtes ici</b>'"
                 :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fuser-location-darkblue.svg?alt=media&token=227a942e-1183-4252-99fe-9ea4cdebfa8e'"
               />
               <marker-popup
@@ -172,22 +172,29 @@
           snapshot.forEach(function(childSnapshot) {
             var name = (childSnapshot.val());
             let catIcon;
+            let catColor;
             if (name.category == "Histoire"){
               catIcon = "https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-histoire.svg?alt=media&token=ef37c804-6ddb-4505-a3c3-c62aad80e139"
+              catColor = "#741d89"
             }
             if (name.category == "Culte"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culte.svg?alt=media&token=6f1b79fd-d690-489f-abd8-4e4b964a9155'
+              catColor = "#a21414"
+
             }
             if (name.category == "Nature"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-nature.svg?alt=media&token=92822626-4c3b-47c8-9b3c-e1a4a9b96dcf'
+              catColor = "#539312"
             }
             if (name.category == "Culture"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culture.svg?alt=media&token=6fdea4b4-2d43-4027-ae24-7ad838a171e3'
+              catColor = "#e66f13"
             }
             if (name.category == "Parc"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-parc.svg?alt=media&token=d6632431-5d31-4584-9071-b129b9f710b4'
+              catColor = "#d9d217"
             }
-            let textContent = "<div class='popupTitle'>"+name.name+"</div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
+            let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
             if(name.gps) {
             console.log(name.gps)
             self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
@@ -283,9 +290,9 @@
         color:var(--darkbluePC);
     }
 
-    .leaflet-popup-tip, .leaflet-popup-content-wrapper {
-        background-color: var(--catCulte); /* à varier selon la couleur du marker */
-    }
+    /*.leaflet-popup-tip, .leaflet-popup-content-wrapper {
+        background-color: var(--catCulte); 
+    }*/
 
     .leaflet-popup-tip-container{
         margin-top: -1px;
@@ -293,13 +300,14 @@
 
     .leaflet-popup-content-wrapper {
         color: white;
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;
         border-radius: 0;
     }
 
     .leaflet-popup-content{
         margin:0.7em;
         line-height: initial;
+        color: #44546a;
     }
 
     .leaflet-container a.leaflet-popup-close-button {
