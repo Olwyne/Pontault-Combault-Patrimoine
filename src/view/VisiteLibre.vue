@@ -82,12 +82,14 @@
                 :position="formated(marker.coord)"
                 :text="marker.text"
                 :icontest="marker.category"
+                @click="test"
               />
                   <l-control>
                       <button @click="increaseCenter" class="localisationButton">
                           <img src="../img/target-me.svg" />
                       </button>
                   </l-control>
+
             </l-map>
         </div>
     </div>
@@ -142,6 +144,9 @@
       formated(coords) {
         return latLng(coords)
       },
+      test() {
+        console.log("test")
+      },  
       increaseCenter() {
         this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
         //console.log(this.center)
