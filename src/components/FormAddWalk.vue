@@ -14,8 +14,8 @@
 
       <div class="form-group">
         <label for="locations">Lieux à ajouter</label>
-        <select multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
-          <option v-for="location in locations" v-bind:key="location" v-bind:value="location">
+        <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
+          <option v-for="location in locations" v-bind:key="location" >
             {{location}}
           </option>
         </select>
@@ -28,8 +28,8 @@
     <form id="addWalk" @submit="checkForm" novalidate="true">
         <div>
             <div> Lieux ajoutés :</div>
-            <ul>
-                <li v-for="locationWalk in locationsWalk" v-bind:key="locationWalk" class="lieuAjoute">
+            <ul >
+                <li  v-for="locationWalk in locationsWalk"  v-bind:value="locationWalk" v-bind:key="locationWalk" class="lieuAjoute">
                     {{ locationWalk }}
                 </li>
             </ul>
@@ -68,8 +68,11 @@
         <myMap :newcoords="polyline.latlngs"></myMap>
 
         <div class="form-group">
-            <input type="submit" value="Ajouter la balade" class="btn btn-primary">
+          <div @click="checkForm" class="form-group btn btn-primary "> Ajouter la balade</div>
         </div>
+        <div class="progress">
+          <progress id="uploader" value="0" max="100">0%</progress>
+      </div>
     </form>
   </div>
 </template>
