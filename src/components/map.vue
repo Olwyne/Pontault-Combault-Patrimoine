@@ -30,7 +30,6 @@
   export default {
     name: 'Balade',
     props:["newcoords"],
- 
     data () {
       return {
         markerList: [],

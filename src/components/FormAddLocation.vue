@@ -131,6 +131,7 @@ export default {
             var updates = {};
             updates[self.nameLocation] = postData;
             db.ref('app/locations').update(updates);
+			self.setActivePageBackoffice('ListeBackoffice')
           });
         }); 
       }

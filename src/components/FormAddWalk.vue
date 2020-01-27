@@ -186,6 +186,8 @@ export default {
             var updates = {};
             updates[self.nameWalk] = postData;
             db.ref('app/walk').update(updates);
+            self.setActivePageBackoffice('ListeBackoffice')
+
           });
         }); 
       }
