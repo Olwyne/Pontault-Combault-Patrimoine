@@ -28,6 +28,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { db } from '../config/db'
+
 
     export default {
         name:'BaladeCarnetBox',
@@ -42,10 +44,9 @@ import { mapActions, mapGetters } from 'vuex'
                 'deleteWalkFromStore'
             ]),
             removeWalkCarnet(name) {
-                // this.deleteWalkFromStore(this.balade)
-                // const stored = this.getLocalStoreWalk
-                // const parsed = JSON.stringify(stored); 
-                // localStorage.setItem('StorageWalk', parsed);
+                db.ref('app/walks/'+name).remove().then(() => {
+            
+            })
             },
 
         },

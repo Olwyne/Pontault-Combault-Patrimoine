@@ -18,7 +18,6 @@
         :icontest="marker.category"
       />
       <l-control> 
-        <button @click="increaseCenter">Localisez-moi</button>
       </l-control>
     </l-map>
   </div>

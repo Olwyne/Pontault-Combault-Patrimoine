@@ -23,6 +23,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { db } from '../config/db'
+
 
     export default {
         name:'LieuCarnetBox',
@@ -32,6 +34,9 @@ import { mapActions, mapGetters } from 'vuex'
                 'deleteLocationFromStore'
             ]),
             removeLocationCarnet(name) {
+                 db.ref('app/locations/'+name).remove().then(() => {
+                     console.log("lieu effacé")
+                  })
             },
 
         },
