@@ -12,6 +12,7 @@
                         </div>
                         <div class="baladeDuration d-flex">
                         </div>
+                        <div class="modif"><img src="../img/pen.svg" /></div>
                         <div @click="removeLocationCarnet(location.name)" class="delete"><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
