@@ -1,5 +1,7 @@
 <template>
   <div class="formAddLocation">
+        <div @click="setActivePageBackoffice('ListeBackoffice')">Retour</div>
+
     <h1>Ajout d'une balade</h1>
     <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
 
@@ -45,6 +47,19 @@
             <input id="nameWalk" v-model="nameWalk" type="text" name="nameWalk" class="form-control">
         </div>
         <div class="form-group">
+            <label for="duration">Durée de la balade</label>
+            <input id="duration" v-model="duration" type="number" name="duration" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="distance">Distance de la balade</label>
+            <input id="distance" v-model="nameWalk" type="number" name="distance" class="form-control">
+        </div>
+        <div class="form-group">
+        <label for="photos">Photo</label>
+          <br />
+        <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
+      </div>
+        <div class="form-group">
             <RichEditorText></RichEditorText>
         </div>
 
@@ -63,6 +78,7 @@
 import { db } from '../config/db'
 import RichEditorText from './RichEditorText'
 import myMap from './map'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: {
@@ -77,6 +93,8 @@ export default {
       address: null,
       categoryWalk: null,
       description: null,
+      duration:null,
+      distance:null,
       categories: [],
       locations: [],
       choiceLocationAddWalk: null,
@@ -92,6 +110,9 @@ export default {
       this.readCategory()
   },
   methods:{
+    ... mapActions([
+                'setActivePageBackoffice',
+        ]),
     loadTextFromFile(ev) {
       const file = ev.target.files[0];
       const reader = new FileReader();
@@ -140,19 +161,31 @@ export default {
     checkFormAddWalk(){
         this.locationsWalk.push(this.choiceLocationAddWalk)
     },
+   
     checkForm(e){
-      var postData = {
-        name: this.nameWalk,
-        category: this.categoryWalk,
-        description: this.description,
-        locations:this.locationsWalk,
-        gps: this.polyline.latlngs
-      };
-      var updates = {};
-      updates[this.nameWalk] = postData;
-      db.ref('app/walks').update(updates);
-
-    },
+        const self = this
+        let uploadTask = storageRef.child('app/locations/images/'+this.photos.name).put(this.photos);
+        uploadTask.on('state_changed', function(snapshot){
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          uploader.value = progress;
+        }, function(error) {
+        }, function() {
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            self.url=downloadURL;
+            var postData = {
+              name: this.nameWalk,
+              category: this.categoryWalk,
+              description: this.description,
+              locations:this.locationsWalk,
+              gps: this.polyline.latlngs,
+              photos:self.url
+                  };
+            var updates = {};
+            updates[self.nameWalk] = postData;
+            db.ref('app/walk').update(updates);
+          });
+        }); 
+      }
   }
 }
 </script>

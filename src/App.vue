@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="topPage sticky-top">
+        <!-- <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ pageTitle }}</div></div>
             <Navigation />
         </div>
-        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component> 
-        <!-- <Backoffice />
-      <myMap /> -->
+        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>  -->
+         <Backoffice />
+      <!-- <myMap /> -->
         <!-- il faudra prévoir que dans le component il peut y avoir une balade ou un lieu en cours de consultation -->
     </div>
 </template>
@@ -31,7 +31,8 @@ export default {
         Balades,
         Carnet,
         Lieu,
-        Balade
+        Balade,
+        Backoffice
     },
     data: function () {
         return {

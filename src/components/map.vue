@@ -21,7 +21,6 @@
         <button @click="increaseCenter">Localisez-moi</button>
       </l-control>
     </l-map>
-    {{newcoords}}
   </div>
 </template>
 

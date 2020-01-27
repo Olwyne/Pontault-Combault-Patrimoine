@@ -1,5 +1,6 @@
 <template>
   <div class="formAddLocation form-group">
+    <div @click="setActivePageBackoffice('ListeBackoffice')">Retour</div>
     <h1>Ajout d'un lieu</h1>
     <form id="addLocation" novalidate="true">
 
@@ -29,10 +30,10 @@
         </select>
       </div>
     
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" v-model="description" name="description" class="form-control"></textarea>
-      </div>
+       <div class="form-group">
+            <RichEditorText></RichEditorText>
+        </div>
+
 
       <div class="form-group row">
           <div class="col">
@@ -61,8 +62,15 @@
 
 <script>
 import { db,storageRef,storage, firebase } from '../config/db'
+import RichEditorText from './RichEditorText'
+import {mapActions, mapGetters} from 'vuex'
+
 
 export default {
+  components: {
+    RichEditorText,
+    
+  },
     data() {
         return {
           documents: [],
@@ -82,6 +90,9 @@ export default {
       this.readCategory()
     },
     methods:{
+      ... mapActions([
+                'setActivePageBackoffice',
+        ]),
       processFile(event) {
         let self=this
         self.photos = event.target.files[0]

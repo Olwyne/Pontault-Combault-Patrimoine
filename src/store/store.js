@@ -8,6 +8,7 @@ const state= {
     localStoreWalk:[],
     activeLocation: {},
     activePage:null,
+    activePageBackoffice:null,
     activeWalk:{}
 }
 
@@ -23,6 +24,9 @@ const mutations= {
     },
     SET_ACTIVE_PAGE(state, props){
         state.activePage=props
+    },
+    SET_ACTIVE_PAGE_BACKOFFICE(state, props){
+        state.activePageBackoffice=props
     },
     SET_ACTIVE_WALK(state, props){
         state.activeWalk=props
@@ -50,6 +54,9 @@ const getters={
     getActivePage(state){
         return state.activePage
     },
+    getActivePageBackoffice(state){
+        return state.activePageBackoffice
+    },
     getActiveWalk(state){
         return state.activeWalk
     },
@@ -67,6 +74,9 @@ const actions={
     },
     setActivePage : (store,props) => {
         store.commit('SET_ACTIVE_PAGE', props)
+    },
+    setActivePageBackoffice : (store,props) => {
+        store.commit('SET_ACTIVE_PAGE_BACKOFFICE', props)
     },
     setActiveWalk : (store,props) => {
         store.commit('SET_ACTIVE_WALK', props)
