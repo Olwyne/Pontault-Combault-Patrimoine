@@ -4,7 +4,7 @@
             <img src="../img/back-white.svg" />
             <div class="footerText">Retour</div>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" @click="openMap">
             <img src="../img/route-white.svg" />
             <div class="footerText">Aller au depart</div>
         </div>
@@ -43,6 +43,11 @@ import { mapActions, mapGetters } from 'vuex'
                 }
             
                 
+            },
+            openMap(){
+                console.log("this.walk.gps[0][0]")
+                console.log(this.walk.gps[0][0])
+                document.location.href="http://maps.google.com/?q="+ this.walk.gps[0][0] +" ," +this.walk.gps[0][1]; 
             },
             readStoreWalk(){
                 const stored = this.getLocalStoreWalk
