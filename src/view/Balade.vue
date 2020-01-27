@@ -7,7 +7,7 @@
                     <l-polyline :lat-lngs="polyline.latlngs"
                                 :color="polyline.color" />
                     <marker-popup :position="formated(center)"
-                                  :text="'Vous êtes ici'"
+                                  :text="'<b>Vous êtes ici</b>'"
                                   :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fuser-location-darkblue.svg?alt=media&token=227a942e-1183-4252-99fe-9ea4cdebfa8e'" />
                     <marker-popup v-for="(marker,i) in markerList" :key="i"
                                   :position="formated(marker.coord)"
