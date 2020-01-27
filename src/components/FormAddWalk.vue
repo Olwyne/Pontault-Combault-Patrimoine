@@ -63,12 +63,11 @@
             <RichEditorText></RichEditorText>
         </div>
 
-        <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
-
-        <myMap :newcoords="polyline.latlngs"></myMap>
-
         <div class="form-group">
           <div @click="checkForm" class="form-group btn btn-primary "> Ajouter la balade</div>
+            <label>Tracé</label>
+            <p>Veuillez importer un fichier d'extension .geojson</p>
+            <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
         </div>
         <div class="progress">
           <progress id="uploader" value="0" max="100">0%</progress>

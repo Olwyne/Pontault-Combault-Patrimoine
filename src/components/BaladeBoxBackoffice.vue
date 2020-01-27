@@ -16,7 +16,7 @@
                             <div><img src="../img/chronometer-blue.svg" /></div>
                             <div class="align-self-end duration">{{ walk.duration}}</div>
                         </div>
-                        
+                        <div class="modif"><img src="../img/pen.svg" /></div>
                         <div class="delete" @click="removeWalkCarnet(walk.name)" ><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
@@ -59,3 +59,39 @@ import { db } from '../config/db'
         },
     }
 </script>
+
+<style>
+
+.baladeBox {
+    margin: 1em;
+}
+
+.thumbnailSize {
+    width: 9em;
+    height: 7em;
+    padding: 0;
+}
+
+.baladeThumbnail {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.baladeInfo {
+    color: var(--darkbluePC);
+}
+
+.baladeDistance .km, .baladeDuration .duration {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+}
+
+.baladeDistance img, .baladeDuration img, .delete img, .modif img {
+    height: 1.5em;
+}
+
+.duration, .km {
+    line-height: 1em;
+}
+</style>
