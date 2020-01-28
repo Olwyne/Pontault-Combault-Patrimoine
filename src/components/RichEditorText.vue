@@ -45,7 +45,7 @@
 
                 <template v-else>
                     <div class="menububble__button" @click="showLinkMenu(getMarkAttrs('link'))" :class="{ 'is-active': isActive.link() }">
-                        <span>{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
+                        <span><img src="../img/link.svg" />{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
                     </div>
                 </template>
 
@@ -172,7 +172,7 @@
                         content: [
                             {
                                 type: 'text',
-                                text: 'Description (texte, image, titre)',
+                                text: 'Description (texte, image...)',
                             },
                         ],
                       
@@ -205,5 +205,24 @@
             height: 100%;
         }
 
+    .menububble {
+        width: max-content;
+    }
 
+    .menububble__button img {
+        height: 1em;
+    }
+
+    .editor__content {
+        min-height: 100px;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+    }
+
+    .ProseMirror {
+        min-height: 100px;
+    }
+    .ProseMirror:focus, .ProseMirror p:focus {
+        outline:none;
+    }
 </style>
