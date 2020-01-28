@@ -1,63 +1,63 @@
 <template>
-  <div class="formAddLocation form-group">
-    <div @click="setActivePageBackoffice('ListeBackoffice')">Retour</div>
-    <h1>Ajout d'un lieu</h1>
-    <form id="addLocation" novalidate="true">
+    <div class="formAddLocation form-group">
+        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
+        <h1>Ajout d'un lieu</h1>
+        <form id="addLocation" novalidate="true">
 
-      <div v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-        </ul>
-      </div>
+            <div v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+                </ul>
+            </div>
 
-      <div class="form-group">
-        <label for="nameLocation">Nom du lieu</label>
-        <input id="nameLocation" v-model="nameLocation" type="text" name="nameLocation" class="form-control">
-      </div>
+            <div class="form-group">
+                <label for="nameLocation">Nom du lieu</label>
+                <input id="nameLocation" v-model="nameLocation" type="text" name="nameLocation" class="form-control">
+            </div>
 
-      <div class="form-group">
-        <label for="addressLocation">Adresse du lieu</label>
-        <input id="addressLocation" v-model="addressLocation" type="addressLocation" name="addressLocation"  class="form-control">
-      </div>
+            <div class="form-group">
+                <label for="addressLocation">Adresse du lieu</label>
+                <input id="addressLocation" v-model="addressLocation" type="addressLocation" name="addressLocation" class="form-control">
+            </div>
 
-      <div class="form-group">
-        <label for="categories">Catégorie du lieu</label>
-        <select id="categoryLocation" v-model="categoryLocation" name="categoryLocation" class="form-control">
-          <option v-for="category in categories" v-bind:key="category" v-bind:value="category">
-            {{category}}
-          </option>
-        </select>
-      </div>
-    
-       <div class="form-group">
-            <RichEditorText></RichEditorText>
-        </div>
+            <div class="form-group">
+                <label for="categories">Catégorie du lieu</label>
+                <select id="categoryLocation" v-model="categoryLocation" name="categoryLocation" class="form-control">
+                    <option v-for="category in categories" v-bind:key="category" v-bind:value="category">
+                        {{category}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <RichEditorText></RichEditorText>
+            </div>
 
 
-      <div class="form-group row">
-          <div class="col">
-              <label for="latitudeLocation">Latitude</label>
-              <input type="number" v-model="latitudeLocation" id="latitudeLocation" name="latitudeLocation" class="form-control">
-          </div>
-          <div class="col">
-              <label for="longitudeLocation">Longitude</label>
-              <input type="number" v-model="longitudeLocation" id="longitudeLocation" name="longitudeLocation" class="form-control">
-          </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="photos">Photo</label>
-          <br />
-        <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
-      </div>
-      
-      <div @click="checkForm" class="btn btn-primary form-group">Ajouter le lieu</div>
-      <div class="progress">
-          <progress id="uploader" value="0" max="100">0%</progress>
-      </div>
-    </form>
-  </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label for="latitudeLocation">Latitude</label>
+                    <input type="number" v-model="latitudeLocation" id="latitudeLocation" name="latitudeLocation" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="longitudeLocation">Longitude</label>
+                    <input type="number" v-model="longitudeLocation" id="longitudeLocation" name="longitudeLocation" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="photos">Photo</label>
+                <br />
+                <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
+            </div>
+
+            <div @click="checkForm" class="btn btn-primary form-group">Ajouter le lieu</div>
+            <div class="progress">
+                <progress id="uploader" value="0" max="100">0%</progress>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>

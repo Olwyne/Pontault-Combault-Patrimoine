@@ -169,12 +169,6 @@
                     type: 'doc',
                     content: [{
                         type: 'paragraph',
-                        content: [
-                            {
-                                type: 'text',
-                                text: 'Description (texte, image...)',
-                            },
-                        ],
                       
                     }],
                 }, true)
@@ -221,6 +215,7 @@
 
     .ProseMirror {
         min-height: 100px;
+        padding: 0.375rem 0.75rem;;
     }
     .ProseMirror:focus, .ProseMirror p:focus {
         outline:none;

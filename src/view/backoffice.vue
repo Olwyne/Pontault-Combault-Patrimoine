@@ -1,7 +1,6 @@
 <template>
   <div class="container containerBackoffice">
     	<component :is="this.getActivePageBackoffice"></component>  
-
   </div>
 </template>
 
@@ -55,5 +54,8 @@ import ListeBackoffice from '../components/ListeBackoffice'
 <style>
     .containerBackoffice, .containerBackoffice h1,  input, #photos, option  {
         color: #44546a;
+    }
+    .containerBackoffice {
+            margin: 2em auto;
     }
  </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="formAddLocation">
-        <div @click="setActivePageBackoffice('ListeBackoffice')">Retour</div>
+        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg"/> Retour </div>
 
         <h1>Ajout d'une balade</h1>
         <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
@@ -52,7 +52,7 @@
             </div>
             <div class="form-group">
                 <label for="distance">Distance de la balade</label>
-                <input id="distance" v-model="nameWalk" type="number" name="distance" class="form-control">
+                <input id="distance" v-model="distanceWalk" type="number" name="distance" class="form-control">
             </div>
             <div class="form-group">
                 <label for="photos">Photo</label>
@@ -67,8 +67,9 @@
                 <label>Tracé</label>
                 <p>Veuillez importer un fichier d'extension .geojson</p>
                 <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
-
+                <myMap :newcoords="polyline.latlngs"></myMap>
             </div>
+
             <div class="form-group">
                 <div @click="checkForm" class="form-group btn btn-primary "> Ajouter la balade</div>
             </div>
@@ -198,5 +199,13 @@ export default {
 </script>
 
 <style >
+    .backIcon {
+        height:3em;
+        width: fit-content;
+    }
+
+    .backIcon img {
+        height:100%;
+    }
 
 </style>
