@@ -58,7 +58,7 @@
                 <label>Tracé</label>
                 <div class="alert alert-blue" role="alert">
                     Veuillez importer un fichier d'extension .geojson. Si vous travaillez avec un site comme calculitineraires.fr, téléchargez d'abord le tracé en GPX (format des traces GPS) et convertissez-le en .geojson sur
-                    <a href="https://mygeodata.cloud/">mygeodata.cloud</a>. <b>Attention</b> ce site ne permet que 3 conversions par mois par adresse IP.
+                    <a href="https://mygeodata.cloud/">mygeodata.cloud</a>. <b>Attention</b> ce site ne permet que 3 conversions par mois et par adresse IP.
                 </div>
                 <div class="form-group">
                     <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">

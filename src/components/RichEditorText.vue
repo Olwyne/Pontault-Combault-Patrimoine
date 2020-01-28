@@ -51,7 +51,7 @@
 
                 </div>
             </editor-menu-bubble>
-            <div class="alert alert-blue" role="alert">Pour ajouter un lien, écrivez le texte qui va comporter le lien, surlignez-le et remplissez le champs ci-dessus par le lien à insérer.</div>
+            <div class="alert alert-blue" role="alert">Pour ajouter un lien, Ã©crivez le texte qui va comporter le lien, surlignez-le et remplissez le champs ci-dessus par le lien Ã  insÃ©rer.</div>
             <editor-content class="editor__content" :editor="editor" />
 
         </div>

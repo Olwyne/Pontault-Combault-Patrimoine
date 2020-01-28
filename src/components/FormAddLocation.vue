@@ -5,7 +5,7 @@
         <form id="addLocation" novalidate="true">
 
             <div v-if="errors.length">
-                <b>Veuillez remplir les champs si dessous :</b>
+                <b>Veuillez remplir les champs ci-dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
                 </ul>
@@ -50,7 +50,7 @@
 
             <div class="form-group">
                 <label for="photos">Photo</label>
-                <div class="alert alert-blue" role="alert">Veillez à ce que les photos soient adaptées au web pour qu'elles se chargent rapidement lors de la consultation de l'application. Nous vous conseillons d'1Mo.</div>
+                <div class="alert alert-blue" role="alert">Veillez à ce que les photos soient adaptées au web pour qu'elles se chargent rapidement lors de la consultation de l'application. Nous vous conseillons 1Mo.</div>
                 <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
             </div>
 
