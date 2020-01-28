@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { db } from '../config/db'
+import { db,storageRef,storage, firebase  } from '../config/db'
 import RichEditorText from './RichEditorText'
 import myMap from './map'
 import {mapActions, mapGetters} from 'vuex'
@@ -105,6 +105,7 @@ export default {
       distance:null,
       categories: [],
       locations: [],
+      photos:{},
       choiceLocationAddWalk: [],
       locationsWalk: [],
       coord: null,
@@ -143,7 +144,7 @@ export default {
     },
     processFile(event) {
       let self=this
-      self.coord = event.target.files[0]
+      self.photos = event.target.files[0]
     },
     removechoice(choice){
         this.locationsWalk =this.locationsWalk.filter(function(value, index, arr){
@@ -182,7 +183,9 @@ export default {
    
     checkForm(e){
         const self = this
-        let uploadTask = storageRef.child('app/locations/images/'+this.photos.name).put(this.photos);
+     
+       let uploadTask = storageRef.child('app/locations/images/'+this.photos.name).put(this.photos);
+    
         uploadTask.on('state_changed', function(snapshot){
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           uploader.value = progress;
@@ -191,16 +194,19 @@ export default {
           uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             self.url=downloadURL;
             var postData = {
-              name: this.nameWalk,
-              category: this.categoryWalk,
-              description: this.description,
-              locations:this.locationsWalk,
-              gps: this.polyline.latlngs,
-              photos:self.url
+              name: self.nameWalk,
+              category: self.categoryWalk,
+              description: self.description,
+              locations:self.locationsWalk,
+              gps: self.polyline.latlngs,
+              photos:self.url,
+              duration:self.duration,
+              distance:self.distance
+
                   };
             var updates = {};
             updates[self.nameWalk] = postData;
-            db.ref('app/walk').update(updates);
+            db.ref('app/walks').update(updates);
             self.setActivePageBackoffice('ListeBackoffice')
 
           });
