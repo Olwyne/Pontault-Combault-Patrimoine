@@ -12,7 +12,7 @@
                         </div>
                         <div class="baladeDuration d-flex">
                         </div>
-                         <div class="modif"><img src="../img/pen.svg" /></div>
+                         <div @click="setActivePageBackoffice('FormChangeLocation'), setBackofficeLocation(location)"  class="modif"><img src="../img/pen.svg" /></div>
                         <div @click="removeLocationCarnet(location.name)" class="delete"><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
@@ -39,7 +39,9 @@ import { db } from '../config/db'
         },
         methods: {
             ... mapActions([
-                'deleteBackofficeLocation'
+                'deleteBackofficeLocation',
+                'setActivePageBackoffice',
+                'setBackofficeLocation'
             ]),
             removeLocationCarnet(name) {
                 this.deleteBackofficeLocation(this.location)
@@ -69,10 +71,6 @@ import { db } from '../config/db'
             },
 
         },
-        computed:{
-            ... mapGetters([
-                'getLocalStoreLocation',
-            ]),
-        },
+        
     }
 </script>

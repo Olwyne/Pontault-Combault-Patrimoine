@@ -11,6 +11,7 @@ import {mapActions, mapGetters} from 'vuex'
 
 import FormDeleteLocation from '../components/FormDeleteLocation'
 import FormAddLocation from '../components/FormAddLocation'
+import FormChangeLocation from '../components/FormChangeLocation'
 import FormAddWalk from '../components/FormAddWalk'
 import FormDeleteWalk from '../components/FormDeleteWalk'
 import ListeBackoffice from '../components/ListeBackoffice'
@@ -21,8 +22,9 @@ import ListeBackoffice from '../components/ListeBackoffice'
     FormDeleteLocation,
     FormAddLocation,
     FormAddWalk,
-	FormDeleteWalk,
-	ListeBackoffice
+	  FormDeleteWalk,
+    ListeBackoffice,
+    FormChangeLocation
   },
   data() {
     return {

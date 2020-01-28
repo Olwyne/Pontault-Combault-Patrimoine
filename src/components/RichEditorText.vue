@@ -92,6 +92,7 @@
             EditorMenuBubble,
 
         },
+        props:["description"],
         data() {
             return {
                 linkUrl: null,
@@ -127,10 +128,16 @@
                 html: 'Update content to see changes',
             }
         },
-        mounted() {
+        mounted:function() {
             this.setContent()
         },
-        methods: {
+        watch:{
+             description:function(){
+                 this.setContent()
+             }
+      
+         }, 
+         methods: {
             processFile(event, command) {
                 let self = this
                 self.photos = event.target.files[0]
@@ -165,11 +172,12 @@
                 this.hideLinkMenu()
             },
             setContent() {
+                let self=this
                 this.editor.setContent({
-                    type: 'doc',
+                    type: 'paragraph',
                     content: [{
-                        type: 'paragraph',
-                      
+                        type: 'text',
+                        text: self.description
                     }],
                 }, true)
                 this.editor.focus()
