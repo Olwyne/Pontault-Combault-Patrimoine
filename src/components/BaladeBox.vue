@@ -57,11 +57,11 @@
 
 .baladeInfo {
     color: var(--darkbluePC);
+    padding-right: 0;
 }
 
 .baladeDistance .km, .baladeDuration .duration {
     padding-left: 0.3em;
-    padding-right: 0.3em;
 }
 
 .baladeDistance img, .baladeDuration img, .delete img {

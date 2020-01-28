@@ -282,7 +282,6 @@
     }
 
     .baladeDistance, .baladeDuration, .baladeDetails {
-        width: 33.3%;
         text-align: center;
         color: var(--darkbluePC);
     }

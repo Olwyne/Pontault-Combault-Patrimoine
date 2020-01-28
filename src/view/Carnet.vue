@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="carnetcontainer">
         <div class="alert alert-primary" role="alert">
              Les données du carnet de visite sont sauvegardées dans le cache du navigateur. Si vous videz votre cache, vous perdrez vos sauvegardes. 
         </div>
@@ -49,8 +49,8 @@
 </script>
 
 <style>
-    .alert {
-        font-size: 0.7em;
+    .carnetcontainer .alert {
+    font-size: 0.7em;
     margin: 0.5em;
     padding: 0.5em;
     color:  var(--bluePC);
