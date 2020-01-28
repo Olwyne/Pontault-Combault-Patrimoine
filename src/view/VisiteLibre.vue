@@ -80,9 +80,9 @@
                 :icontest="marker.category"
               />
               <l-control>
-                  <button @click="increaseCenter" class="localisationButton">
+                  <div @click="increaseCenter" class="localisationButton">
                       <img src="../img/target-me.svg" />
-                  </button>
+                  </div>
               </l-control>
 
             </l-map>
