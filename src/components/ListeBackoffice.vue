@@ -1,8 +1,8 @@
 <template>
   <div class="container containerBackoffice">
-	<h1>Lieux <span  @click="setActivePageBackoffice('FormAddLocation')">+</span></h1>  
+	<h1>Lieux <button  @click="setActivePageBackoffice('FormAddLocation')" class="ml-1 btn btn-primary">Ajouter un lieu</button></h1>  
     <LocationBoxBackoffice v-for="location in getBackofficeLocation" :key="location.name" :location='location'></LocationBoxBackoffice>
-	<h1>Balades <span @click="setActivePageBackoffice('FormAddWalk')">+</span></h1>
+	<h1>Balades <button @click="setActivePageBackoffice('FormAddWalk')" class="ml-1 btn btn-primary">Ajouter un lieu</button></h1>
     <BaladeBoxBackoffice v-for="walk in getBackofficeWalk" :key="walk.name" :walk='walk'></BaladeBoxBackoffice>
 	
     <!-- <FormAddLocation></FormAddLocation>
@@ -93,5 +93,8 @@ import FormDeleteWalk from '../components/FormDeleteWalk'
 <style>
     .containerBackoffice, .containerBackoffice h1,  input, #photos, option  {
         color: #44546a;
+    }
+    .containerBackoffice {
+        margin: 2em;
     }
  </style>

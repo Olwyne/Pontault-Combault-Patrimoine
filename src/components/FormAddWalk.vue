@@ -1,79 +1,82 @@
 <template>
-  <div class="formAddLocation">
+    <div class="formAddLocation">
         <div @click="setActivePageBackoffice('ListeBackoffice')">Retour</div>
 
-    <h1>Ajout d'une balade</h1>
-    <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
+        <h1>Ajout d'une balade</h1>
+        <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
 
-      <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-        <ul>
-        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-        </ul>
-      </p>
+            <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+                </ul>
+            </p>
 
-      <div class="form-group">
-        <label for="locations">Lieux à ajouter</label>
-        <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
-          <option v-for="location in locations" v-bind:key="location" >
-            {{location}}
-          </option>
-        </select>
-      </div>
+            <div class="form-group">
+                <label for="locations">Lieux à ajouter</label>
+                <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
+                    <option v-for="location in locations" v-bind:key="location">
+                        {{location}}
+                    </option>
+                </select>
+            </div>
 
-      <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
+            <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
 
-    </form>
-          
-    <form id="addWalk" @submit="checkForm" novalidate="true">
-        <div>
-            <div> Lieux ajoutés :</div>
-            <ul >
-                <li  v-for="locationWalk in locationsWalk"  v-bind:value="locationWalk" v-bind:key="locationWalk" class="lieuAjoute">
-                    {{ locationWalk }}
-                </li>
-            </ul>
-        </div>
+        </form>
 
-        <p v-if="errors.length">
-            <b>Please correct the following error(s):</b>
-            <ul>
-                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-            </ul>
-        </p>
+        <form id="addWalk" @submit="checkForm" novalidate="true">
+            <div>
+                <div> Lieux ajoutés :</div>
+                <ul>
+                    <li v-for="locationWalk in locationsWalk" v-bind:value="locationWalk" v-bind:key="locationWalk" class="lieuAjoute">
+                        {{ locationWalk }}
+                    </li>
+                </ul>
+            </div>
 
-        <div class="form-group">
-            <label for="nameWalk">Nom de la balade</label>
-            <input id="nameWalk" v-model="nameWalk" type="text" name="nameWalk" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="duration">Durée de la balade</label>
-            <input id="duration" v-model="duration" type="number" name="duration" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="distance">Distance de la balade</label>
-            <input id="distance" v-model="nameWalk" type="number" name="distance" class="form-control">
-        </div>
-        <div class="form-group">
-        <label for="photos">Photo</label>
-          <br />
-        <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
-      </div>
-        <div class="form-group">
-            <RichEditorText></RichEditorText>
-        </div>
+            <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+                </ul>
+            </p>
 
-        <div class="form-group">
-          <div @click="checkForm" class="form-group btn btn-primary "> Ajouter la balade</div>
-            <label>Tracé</label>
-            <p>Veuillez importer un fichier d'extension .geojson</p>
-            <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
-        </div>
-        <div class="progress">
-          <progress id="uploader" value="0" max="100">0%</progress>
-      </div>
-    </form>
-  </div>
+            <div class="form-group">
+                <label for="nameWalk">Nom de la balade</label>
+                <input id="nameWalk" v-model="nameWalk" type="text" name="nameWalk" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="duration">Durée de la balade</label>
+                <input id="duration" v-model="duration" type="number" name="duration" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="distance">Distance de la balade</label>
+                <input id="distance" v-model="nameWalk" type="number" name="distance" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="photos">Photo</label>
+                <br />
+                <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
+            </div>
+            <div class="form-group">
+                <RichEditorText></RichEditorText>
+            </div>
+
+            <div class="form-group">
+                <label>Tracé</label>
+                <p>Veuillez importer un fichier d'extension .geojson</p>
+                <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
+
+            </div>
+            <div class="form-group">
+                <div @click="checkForm" class="form-group btn btn-primary "> Ajouter la balade</div>
+            </div>
+            <div class="progress">
+                <progress id="uploader" value="0" max="100">0%</progress>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
