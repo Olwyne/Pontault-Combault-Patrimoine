@@ -5,7 +5,7 @@
         <form id="addLocation" novalidate="true">
 
             <div v-if="errors.length">
-                <b>Please correct the following error(s):</b>
+                <b>Veuillez remplir les champs si dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
                 </ul>
@@ -79,7 +79,7 @@ export default {
           addressLocation: null,
           categoryLocation: null,
           description: null,
-          photos:null,
+          photos:{},
           categories: [],
           url: null,
           latitudeLocation: null,
@@ -108,32 +108,59 @@ export default {
         });
       },
       checkForm(e){
-        const self = this
-        let uploadTask = storageRef.child('app/locations/images/'+this.photos.name).put(this.photos);
-        uploadTask.on('state_changed', function(snapshot){
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          uploader.value = progress;
-        }, function(error) {
-        }, function() {
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            self.url=downloadURL;
-            var postData = {
-              name: self.nameLocation,
-              category: self.categoryLocation,
-              address: self.addressLocation,
-              description: self.description,
-              gps:{
-                0: self.latitudeLocation, 
-                1: self.longitudeLocation
-              },
-              photos:self.url
-            };
-            var updates = {};
-            updates[self.nameLocation] = postData;
-            db.ref('app/locations').update(updates);
-			self.setActivePageBackoffice('ListeBackoffice')
-          });
-        }); 
+        this.errors = [];
+
+        if (!this.nameLocation) {
+            this.errors.push("Nom du lieu obligatoire.");
+        }
+         if (!this.description) {
+            this.errors.push('Description obligatoire.');
+        } 
+         if (!this.categoryLocation) {
+            this.errors.push('Catégorie obligatoire.');
+        } 
+        if (!this.addressLocation) {
+            this.errors.push('Adresse obligatoire.');
+        } 
+        if (!this.photos.name) {
+            this.errors.push('Photo obligatoire.');
+        } 
+        if (!this.latitudeLocation) {
+            this.errors.push('Latitude obligatoire.');
+        } 
+
+        if (!this.longitudeLocation) {
+            this.errors.push('Longitude obligatoire.');
+        } 
+        if (!this.errors.length) {
+            const self = this
+            let uploadTask = storageRef.child('app/locations/images/'+this.photos.name).put(this.photos);
+            uploadTask.on('state_changed', function(snapshot){
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploader.value = progress;
+            }, function(error) {
+            }, function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                self.url=downloadURL;
+                var postData = {
+                name: self.nameLocation,
+                category: self.categoryLocation,
+                address: self.addressLocation,
+                description: self.description,
+                gps:{
+                    0: self.latitudeLocation, 
+                    1: self.longitudeLocation
+                },
+                photos:self.url
+                };
+                var updates = {};
+                updates[self.nameLocation] = postData;
+                db.ref('app/locations').update(updates);
+                self.setActivePageBackoffice('ListeBackoffice')
+            });
+            }); 
+        }
+        e.preventDefault();
       }
     }
 }

@@ -6,7 +6,7 @@
         <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
 
             <p v-if="errors.length">
-                <b>Please correct the following error(s):</b>
+                <b>Veuillez remplir les champs si dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
                 </ul>
@@ -35,14 +35,6 @@
                 </li>
             </ul>
         </div>
-
-
-            <p v-if="errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-                </ul>
-            </p>
 
             <div class="form-group">
                 <label for="nameWalk">Nom de la balade</label>
@@ -182,37 +174,59 @@ export default {
     },
    
     checkForm(e){
-        const self = this
+        this.errors = [];
+
+        if (!this.nameWalk) {
+            this.errors.push("Nom de la balade obligatoire.");
+        }
+         if (!this.description) {
+            this.errors.push('Description obligatoire.');
+        } 
+         if (this.locationsWalk.length==0) {
+            this.errors.push('Lieux obligatoires.');
+        } 
+        if (this.polyline.latlngs.length==0) {
+            this.errors.push('Tracé obligatoire.');
+        } 
+        if (!this.photos.name) {
+            this.errors.push('Image obligatoire.');
+        } 
+        if (!this.duration) {
+            this.errors.push('Durée obligatoire.');
+        } 
+        if (!this.distance) {
+            this.errors.push('Distance obligatoire.');
+        } 
+        if (!this.errors.length) {
+             const self = this
      
-       let uploadTask = storageRef.child('app/locations/images/'+this.photos.name).put(this.photos);
-    
-        uploadTask.on('state_changed', function(snapshot){
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          uploader.value = progress;
-        }, function(error) {
-        }, function() {
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            self.url=downloadURL;
-            var postData = {
-              name: self.nameWalk,
-              category: self.categoryWalk,
-              description: self.description,
-              locations:self.locationsWalk,
-              gps: self.polyline.latlngs,
-              photos:self.url,
-              duration:self.duration,
-              distance:self.distance
-
-                  };
-            var updates = {};
-            updates[self.nameWalk] = postData;
-            db.ref('app/walks').update(updates);
-            self.setActivePageBackoffice('ListeBackoffice')
-
-          });
-        }); 
+            let uploadTask = storageRef.child('app/locations/images/'+this.photos.name).put(this.photos);
+            
+            uploadTask.on('state_changed', function(snapshot){
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                uploader.value = progress;
+            }, function(error) {}, function() {
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    self.url=downloadURL;
+                    var postData = {
+                        name: self.nameWalk,
+                        description: self.description,
+                        locations:self.locationsWalk,
+                        gps: self.polyline.latlngs,
+                        photos:self.url,
+                        duration:self.duration,
+                        distance:self.distance
+                    };
+                    var updates = {};
+                    updates[self.nameWalk] = postData;
+                    db.ref('app/walks').update(updates);
+                    self.setActivePageBackoffice('ListeBackoffice')
+                });
+            }); 
+        }
+        e.preventDefault();
       }
-  }
+    }
 }
 </script>
 
