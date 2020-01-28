@@ -20,16 +20,9 @@
           </option>
         </select>
       </div>
-            <div class="form-group">
-                <label for="locations">Lieux à ajouter</label>
-                <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
-                    <option v-for="location in locations" v-bind:key="location">
-                        {{location}}
-                    </option>
-                </select>
-            </div>
+         
 
-            <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
+      <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
 
     </form>
           
@@ -42,17 +35,7 @@
                 </li>
             </ul>
         </div>
-        </form>
 
-        <form id="addWalk" @submit="checkForm" novalidate="true">
-            <div>
-                <div> Lieux ajoutés :</div>
-                <ul>
-                    <li v-for="locationWalk in locationsWalk" v-bind:value="locationWalk" v-bind:key="locationWalk" class="lieuAjoute">
-                        {{ locationWalk }}
-                    </li>
-                </ul>
-            </div>
 
             <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -71,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label for="distance">Distance de la balade</label>
-                <input id="distance" v-model="distanceWalk" type="number" name="distance" class="form-control">
+                <input id="distance" v-model="distance" type="number" name="distance" class="form-control">
             </div>
             <div class="form-group">
                 <label for="photos">Photo</label>
@@ -163,7 +146,10 @@ export default {
       self.coord = event.target.files[0]
     },
     removechoice(choice){
-        this.locationsWalk.splice(this.locationsWalk.indexOf(choice), 1 );
+        this.locationsWalk =this.locationsWalk.filter(function(value, index, arr){
+              return value!=choice
+            });
+
     },
     readLocation(){
       let self=this
