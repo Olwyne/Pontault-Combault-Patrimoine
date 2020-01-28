@@ -69,7 +69,7 @@
                 <label>Tracé</label>
                 <p>Veuillez importer un fichier d'extension .geojson</p>
                 <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
-                <myMap :newcoords="polyline.latlngs"></myMap>
+                <myMap :newcoords="polyline.latlngs" :locations="locationsWalk"></myMap>
             </div>
 
             <div class="form-group">

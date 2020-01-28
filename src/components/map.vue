@@ -28,8 +28,8 @@
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
-    name: 'Balade',
-    props:["newcoords"],
+    name: 'Map',
+    props:["newcoords", 'locations'],
     data () {
       return {
         markerList: [],
@@ -44,14 +44,7 @@
           latlngs: [],
           color: "green"
         },
-        walk:{
-          name: null,
-          description: null,
-          distance: null,
-          duration: null,
-          photos: null,
-          locations: []
-        },
+        walk:[],
         balade:null,
         lieuxBalade: []
       };
@@ -62,7 +55,18 @@
     watch:{
       newcoords:function(){
         this.polyline.latlngs=this.newcoords
-      }
+      }, 
+     locations:function(){
+         let self=this
+         this.locations.forEach(function(childSnapshot) {
+                const present = self.walk.filter((item) => item == childSnapshot)
+                if(present.length===0){
+                     self.walk.push(childSnapshot)
+                } 
+        })
+        this.addMarkerLocation()
+     }
+      
     }, 
     components: {
       LMap,
@@ -78,6 +82,12 @@
             'setActiveLocation',
             'setActivePage'
         ]),
+        setLocations(){
+             this.locations.forEach(function(childSnapshot) {
+                let self=this
+                this.walk.push(childSnapshot)
+             })
+          },
         formated(coords) {
             return latLng(coords)
         },
@@ -96,12 +106,6 @@
             alert(`Browser doesn't support Geolocation`)
             }
         },
-        watch:{
-          newcoords:function(){
-            this.polyline.latlngs=this.newcoords
-            //console.log("hola"+this.polyline.latlngs)
-          }
-        }, 
         successPosition: function(position) {
             this.center = [position.coords.latitude, position.coords.longitude]
             //console.log(this.center)
@@ -168,9 +172,12 @@
             }
             let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
                         if (name.gps) {
-                            for (var i = 0; i < self.walk.locations.length; i++) {
-                                if (name.name == self.walk.locations[i]) {
-                                    self.markerList.push({ coord: name.gps, text: textContent, category: catIcon })
+                            if(self.walk.length>0){
+                                console.log(self.walk)
+                                for (var i = 0; i < self.walk.length; i++) {
+                                    if (name.name == self.walk[i]) {
+                                        self.markerList.push({ coord: name.gps, text: textContent, category: catIcon })
+                                    }
                                 }
                             }
                         }
@@ -211,8 +218,7 @@
     mounted: function() {
       this.trackPosition()
       this.addMarkerLocation()
-      this.addWalk()
-      this.walk=this.getActiveWalk
+      this.addWalk() 
     },
     computed:{
         ... mapGetters([
