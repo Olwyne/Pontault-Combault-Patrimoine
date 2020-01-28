@@ -12,6 +12,14 @@
                 </ul>
             </p>
 
+      <div class="form-group">
+        <label for="locations">Lieux à ajouter</label>
+        <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
+          <option v-for="location in locations" v-bind:key="location" >
+            {{location}} 
+          </option>
+        </select>
+      </div>
             <div class="form-group">
                 <label for="locations">Lieux à ajouter</label>
                 <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
@@ -23,6 +31,17 @@
 
             <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
 
+    </form>
+          
+    <form id="addWalk" @submit="checkForm" novalidate="true">
+        <div>
+            <div> Lieux ajoutés :</div>
+            <ul v-for="(locationWalk,idx) in locationsWalk"  v-bind:value="locationWalk" v-bind:key="idx">
+                <li v-for="location in (locationWalk)"  v-bind:value="location" v-bind:key="location"   class="lieuAjoute">
+                    {{ location }}  <span class="delete" @click="removechoice(location)" ><img src="../img/garbage-blue.svg" /></span>
+                </li>
+            </ul>
+        </div>
         </form>
 
         <form id="addWalk" @submit="checkForm" novalidate="true">
@@ -103,7 +122,7 @@ export default {
       distance:null,
       categories: [],
       locations: [],
-      choiceLocationAddWalk: null,
+      choiceLocationAddWalk: [],
       locationsWalk: [],
       coord: null,
       polyline: {
@@ -143,6 +162,9 @@ export default {
       let self=this
       self.coord = event.target.files[0]
     },
+    removechoice(choice){
+        this.locationsWalk.splice(this.locationsWalk.indexOf(choice), 1 );
+    },
     readLocation(){
       let self=this
       var query =  db.ref('app/locations/').orderByKey();
@@ -165,7 +187,11 @@ export default {
         });
     },
     checkFormAddWalk(){
-        this.locationsWalk.push(this.choiceLocationAddWalk)
+        const present = this.locationsWalk.filter((item) => item == this.choiceLocationAddWalk[0])
+        if(present.length===0){
+          this.locationsWalk.push(this.choiceLocationAddWalk)
+        } 
+        
     },
    
     checkForm(e){
