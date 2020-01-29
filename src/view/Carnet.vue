@@ -3,8 +3,8 @@
         <div class="alert alert-primary" role="alert">
              Les données du carnet de visite sont sauvegardées dans le cache du navigateur. Si vous videz votre cache, vous perdrez vos sauvegardes. 
         </div>
-        <BaladeCarnetBox @click.native="setActivePage('Balade'), setActiveWalk(balade)" v-for="balade in getLocalStoreWalk" :balade="balade" :key="balade.name" />
-        <LieuCarnetBox @click.native="setActivePage('Lieu'), setActiveLocation(lieu.name)" v-for="lieu in getLocalStoreLocation" :lieu="lieu" :key="lieu.name" />
+        <BaladeCarnetBox  v-for="balade in getLocalStoreWalk" :balade="balade" :key="balade.name" />
+        <LieuCarnetBox v-for="lieu in getLocalStoreLocation" :lieu="lieu" :key="lieu.name" />
     </div>
 </template>
 

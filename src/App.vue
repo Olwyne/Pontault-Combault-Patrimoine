@@ -1,11 +1,11 @@
 <template>
     <div>
-        <!--<div class="topPage sticky-top">
+        <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ pageTitle }}</div></div>
             <Navigation />
         </div>
-        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>-->
-       <Backoffice />
+        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
+       <!-- <Backoffice /> -->
       <!--<myMap />--> 
     </div>
 </template>

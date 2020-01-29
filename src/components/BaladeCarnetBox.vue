@@ -1,22 +1,25 @@
 <template>
     <div>
-        <a>
+        <a @click="setActivePage('Balade'), setActiveWalk(balade)">
             <div class="baladeBox row">
                 <div class="thumbnailSize col-5">
                     <img class="baladeThumbnail" v-bind:src="balade.photos" />
                 </div>
                 <div class="baladeInfo col-7 d-flex flex-column justify-content-between">
+                    
                     <div class="baladeTitle">{{ balade.name }}</div>
+                  
                     <div class="d-flex justify-content-between">
-                        <div class="baladeDistance d-flex">
-                            <div><img src="../img/distance-blue.svg" /></div>
-                            <div class="align-self-end km">{{ balade.distance }}</div>
-                        </div>
-                        <div class="baladeDuration d-flex">
-                            <div><img src="../img/chronometer-blue.svg" /></div>
-                            <div class="align-self-end duration">{{ balade.duration}}</div>
-                        </div>
-                        <div class="delete" @click="removeWalkCarnet(balade.name)" ><img src="../img/garbage-blue.svg" /></div>
+                            <div class="baladeDistance d-flex">
+                                <div><img src="../img/distance-blue.svg" /></div>
+                                <div class="align-self-end km">{{ balade.distance }}</div>
+                            </div>
+                            <div class="baladeDuration d-flex">
+                                <div><img src="../img/chronometer-blue.svg" /></div>
+                                <div class="align-self-end duration">{{ balade.duration}}</div>
+                            </div>
+                            
+                        <div class="delete" @click="removeWalkCarnet(balade.name), setActivePage('Carnet')" ><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
             </div>
@@ -38,7 +41,9 @@ import { mapActions, mapGetters } from 'vuex'
         },
         methods: {
             ... mapActions([
-                'deleteWalkFromStore'
+                'deleteWalkFromStore',
+                'setActivePage',
+                'setActiveWalk'
             ]),
             removeWalkCarnet(name) {
                 this.deleteWalkFromStore(this.balade)
