@@ -1,18 +1,20 @@
 <template>
     <div>
-        <div class="gameTitle">Découvre Pontault-Combault avec Poco !</div>
-        <img class="gameImage" src="../img/home-image.jpg" />
-        <div class="gameBody">
-            <div>Poco te fais découvrir le ville en t'amusant. Au fil de ta balade tu débloqueras des quizz et des badges. </div>
-            <div>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-                <div class="switchText">Faire la visite avec Poco</div>
+        <div class="gameTitle">Découvre Pontault-Combault <br />avec Poco</div>
+        <div class="text-center">
+            <img class="gameImage" src="../img/poco.png" />
+            </div>
+            <div class="gameBody">
+                <div class="gamePresentation">Poco te fais découvrir le ville en t'amusant. Au fil de ta balade tu débloqueras des quizz et des badges. </div>
+                <div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <div class="switchText">Faire la visite avec Poco</div>
+                </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -22,14 +24,16 @@
     .gameTitle {
         color: var(--darkbluePC);
         text-align: center;
-        font-size: 1.1em;
+        font-size: 1.3em;
         margin-top: 0.5em;
         margin-bottom: 0.5em;
         line-height: 1.2em;
+        font-weight:500;
     }
 
     .gameImage {
-        width: 100%;
+        max-height: 17em;
+        max-width: 100%;
     }
 
     .gameBody {
@@ -37,9 +41,13 @@
         color: var(--darkbluePC);
     }
 
-        .gameBody label {
-            margin: 0;
-        }
+    .gameBody label {
+        margin: 0;
+    }
+
+    .gamePresentation {
+        margin: 1em 0;
+    }
 
     .switchText {
         margin-left: 1em;
