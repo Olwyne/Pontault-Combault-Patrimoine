@@ -8,7 +8,7 @@
             <img src="../img/route-white.svg" />
             <div class="footerText">Aller au depart</div>
         </div>
-        <div class="nav-item"  @click="storeWalk">
+        <div class="nav-item" @click="storeWalk">
             <img v-bind:src="heart" />
             <div class="footerText">Sauvegarder</div>
         </div>

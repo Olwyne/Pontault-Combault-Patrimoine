@@ -1,40 +1,35 @@
 <template>
     <div class="formAddLocation">
-        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg"/> Retour </div>
-
+        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
         <h1>Ajout d'une balade</h1>
         <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
-
             <p v-if="errors.length">
                 <b>Veuillez remplir les champs si dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
                 </ul>
             </p>
+            <div class="form-group">
+                <label for="locations">Lieux à ajouter</label>
+                <div class="alert alert-blue" role="alert">Ajoutez un par un les lieux figurant sur le parcours. Les lieux apparaîtront dans l'ordre dans lequel vous les avez ajoutés.</div>
+                <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
+                    <option v-for="location in locations" v-bind:key="location">
+                        {{location}}
+                    </option>
+                </select>
+            </div>
+            <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
+        </form>
 
-      <div class="form-group">
-        <label for="locations">Lieux à ajouter</label>
-        <select v-if="locations.length" multiple id="choiceLocationAddWalk" v-model="choiceLocationAddWalk" name="choiceLocationAddWalk" class="form-control">
-          <option v-for="location in locations" v-bind:key="location" >
-            {{location}} 
-          </option>
-        </select>
-      </div>
-         
-
-      <div @click="checkFormAddWalk" class="form-group btn btn-primary ">Ajouter le lieu à la balade</div>
-
-    </form>
-          
-    <form id="addWalk" @submit="checkForm" novalidate="true">
-        <div>
-            <div> Lieux ajoutés :</div>
-            <ul v-for="(locationWalk,idx) in locationsWalk"  v-bind:value="locationWalk" v-bind:key="idx">
-                <li v-for="location in (locationWalk)"  v-bind:value="location" v-bind:key="location"   class="lieuAjoute">
-                    {{ location }}  <span class="delete" @click="removechoice(location)" ><img src="../img/garbage-blue.svg" /></span>
-                </li>
-            </ul>
-        </div>
+        <form id="addWalk" @submit="checkForm" novalidate="true">
+            <div>
+                <div> Lieux ajoutés :</div>
+                <ul v-for="(locationWalk,idx) in locationsWalk" v-bind:value="locationWalk" v-bind:key="idx">
+                    <li v-for="location in (locationWalk)" v-bind:value="location" v-bind:key="location" class="lieuAjoute">
+                        {{ location }}  <span class="delete" @click="removechoice(location)"><img src="../img/garbage-blue.svg" /></span>
+                    </li>
+                </ul>
+            </div>
 
             <div class="form-group">
                 <label for="nameWalk">Nom de la balade</label>
@@ -42,10 +37,12 @@
             </div>
             <div class="form-group">
                 <label for="duration">Durée de la balade</label>
+                <div class="alert alert-blue" role="alert">Veuillez respecter le format suivant : 2h30</div>
                 <input id="duration" v-model="duration" type="number" name="duration" class="form-control">
             </div>
             <div class="form-group">
                 <label for="distance">Distance de la balade</label>
+                <div class="alert alert-blue" role="alert">Veuillez respecter le format suivant : 1km</div>
                 <input id="distance" v-model="distance" type="number" name="distance" class="form-control">
             </div>
             <div class="form-group">
@@ -59,8 +56,13 @@
 
             <div class="form-group">
                 <label>Tracé</label>
-                <p>Veuillez importer un fichier d'extension .geojson</p>
-                <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
+                <div class="alert alert-blue" role="alert">
+                    Veuillez importer un fichier d'extension .geojson. Si vous travaillez avec un site comme calculitineraires.fr, téléchargez d'abord le tracé en GPX (format des traces GPS) et convertissez-le en .geojson sur
+                    <a href="https://mygeodata.cloud/">mygeodata.cloud</a>. <b>Attention</b> ce site ne permet que 3 conversions par mois et par adresse IP.
+                </div>
+                <div class="form-group">
+                    <input type="file" id="coord" name="coord" accept="json" @change="loadTextFromFile">
+                </div>
                 <myMap :newcoords="polyline.latlngs" :locations="locationsWalk"></myMap>
             </div>
 

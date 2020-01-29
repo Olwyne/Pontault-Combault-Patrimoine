@@ -5,7 +5,7 @@
         <form id="addLocation" novalidate="true">
 
             <div v-if="errors.length">
-                <b>Veuillez remplir les champs si dessous :</b>
+                <b>Veuillez remplir les champs ci-dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
                 </ul>
@@ -38,17 +38,19 @@
             <div class="form-group row">
                 <div class="col">
                     <label for="latitudeLocation">Latitude</label>
+                    <div class="alert alert-blue" role="alert">Veillez à respecter ce format : 48.8006127</div>
                     <input type="number" v-model="latitudeLocation" id="latitudeLocation" name="latitudeLocation" class="form-control">
                 </div>
                 <div class="col">
                     <label for="longitudeLocation">Longitude</label>
+                    <div class="alert alert-blue" role="alert">Veillez à respecter ce format : 2.6054929</div>
                     <input type="number" v-model="longitudeLocation" id="longitudeLocation" name="longitudeLocation" class="form-control">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="photos">Photo</label>
-                <br />
+                <div class="alert alert-blue" role="alert">Veillez à ce que les photos soient adaptées au web pour qu'elles se chargent rapidement lors de la consultation de l'application. Nous vous conseillons 1Mo.</div>
                 <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
             </div>
 
@@ -177,24 +179,39 @@ export default {
         border: none;
     }
 
-        .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-            background-color: #42719a;
-            border: none;
-        }
-
-    progress[value] {
-        /* Reset the default appearance */
-        -webkit-appearance: none;
-        appearance: none;
-        width: 250px;
-        height: 20px;
+    .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+        background-color: #42719a;
+        border: none;
     }
 
-        progress[value]::-webkit-progress-bar {
-            background-color: #eee;
-        }
+progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    width: 250px;
+    height: 20px;
+}
 
-        progress[value]::-webkit-progress-value {
-            background-color: #5b9bd5;
-        }
+    progress[value]::-webkit-progress-bar {
+        background-color: #eee;
+    }
+
+    progress[value]::-webkit-progress-value {
+        background-color: #5b9bd5;
+    }
+
+    .alert-blue {
+        font-size: 0.7em;
+        padding: 0.5em;
+        margin: 0.5em 0;
+        color: var(--bluePC);
+        background-color: #e7f4ff;
+        border-color: var(--bluePC);
+    }
+
+    .alert-blue a {
+        font-weight: bold;
+        color: var(--bluePC);
+        text-decoration: underline;
+    }
 </style>

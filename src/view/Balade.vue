@@ -14,7 +14,7 @@
                                   :text="marker.text"
                                   :icontest="marker.category" />
                     <l-control>
-                        <button @click="increaseCenter" class="localisationButton"><img src="../img/target-me.svg" /></button>
+                        <div @click="increaseCenter" class="localisationButton"><img src="../img/target-me.svg" /></div>
                     </l-control>
                 </l-map>
             </div>
@@ -282,7 +282,6 @@
     }
 
     .baladeDistance, .baladeDuration, .baladeDetails {
-        width: 33.3%;
         text-align: center;
         color: var(--darkbluePC);
     }

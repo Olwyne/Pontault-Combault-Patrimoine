@@ -46,3 +46,9 @@ import { mapActions, mapGetters } from 'vuex'
         },
     }
 </script>
+
+<style>
+    .delete {
+        z-index: 1001;
+    }
+</style>

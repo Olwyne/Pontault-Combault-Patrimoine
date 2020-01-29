@@ -78,13 +78,12 @@
                 :position="formated(marker.coord)"
                 :text="marker.text"
                 :icontest="marker.category"
-                @click="test"
               />
-                  <l-control>
-                      <button @click="increaseCenter" class="localisationButton">
-                          <img src="../img/target-me.svg" />
-                      </button>
-                  </l-control>
+              <l-control>
+                  <div @click="increaseCenter" class="localisationButton">
+                      <img src="../img/target-me.svg" />
+                  </div>
+              </l-control>
 
             </l-map>
         </div>
@@ -195,18 +194,26 @@
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-parc.svg?alt=media&token=d6632431-5d31-4584-9071-b129b9f710b4'
               catColor = "#d9d217"
             }
-            let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
+            /*let textContent = "<div onclick='console.log(\""+name.name+"\")'><div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div></div>"*/
+            let textContent = "<div onclick='console.log(\""+name.name+"\")'><div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div></div>"
             if(name.gps) {
-            console.log(name.gps)
+            //console.log(name.gps)
             self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
             }
           });
         });
-      }
+      },
+      testFonc(){
+        var elements = document.getElementsByClassName("leaflet-popup-content-wrapper");
+        console.log("elements")
+        console.log(elements)
+        console.log(elements.click)
+      },
     },
     mounted() {
       this.trackPosition()
       this.addMarkerLocation()
+      //this.testFonc()
     }
   };
 

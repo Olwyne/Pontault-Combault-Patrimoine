@@ -35,32 +35,31 @@
             </editor-menu-bar>
 
             <editor-menu-bubble class="menububble" :editor="editor" @hide="hideLinkMenu" v-slot="{ commands, isActive, getMarkAttrs, menu }">
-              <div class="menububble" :class="{ 'is-active': menu.isActive }" :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`">
+                <div class="menububble" :class="{ 'is-active': menu.isActive }" :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`">
 
-                <form class="menububble__form" v-if="linkMenuIsActive" @submit.prevent="setLinkUrl(commands.link, linkUrl)">
-                <input class="menububble__input" type="text" v-model="linkUrl" placeholder="https://" ref="linkInput" @keydown.esc="hideLinkMenu"/>
-                <div class="menububble__button" @click="setLinkUrl(commands.link, null)" type="button">
+                    <form class="menububble__form" v-if="linkMenuIsActive" @submit.prevent="setLinkUrl(commands.link, linkUrl)">
+                        <input class="menububble__input" type="text" v-model="linkUrl" placeholder="https://" ref="linkInput" @keydown.esc="hideLinkMenu" />
+                        <div class="menububble__button" @click="setLinkUrl(commands.link, null)" type="button">
+                        </div>
+                    </form>
+
+                    <template v-else>
+                        <div class="menububble__button" @click="showLinkMenu(getMarkAttrs('link'))" :class="{ 'is-active': isActive.link() }">
+                            <span><img src="../img/link.svg" />{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
+                        </div>
+                    </template>
+
                 </div>
-                </form>
-
-                <template v-else>
-                    <div class="menububble__button" @click="showLinkMenu(getMarkAttrs('link'))" :class="{ 'is-active': isActive.link() }">
-                        <span><img src="../img/link.svg" />{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
-                    </div>
-                </template>
-
-            </div>
-         </editor-menu-bubble>
-
-
-        <editor-content class="editor__content" :editor="editor" />
+            </editor-menu-bubble>
+            <div class="alert alert-blue" role="alert">Pour ajouter un lien, écrivez le texte qui va comporter le lien, surlignez-le et remplissez le champs ci-dessus par le lien à insérer.</div>
+            <editor-content class="editor__content" :editor="editor" />
 
         </div>
     </div>
 </template>
 
 <script>
-    import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble  } from 'tiptap'
+    import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap'
     import {
         Blockquote,
         CodeBlock,
@@ -223,9 +222,11 @@
 
     .ProseMirror {
         min-height: 100px;
-        padding: 0.375rem 0.75rem;;
+        padding: 0.375rem 0.75rem;
+        ;
     }
-    .ProseMirror:focus, .ProseMirror p:focus {
-        outline:none;
-    }
+
+        .ProseMirror:focus, .ProseMirror p:focus {
+            outline: none;
+        }
 </style>
