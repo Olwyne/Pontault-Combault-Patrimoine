@@ -143,7 +143,7 @@ export default {
     removechoice(choice){
         this.locationsWalk =this.locationsWalk.filter(function(value, index, arr){
               return value!=choice
-            });
+        });
 
     },
     readLocation(){
@@ -172,7 +172,6 @@ export default {
         if(present.length===0){
           this.locationsWalk.push(this.choiceLocationAddWalk[0])
         } 
-        
     },
    
     checkForm(e){

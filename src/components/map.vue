@@ -57,13 +57,8 @@
         this.polyline.latlngs=this.newcoords
       }, 
      locations:function(){
-         let self=this
-         this.locations.forEach(function(childSnapshot) {
-                const present = self.walk.filter((item) => item == childSnapshot)
-                if(present.length===0){
-                     self.walk.push(childSnapshot)
-                } 
-        })
+
+        this.walk=this.locations
         this.addMarkerLocation()
      }
       
@@ -142,6 +137,7 @@
         },
         addMarkerLocation() {
             let self = this
+            self.markerList.splice(0,self.markerList.length)
             var query = db.ref('app/locations/').orderByKey();
             query.once("value")
                 .then(function (snapshot) {
@@ -171,14 +167,17 @@
               catColor = "#d9d217"
             }
             let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
+                        
                         if (name.gps) {
-                            if(self.walk.length>0){
-                                for (var i = 0; i < self.walk.length; i++) {
+                                
+                                for (var i = 0; i <= self.walk.length; i++) {
                                     if (name.name == self.walk[i]) {
+                                        
                                         self.markerList.push({ coord: name.gps, text: textContent, category: catIcon })
                                     }
                                 }
-                            }
+                       console.log(self.markerList)
+                            
                         }
                     });
                 });
@@ -215,9 +214,10 @@
         },
     },
     mounted: function() {
-      this.trackPosition()
-      this.addMarkerLocation()
-      this.addWalk() 
+    
+        this.walk=this.locations
+        this.trackPosition()
+     
     },
     computed:{
         ... mapGetters([
