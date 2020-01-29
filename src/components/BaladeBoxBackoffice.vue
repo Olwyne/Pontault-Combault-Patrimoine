@@ -16,7 +16,7 @@
                             <div><img src="../img/chronometer-blue.svg" /></div>
                             <div class="align-self-end duration">{{ walk.duration}}</div>
                         </div>
-                        <div class="modif"><img src="../img/pen.svg" /></div>
+                        <div class="modif" @click="setActivePageBackoffice('FormChangeWalk'), setBackofficeWalk(walk)"><img src="../img/pen.svg" /></div>
                         <div class="delete" @click="removeWalkCarnet(walk.name)" ><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
@@ -41,7 +41,9 @@ import { db } from '../config/db'
         },
         methods: {
             ... mapActions([
-                'deleteBackofficeWalk'
+                'deleteBackofficeWalk',
+                'setActivePageBackoffice',
+                'setBackofficeWalk'
             ]),
             removeWalkCarnet(name) {
                 this.deleteBackofficeWalk(this.walk)

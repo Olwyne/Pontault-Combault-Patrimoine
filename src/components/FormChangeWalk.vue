@@ -1,7 +1,7 @@
 <template>
     <div class="formAddLocation">
         <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
-        <h1>Ajout d'une balade</h1>
+        <h1>Modification d'une balade</h1>
         <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
             <p v-if="errors.length">
                 <b>Veuillez remplir les champs si dessous :</b>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="form-group">
-                <div @click="checkForm" class="form-group btn btn-primary "> Ajouter la balade</div>
+                <div @click="checkForm" class="form-group btn btn-primary "> Modifier la balade</div>
             </div>
             <div class="progress">
                 <progress id="uploader" value="0" max="100">0%</progress>
@@ -99,7 +99,8 @@ export default {
       distance:null,
       categories: [],
       locations: [],
-      photos:{},
+      photos:null,
+      walk:[],
       choiceLocationAddWalk: [],
       locationsWalk: [],
       coord: null,
@@ -111,7 +112,21 @@ export default {
   mounted:function(){
       this.readLocation(),
       this.readCategory()
+      this.walk=this.getBackofficeWalk
+      this.nameWalk=this.walk.name
+      this.categoryWalk=this.walk.category
+      this.description=this.walk.description
+      this.photos=this.walk.photos
+      this.distance=this.walk.distance
+      this.duration=this.walk.duration
+      this.polyline.latlngs=this.walk.gps
+      this.locationsWalk=this.walk.locations
   },
+  computed:{
+            ... mapGetters([
+                'getBackofficeWalk',
+            ]),
+        },
   methods:{
     ... mapActions([
                 'setActivePageBackoffice',
@@ -190,9 +205,6 @@ export default {
         if (this.polyline.latlngs.length==0) {
             this.errors.push('Tracé obligatoire.');
         } 
-        if (!this.photos.name) {
-            this.errors.push('Image obligatoire.');
-        } 
         if (!this.duration) {
             this.errors.push('Durée obligatoire.');
         } 
@@ -201,30 +213,46 @@ export default {
         } 
         if (!this.errors.length) {
              const self = this
-     
-            let uploadTask = storageRef.child('app/walks/images/'+this.photos.name).put(this.photos);
-            
-            uploadTask.on('state_changed', function(snapshot){
-                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                uploader.value = progress;
-            }, function(error) {}, function() {
-                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    self.url=downloadURL;
-                    var postData = {
+            if(this.photos.name){
+                let uploadTask = storageRef.child('app/walks/images/'+this.photos.name).put(this.photos);
+                    uploadTask.on('state_changed', function(snapshot){
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    uploader.value = progress;
+                    }, function(error) {
+                    }, function() {
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        self.url=downloadURL;
+                         var postData = {
+                            name: self.nameWalk,
+                            description: self.description,
+                            locations:self.locationsWalk,
+                            gps: self.polyline.latlngs,
+                            photos:self.url,
+                            duration:self.duration,
+                            distance:self.distance
+                        };
+                        var updates = {};
+                        updates[self.nameWalk] = postData;
+                        db.ref('app/walks').update(updates);
+                        self.setActivePageBackoffice('ListeBackoffice')
+                    });
+                 }); 
+            }else{
+                var postData = {
                         name: self.nameWalk,
                         description: self.description,
                         locations:self.locationsWalk,
                         gps: self.polyline.latlngs,
-                        photos:self.url,
+                        photos:self.photos,
                         duration:self.duration,
                         distance:self.distance
-                    };
-                    var updates = {};
-                    updates[self.nameWalk] = postData;
-                    db.ref('app/walks').update(updates);
-                    self.setActivePageBackoffice('ListeBackoffice')
-                });
-            }); 
+                 };
+                var updates = {};
+                updates[self.nameWalk] = postData;
+                db.ref('app/walks').update(updates);
+                self.setActivePageBackoffice('ListeBackoffice')
+            }
+
         }
         e.preventDefault();
       }

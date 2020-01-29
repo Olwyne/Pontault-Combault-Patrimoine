@@ -126,12 +126,18 @@
 
                     },
                 }),
-                html: 'Update content to see changes',
+                html: null,
             }
         },
         mounted:function() {
-            this.setContent()
+            this.editor.setContent(this.description)
         }, 
+        watch:{
+            description:function(){
+                 this.editor.setContent(this.description)
+                
+            }
+        },
          methods: {
             processFile(event, command) {
                 let self = this
@@ -168,13 +174,9 @@
             },
             setContent() {
                 let self=this
-                this.editor.setContent({
-                    type: 'paragraph',
-                    content: [{
-                        type: 'text',
-                        text: self.description
-                    }],
-                }, true)
+                this.editor.setContent(
+                    self.description
+                  )
                 this.editor.focus()
             },
         },

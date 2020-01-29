@@ -173,7 +173,6 @@
             let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
                         if (name.gps) {
                             if(self.walk.length>0){
-                                console.log(self.walk)
                                 for (var i = 0; i < self.walk.length; i++) {
                                     if (name.name == self.walk[i]) {
                                         self.markerList.push({ coord: name.gps, text: textContent, category: catIcon })

@@ -31,7 +31,7 @@
             </div>
 
             <div class="form-group">
-                <RichEditorText></RichEditorText>
+                <RichEditorText :description="description"></RichEditorText>
             </div>
 
 

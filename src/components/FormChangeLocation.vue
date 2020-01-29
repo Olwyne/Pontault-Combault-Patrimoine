@@ -1,5 +1,5 @@
 <template>
-    <div class="formAddLocation form-group">
+    <div class="formChangeLocation form-group">
         <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
         <h1>Mofication d'un lieu</h1>
         <form id="addLocation" novalidate="true">
@@ -80,7 +80,7 @@ export default {
           addressLocation: null,
           categoryLocation: null,
           description: null,
-          photos:{},
+          photos:null,
           categories: [],
           url: null,
           latitudeLocation: null,
@@ -97,6 +97,7 @@ export default {
       this.description=this.location.description
       this.latitudeLocation=this.location.gps[0]
       this.longitudeLocation=this.location.gps[1]
+      this.photos=this.location.photos
     },
     methods:{
       ... mapActions([
@@ -176,6 +177,7 @@ export default {
                         0: self.latitudeLocation, 
                         1: self.longitudeLocation
                     },
+                    photos:self.photos
                 };
                 var updates = {};
                 updates[self.nameLocation] = postData;
