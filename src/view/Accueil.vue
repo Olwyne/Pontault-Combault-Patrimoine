@@ -29,6 +29,7 @@
         margin-top: 0.5em;
         margin-bottom: 0.5em;
         line-height: 1.2em;
+        font-weight: 500;
     }
 
     .homeImage {
@@ -48,6 +49,7 @@
         text-align: center;
         margin: auto;
         color: var(--darkbluePC);
+        font-weight: 500;
     }
 
     .homeText {

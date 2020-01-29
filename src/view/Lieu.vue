@@ -89,6 +89,7 @@
     line-height: 1.2em;
     padding-right: 1em;
     padding-left: 1em;
+    font-weight: 500;
 }
 
 .placeImage {
