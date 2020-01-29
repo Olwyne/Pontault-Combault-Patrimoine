@@ -1,6 +1,6 @@
 <template>
     <div>
-        <BaladeBox @click.native="setActivePage('Balade'), setActiveWalk(balade)"  v-for="balade in balades" :balade="balade" :key="balade.name"/>
+        <BaladeBox @click.native="setActivePage('Balade'), setActiveWalk(balade),setActiveTitle('Balade')"  v-for="balade in balades" :balade="balade" :key="balade.name"/>
     </div>
 </template>
 
@@ -26,7 +26,8 @@
         methods: {
             ... mapActions([
                 'setActivePage',
-                'setActiveWalk'
+                'setActiveWalk',
+                'setActiveTitle'
           ]),
             readWalks(){
                 let self=this

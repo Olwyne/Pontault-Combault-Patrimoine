@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="topPage sticky-top">
-            <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ pageTitle }}</div></div>
+            <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
         </div>
         <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
@@ -36,7 +36,7 @@ export default {
     },
     data: function () {
         return {
-            activePage: 'Accueil',
+            activePage:  'Accueil',
             pageTitle: 'Accueil',
             walk:null,
             lieu: null,
@@ -46,7 +46,8 @@ export default {
         ... mapActions([
                 'addLocationToStore',
                 'setActivePage',
-                'addWalkToStore'
+                'addWalkToStore',
+                'setActiveTitle'
         ]),
 		changeCurrentContent(props) {
 			this.activePage = this.getActivePage
@@ -74,11 +75,13 @@ export default {
     },
     computed:{
             ... mapGetters([
-                'getActivePage'
+                'getActivePage',
+                'getActiveTitle'
             ]),
     },
 	mounted: function(){
             this.setActivePage(this.activePage)
+            this.setActiveTitle(this.pageTitle)
             if (localStorage.getItem('StorageLocations')) {
                 try {
                     const lieuxCarnet = JSON.parse(localStorage.getItem('StorageLocations'));
@@ -102,7 +105,7 @@ export default {
                     localStorage.removeItem('StorageWalk');
                 }
             }         
-    },
+    }
 }
 </script>
 

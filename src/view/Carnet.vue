@@ -34,7 +34,8 @@
             ... mapActions([
                 'setActiveLocation',
                 'setActivePage',
-                'setActiveWalk'
+                'setActiveWalk',
+                'setActiveTitle'
           ]),
         
         },

@@ -1,5 +1,5 @@
 <template>
-    <div class="" @click="updatePage('Balade', balade)">
+    <div class="" @click="updatePage('Balade', balade),setActiveTitle('Balade')">
             <div class="baladeBox row">
                 <div class="thumbnailSize col-5">
                     <img class="baladeThumbnail" v-bind:src="balade.photos" />
@@ -23,10 +23,16 @@
 </template>
 
 <script>
+    import { mapGetters, mapActions } from 'vuex'
+
+
     export default {
         name:'BaladeBox',
         props:['balade'],
         methods:{
+            ... mapActions([
+                'setActiveTitle'
+            ]),
             updatePage: function (location,balade) {
                 const datas={
                     location: location,

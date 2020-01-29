@@ -41,7 +41,7 @@
             <div class="lieuxList">
                 <!-- mettre le lien du lieu dans le src suivant -->
                 <div>Sur le parcours :</div>
-                <a src="" @click="setActivePage('Lieu', lieuBalade); setActiveLocation(lieuBalade)" v-for="lieuBalade in walk.locations" v-bind:key="lieuBalade">- {{ lieuBalade }}</a>
+                <a src="" @click="setActivePage('Lieu', lieuBalade); setActiveLocation(lieuBalade),setActiveTitle('Lieu')" v-for="lieuBalade in walk.locations" v-bind:key="lieuBalade">- {{ lieuBalade }}</a>
             </div>
             <div class="placeBody">
                 <div class="placeText" v-html="walk.description"></div>
@@ -109,7 +109,8 @@
     methods: {
         ... mapActions([
             'setActiveLocation',
-            'setActivePage'
+            'setActivePage',
+            'setActiveTitle'
         ]),
         formated(coords) {
             return latLng(coords)
