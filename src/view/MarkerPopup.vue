@@ -5,7 +5,7 @@
     :draggable="false"
   >
     <l-icon :icon-url="icontest"  />
-    <l-popup ><div @click="setActivePage('Lieu', location); setActiveLocation(location),setActiveTitle('Lieu')" v-html="text"></div></l-popup>
+    <l-popup ><div @click="setActivePage('Lieu', location); setActiveLocation(location),setActiveTitle('Lieu'),setPreviousPage('VisiteLibre')" v-html="text"></div></l-popup>
   </l-marker>
 </template>
 
@@ -47,7 +47,8 @@ export default {
     ... mapActions([
                 'setActivePage',
                 'setActiveTitle',
-                'setActiveLocation'
+                'setActiveLocation',
+                'setPreviousPage'
         ]),
   }
 };

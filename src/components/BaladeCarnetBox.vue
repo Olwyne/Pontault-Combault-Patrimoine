@@ -1,5 +1,5 @@
 <template>
-        <div @click="setActivePage('Balade'), setActiveWalk(balade),setActiveTitle('Balade')" class="baladeBox row">
+        <div @click="setActivePage('Balade'), setActiveWalk(balade),setActiveTitle('Balade'),setPreviousPage('Carnet'), setPreviousWalk('Carnet')" class="baladeBox row">
             <div class="thumbnailSize col-5">
                 <img class="baladeThumbnail" v-bind:src="balade.photos" />
             </div>
@@ -36,7 +36,9 @@ import { mapActions, mapGetters } from 'vuex'
                 'deleteWalkFromStore',
                 'setActivePage',
                 'setActiveWalk',
-                'setActiveTitle'
+                'setActiveTitle',
+                'setPreviousPage',
+                'setPreviousWalk'
             ]),
             removeWalkCarnet(name) {
                 this.deleteWalkFromStore(this.balade)

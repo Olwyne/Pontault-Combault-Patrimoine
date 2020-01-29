@@ -1,8 +1,8 @@
 <template>
     <div class="placeFooter fixed-bottom nav nav-fill">
-        <div class="nav-item">
+        <div @click="setActivePage(getPreviousPage), setActiveLocation(getPreviousLocation), setActiveTitle(getPreviousPage)" class="nav-item">
             <img src="../img/back-white.svg" />
-            <div class="footerText">Retour</div>
+            <div  class="footerText">Retour</div>
         </div>
         <div class="nav-item" @click="openMap">
             <img src="../img/route-white.svg" />
@@ -24,12 +24,15 @@
         props: ["lieu"],
         data: function () {
                 return {
-                    heart: "./img/heart-empty-white.svg"
+                    heart: "./img/heart-empty-white.svg",
                 }
             },
         methods: {
             ...mapActions([
-                'addLocationToStore'
+                'addLocationToStore',
+                'setActivePage',
+                'setActiveLocation',
+                'setActiveTitle'
             ]),
             storeLocation(){
                 const stored = this.getLocalStoreLocation
@@ -62,7 +65,9 @@
         computed: {
             ... mapGetters([
                 'getLocalStoreLocation',
-                'getActiveLocation'
+                'getActiveLocation',
+                'getPreviousPage',
+                'getPreviousLocation'
             ])
         }
 

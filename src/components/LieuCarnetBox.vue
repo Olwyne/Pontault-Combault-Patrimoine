@@ -1,5 +1,5 @@
 <template>
-    <div @click="setActivePage('Lieu'), setActiveLocation(lieu.name),setActiveTitle('Lieu')" class="baladeBox row">
+    <div @click="setActivePage('Lieu'), setActiveLocation(lieu.name),setActiveTitle('Lieu'),setPreviousPage('Carnet')" class="baladeBox row">
         <div class="thumbnailSize col-5">
             <img class="baladeThumbnail" v-bind:src="lieu.photos" />
         </div>
@@ -27,7 +27,8 @@ import { mapActions, mapGetters } from 'vuex'
                 'deleteLocationFromStore',
                 'setActivePage',
                 'setActiveLocation',
-                'setActiveTitle'
+                'setActiveTitle',
+                'setPreviousPage'
             ]),
             removeLocationCarnet(name) {
                 this.deleteLocationFromStore(this.lieu)

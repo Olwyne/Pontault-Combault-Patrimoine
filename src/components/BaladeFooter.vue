@@ -1,6 +1,6 @@
 <template>
     <div class="placeFooter fixed-bottom nav nav-fill">
-        <div class="nav-item">
+        <div @click="setActivePage(getPreviousWalk),setActiveTitle(getPreviousWalk)" class="nav-item">
             <img src="../img/back-white.svg" />
             <div class="footerText">Retour</div>
         </div>
@@ -29,7 +29,10 @@ import { mapActions, mapGetters } from 'vuex'
             },
          methods: {
             ... mapActions([
-                'addWalkToStore'
+                'addWalkToStore',
+                'setPreviousPage',
+                'setActivePage',
+                'setActiveTitle'
             ]),
             storeWalk(){
                 const stored = this.getLocalStoreWalk
@@ -68,7 +71,8 @@ import { mapActions, mapGetters } from 'vuex'
         computed: {
             ... mapGetters([
                 'getLocalStoreWalk',
-                'getActiveWalk'
+                'getActiveWalk',
+                'getPreviousWalk'
             ])
         }
     }

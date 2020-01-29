@@ -12,7 +12,10 @@ const state= {
     activePageBackoffice:null,
     activeWalk:{},
     backofficeLocation:[],
-    backofficeWalk:[]
+    backofficeWalk:[],
+    previousPage:null,
+    previousLocation:null,
+    previousWalk:null
 }
 
 const mutations= {
@@ -29,6 +32,9 @@ const mutations= {
         state.activePage=props
     },
     SET_ACTIVE_TITLE(state, props){
+        if(props=="VisiteLibre"){
+            props="Visite Libre"
+        }
         state.activeTitle=props
     },
     SET_ACTIVE_PAGE_BACKOFFICE(state, props){
@@ -54,6 +60,15 @@ const mutations= {
     },
     SET_BACKOFFICE_WALK(state, props){
         state.backofficeWalk=props
+    },
+    SET_PREVIOUS_PAGE(state, props){
+        state.previousPage=props
+    },
+    SET_PREVIOUS_LOCATION(state, props){
+        state.previousLocation=props
+    },
+    SET_PREVIOUS_WALK(state, props){
+        state.previousWalk=props
     },
 }
 const getters={
@@ -86,6 +101,15 @@ const getters={
     },
     getBackofficeWalk(state){
         return state.backofficeWalk
+    },
+    getPreviousPage(state){
+        return state.previousPage
+    },
+    getPreviousLocation(state){
+        return state.previousLocation
+    },
+    getPreviousWalk(state){
+        return state.previousWalk
     },
 }
 
@@ -128,6 +152,15 @@ const actions={
     },
     setBackofficeWalk: (store, props) => {
         store.commit('SET_BACKOFFICE_WALK', props)
+    },
+    setPreviousPage: (store, props) => {
+        store.commit('SET_PREVIOUS_PAGE', props)
+    },
+    setPreviousLocation: (store, props) => {
+        store.commit('SET_PREVIOUS_LOCATION', props)
+    },
+    setPreviousWalk: (store, props) => {
+        store.commit('SET_PREVIOUS_WALK', props)
     }
 }
 
