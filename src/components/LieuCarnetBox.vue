@@ -1,24 +1,19 @@
 <template>
-    <div>
-        <a  @click="setActivePage('Lieu'), setActiveLocation(lieu.name),setActiveTitle('Lieu')">
-            <div class="baladeBox row">
-                <div class="thumbnailSize col-5">
-                    <img class="baladeThumbnail" v-bind:src="lieu.photos" />
+    <div @click="setActivePage('Lieu'), setActiveLocation(lieu.name),setActiveTitle('Lieu')" class="baladeBox row">
+        <div class="thumbnailSize col-5">
+            <img class="baladeThumbnail" v-bind:src="lieu.photos" />
+        </div>
+        <div class="baladeInfo col-7 d-flex flex-column justify-content-between">
+            <div class="baladeTitle">{{lieu.name}}</div>
+            <div class="d-flex justify-content-between">
+                <div class="baladeDistance d-flex">
                 </div>
-                <div class="baladeInfo col-7 d-flex flex-column justify-content-between">
-                    <div class="baladeTitle">{{lieu.name}}</div>
-                    <div class="d-flex justify-content-between">
-                        <div class="baladeDistance d-flex">
-                        </div>
-                        <div class="baladeDuration d-flex">
-                        </div>
-                        <div @click="removeLocationCarnet(lieu.name)" class="delete"><img src="../img/garbage-blue.svg" /></div>
-                    </div>
+                <div class="baladeDuration d-flex">
                 </div>
+                <div @click.stop="removeLocationCarnet(lieu.name)" class="delete"><img src="../img/garbage-blue.svg" /></div>
             </div>
-        </a>
+        </div>
     </div>
-
 </template>
 
 <script>
@@ -49,9 +44,3 @@ import { mapActions, mapGetters } from 'vuex'
         },
     }
 </script>
-
-<style>
-    .delete {
-        z-index: 1001;
-    }
-</style>
