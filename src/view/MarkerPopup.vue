@@ -5,12 +5,14 @@
     :draggable="false"
   >
     <l-icon :icon-url="icontest"  />
-    <l-popup :content="text" />
+    <l-popup ><div @click="setActivePage('Lieu', location); setActiveLocation(location),setActiveTitle('Lieu')" v-html="text"></div></l-popup>
   </l-marker>
 </template>
 
 <script>
 import { LMarker, LPopup, LIcon } from "vue2-leaflet";
+import {mapActions, mapGetters} from 'vuex'
+
 export default {
   name: "MarkerPopup",
   components: {
@@ -35,7 +37,18 @@ export default {
       type: String,
       default: ""
       
+    },
+    location:{
+      type:String,
+      default:""
     }
+  },
+  methods:{
+    ... mapActions([
+                'setActivePage',
+                'setActiveTitle',
+                'setActiveLocation'
+        ]),
   }
 };
 </script>

@@ -12,7 +12,8 @@
                     <marker-popup v-for="(marker,i) in markerList" :key="i"
                                   :position="formated(marker.coord)"
                                   :text="marker.text"
-                                  :icontest="marker.category" />
+                                  :icontest="marker.category" 
+                                  :location="marker.name"/>
                     <l-control>
                         <div @click="increaseCenter" class="localisationButton"><img src="../img/target-me.svg" /></div>
                     </l-control>
@@ -198,7 +199,7 @@
                         if (name.gps) {
                             for (var i = 0; i < self.walk.locations.length; i++) {
                                 if (name.name == self.walk.locations[i]) {
-                                    self.markerList.push({ coord: name.gps, text: textContent, category: catIcon })
+                                    self.markerList.push({ coord: name.gps, text: textContent, category: catIcon,name:name.name })
                                 }
                             }
                         }

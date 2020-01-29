@@ -78,7 +78,8 @@
                 :position="formated(marker.coord)"
                 :text="marker.text"
                 :icontest="marker.category"
-              />
+                :location="marker.name"
+              ></marker-popup>
               <l-control>
                   <div @click="increaseCenter" class="localisationButton">
                       <img src="../img/target-me.svg" />
@@ -96,6 +97,7 @@
   import {LMap, LTileLayer, LMarker, LPolyline, LControl} from 'vue2-leaflet'
   import MarkerPopup from "./MarkerPopup";
   import { latLng } from "leaflet";
+import {mapActions, mapGetters} from 'vuex'
 
 
   export default {
@@ -136,6 +138,11 @@
       MarkerPopup
     },
     methods: {
+       ... mapActions([
+                'setActivePage',
+                'setActiveTitle',
+                'setActiveLocation'
+        ]),
       formated(coords) {
         return latLng(coords)
       },
@@ -195,14 +202,15 @@
               catColor = "#d9d217"
             }
             /*let textContent = "<div onclick='console.log(\""+name.name+"\")'><div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div></div>"*/
-            let textContent = "<div onclick='console.log(\""+name.name+"\")'><div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div></div>"
+            let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
             if(name.gps) {
             //console.log(name.gps)
-            self.markerList.push({coord: name.gps, text: textContent, category: catIcon})
+            self.markerList.push({coord: name.gps, text: textContent, category: catIcon, name:name.name})
             }
           });
         });
       },
+      
       testFonc(){
         var elements = document.getElementsByClassName("leaflet-popup-content-wrapper");
         console.log("elements")
@@ -214,6 +222,12 @@
       this.trackPosition()
       this.addMarkerLocation()
       //this.testFonc()
+    },
+    updated: function () {
+      this.$nextTick(function () {
+        // var test = document.querySelector('.marker').on('click', console.log('ok'));
+        // console.log(test)
+      })
     }
   };
 
