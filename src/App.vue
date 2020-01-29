@@ -6,7 +6,6 @@
         </div>
         <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
        <!-- <Backoffice /> -->
-      <!--<myMap />--> 
     </div>
 </template>
 
@@ -49,29 +48,6 @@ export default {
                 'addWalkToStore',
                 'setActiveTitle'
         ]),
-		changeCurrentContent(props) {
-			this.activePage = this.getActivePage
-			if (this.activePage === "Accueil") {
-				this.pageTitle = "Accueil"
-			}
-			if (this.activePage === "Balades") {
-				this.pageTitle = "Balades"
-			}
-			if (this.activePage === "VisiteLibre") {
-				this.pageTitle = "Visite libre"
-			}
-			if (this.activePage === "Carnet") {
-				this.pageTitle = "Carnet de visite"
-			}
-			if (this.activePage === "Balade") {
-				this.walk = props.walk
-				this.pageTitle = "Balade"
-			}
-			if (this.activePage === "Lieu") {
-				this.lieu = props.lieu
-				this.pageTitle = "Lieu"
-			}
-		}
     },
     computed:{
             ... mapGetters([
