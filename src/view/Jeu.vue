@@ -2,7 +2,7 @@
     <div>
         <div class="gameTitle">Découvre Pontault-Combault <br />avec Poco</div>
         <div class="text-center">
-            <img class="gameImage" src="../img/poco.png" />
+            <img class="gameImage" src="../img/poco-bientot.png" />
             </div>
             <div class="gameBody">
                 <div class="gamePresentation">Poco te fais découvrir le ville en t'amusant. Au fil de ta balade tu débloqueras des quizz et des badges. </div>
