@@ -130,14 +130,12 @@
             }
         },
         mounted:function() {
+            this.$nextTick(()=>{
+            
             this.editor.setContent(this.description)
+        })
+          
         }, 
-        watch:{
-            description:function(){
-                 this.editor.setContent(this.description)
-                
-            }
-        },
          methods: {
             processFile(event, command) {
                 let self = this
