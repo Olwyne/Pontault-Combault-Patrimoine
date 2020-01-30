@@ -78,9 +78,6 @@ const getters={
     getLocalStoreWalk(state){
         return state.localStoreWalk
     },
-    getLocalStoreWalk(state){
-        return state.localStoreWalk
-    },
     getActiveLocation(state){
         return state.activeLocation
     },
