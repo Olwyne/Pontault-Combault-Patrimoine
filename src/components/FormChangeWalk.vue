@@ -1,9 +1,9 @@
 <template>
     <div class="formAddLocation">
-        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
+        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon" style="cursor: pointer;"><img src="../img/back-blue.svg" /> Retour </div>
         <h1>Modification d'une balade</h1>
         <form id="AddWalkLocation" @submit="checkFormAddWalk" novalidate="true">
-            <p v-if="errors.length">
+            <p  class="alert alert-danger"  v-if="errors.length">
                 <b>Veuillez remplir les champs si dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
@@ -46,9 +46,8 @@
                 <input id="distance" v-model="distance" type="text" name="distance" class="form-control">
             </div>
             <div class="form-group">
-                <label for="photos">Photo</label>
-                <br />
-                <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
+                <label for="photos">Photo principale</label>
+                <div class="alert alert-blue" role="alert">Veillez à ce que la taille des photos soit adaptée au web pour qu'elles se chargent rapidement lors de la consultation de l'application. Vous pouvez utiliser des sites comme <a href="https://kraken.io/web-interface">kraken.io</a> qui permettent d'optimiser les images pour le web.</div><input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
             </div>
             <div class="form-group">
                 <RichEditorText :description="description"></RichEditorText>
