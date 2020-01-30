@@ -315,6 +315,10 @@
       background-color: #fff; /* à varier selon la couleur du marker */
     }
 
+    .leaflet-interactive {
+        stroke: var(--bluePC);
+        stroke-width: 6;
+    }
 
 </style>
 
