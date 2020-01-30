@@ -18,6 +18,7 @@ import Balades from './view/Balades'
 import Carnet from './view/Carnet'
 import Lieu from './view/Lieu'
 import Balade from './view/Balade'
+import Jeu from './view/Jeu'
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
@@ -31,6 +32,7 @@ export default {
         Carnet,
         Lieu,
         Balade,
+        Jeu,
         Backoffice
     },
     data: function () {
