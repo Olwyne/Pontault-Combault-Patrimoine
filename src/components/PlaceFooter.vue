@@ -46,7 +46,7 @@
                 }
             },
             openMap(){
-                document.location.href="http://maps.google.com/?q="+ this.lieu.address +" ,Pontault Combault, 77340"; 
+                document.location.href="http://maps.google.com/?q="+ this.lieu.gps[0] +" ," +this.lieu.gps[1]; 
             },
             readStoreLocation(){
                 const stored = this.getLocalStoreLocation
