@@ -1,10 +1,10 @@
 <template>
     <div class="formChangeLocation form-group">
-        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
+        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon" style="cursor: pointer;"><img src="../img/back-blue.svg" /> Retour </div>
         <h1>Mofication d'un lieu</h1>
         <form id="addLocation" novalidate="true">
 
-            <div v-if="errors.length">
+            <div class="alert alert-danger"  v-if="errors.length">
                 <b>Veuillez remplir les champs si dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
@@ -34,24 +34,23 @@
                 <RichEditorText :description="description"></RichEditorText>
             </div>
 
-
             <div class="form-group row">
                 <div class="col">
                     <label for="latitudeLocation">Latitude</label>
+                    <div class="alert alert-blue" role="alert">Veillez à respecter ce format : 48.8006127</div>
                     <input type="number" v-model="latitudeLocation" id="latitudeLocation" name="latitudeLocation" class="form-control">
                 </div>
                 <div class="col">
                     <label for="longitudeLocation">Longitude</label>
+                    <div class="alert alert-blue" role="alert">Veillez à respecter ce format : 2.6054929</div>
                     <input type="number" v-model="longitudeLocation" id="longitudeLocation" name="longitudeLocation" class="form-control">
                 </div>
             </div>
-
             <div class="form-group">
                 <label for="photos">Photo</label>
-                <br />
+                <div class="alert alert-blue" role="alert">Veillez à ce que la taille des photos soit adaptée au web pour qu'elles se chargent rapidement lors de la consultation de l'application. Vous pouvez utiliser des sites comme <a href="https://kraken.io/web-interface">kraken.io</a> qui permettent d'optimiser les images pour le web.</div>
                 <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
             </div>
-
             <div @click="checkForm" class="btn btn-primary form-group">Modifier le lieu</div>
             <div class="progress">
                 <progress id="uploader" value="0" max="100">0%</progress>

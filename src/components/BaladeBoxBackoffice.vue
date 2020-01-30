@@ -16,8 +16,8 @@
                             <div><img src="../img/chronometer-blue.svg" /></div>
                             <div class="align-self-end duration">{{ walk.duration}}</div>
                         </div>
-                        <div class="modif" @click="setActivePageBackoffice('FormChangeWalk'), setBackofficeWalk(walk)"><img src="../img/pen.svg" /></div>
-                        <div class="delete" @click="removeWalkCarnet(walk.name)" ><img src="../img/garbage-blue.svg" /></div>
+                        <div class="modif" style="cursor: pointer;" @click="setActivePageBackoffice('FormChangeWalk'), setBackofficeWalk(walk)"><img src="../img/pen.svg" /></div>
+                        <div class="delete" style="cursor: pointer;" @click="removeWalkCarnet(walk.name)" ><img src="../img/garbage-blue.svg" /></div>
                     </div>
                 </div>
             </div>
