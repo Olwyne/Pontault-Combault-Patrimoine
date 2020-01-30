@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="appContainer">
         <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
@@ -18,6 +18,7 @@ import Balades from './view/Balades'
 import Carnet from './view/Carnet'
 import Lieu from './view/Lieu'
 import Balade from './view/Balade'
+import Jeu from './view/Jeu'
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
@@ -31,6 +32,7 @@ export default {
         Carnet,
         Lieu,
         Balade,
+        Jeu,
         Backoffice
     },
     data: function () {
@@ -56,6 +58,18 @@ export default {
             ]),
     },
 	mounted: function(){
+            let locOrientation = window.screen.lockOrientation || window.screen.mozLockOrientation || window.screen.msLockOrientation || window.screen.orientation.lock;
+            locOrientation('portrait');
+            let  elem=document.querySelector("#appContainer")
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
             this.setActivePage(this.activePage)
             this.setActiveTitle(this.pageTitle)
             if (localStorage.getItem('StorageLocations')) {

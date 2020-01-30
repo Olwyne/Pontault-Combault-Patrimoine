@@ -107,5 +107,12 @@
     margin: 1em;
     color:var(--bluePC);
 }
+
+.placeText img {
+    text-align: center;
+    max-height: 17em;
+    max-width: 100%;
+    padding-bottom: 2em;
+}
 </style>
 

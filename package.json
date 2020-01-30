@@ -14,6 +14,7 @@
     "firebase": "^7.7.0",
     "leaflet": "^1.6.0",
     "npm": "^6.13.6",
+    "register-service-worker": "^1.6.2",
     "sass-loader": "^8.0.2",
     "tiptap": "^1.26.6",
     "tiptap-extensions": "^1.28.6",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-pwa": "^4.1.2",
     "@vue/cli-service": "^4.1.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",

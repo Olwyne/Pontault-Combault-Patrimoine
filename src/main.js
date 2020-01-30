@@ -8,6 +8,7 @@ import "./plugins/vue2-leaflet";
 import store from "./store/store";
 
 import { rtdbPlugin } from 'vuefire'
+import './registerServiceWorker'
 
 Vue.use(rtdbPlugin)
 

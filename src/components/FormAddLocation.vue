@@ -1,10 +1,10 @@
 <template>
     <div class="formAddLocation form-group">
-        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
+        <div @click="setActivePageBackoffice('ListeBackoffice')" class="backIcon" style="cursor: pointer;"><img src="../img/back-blue.svg" /> Retour </div>
         <h1>Ajout d'un lieu</h1>
         <form id="addLocation" novalidate="true">
 
-            <div v-if="errors.length">
+            <div class="alert alert-danger" v-if="errors.length">
                 <b>Veuillez remplir les champs ci-dessous :</b>
                 <ul>
                     <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
@@ -50,7 +50,7 @@
 
             <div class="form-group">
                 <label for="photos">Photo</label>
-                <div class="alert alert-blue" role="alert">Veillez à ce que les photos soient adaptées au web pour qu'elles se chargent rapidement lors de la consultation de l'application. Nous vous conseillons 1Mo.</div>
+                <div class="alert alert-blue" role="alert">Veillez à ce que la taille des photos soit adaptée au web pour qu'elles se chargent rapidement lors de la consultation de l'application. Vous pouvez utiliser des sites comme <a href="https://kraken.io/web-interface">kraken.io</a> qui permettent d'optimiser les images pour le web.</div>
                 <input type="file" id="photos" name="photos" accept="image/png, image/jpeg" @change="processFile($event)">
             </div>
 
