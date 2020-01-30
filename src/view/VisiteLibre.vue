@@ -150,7 +150,7 @@ import {mapActions, mapGetters} from 'vuex'
         console.log("test")
       },  
       increaseCenter() {
-        this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
+        this.center = [this.center[0] + 0.000000000001, this.center[1] + 0.000000000001]
         //console.log(this.center)
       },  
       trackPosition() {
