@@ -1,11 +1,11 @@
 <template>
     <div id="appContainer">
-        <!-- <div class="topPage sticky-top">
+        <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
         </div>
-        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component> -->
-       <Backoffice />
+        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
+       <!-- <Backoffice /> -->
     </div>
 </template>
 
@@ -41,6 +41,7 @@ export default {
             pageTitle: 'Accueil',
             walk:null,
             lieu: null,
+            isFullscreenAvailable:null
         }
     },
     methods: {
@@ -58,29 +59,6 @@ export default {
             ]),
     },
 	mounted: function(){
-        console.log(navigator.userAgent)
-        if( navigator.userAgent.match(/Android/i)
-        || navigator.userAgent.match(/webOS/i)
-        || navigator.userAgent.match(/iPhone/i)
-        || navigator.userAgent.match(/iPad/i)
-        || navigator.userAgent.match(/iPod/i)
-        || navigator.userAgent.match(/BlackBerry/i)
-        || navigator.userAgent.match(/Windows Phone/i)
-        ){
-            let  elem=document.querySelector("#appContainer")
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                elem.msRequestFullscreen();
-            }
-            screen.orientation.lock("portrait");
-        }
-        
-            
             this.setActivePage(this.activePage)
             this.setActiveTitle(this.pageTitle)
             if (localStorage.getItem('StorageLocations')) {
@@ -105,7 +83,31 @@ export default {
                 } catch(e) {
                     localStorage.removeItem('StorageWalk');
                 }
-            }         
+            }
+
+        this.$nextTick(() => {
+             if( navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+        ){
+            let  elem=document.getElementById("appContainer")
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+            screen.orientation.lock("portrait");
+        }         
+		});
+           
     }
 }
 </script>
