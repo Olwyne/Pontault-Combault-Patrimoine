@@ -4,11 +4,6 @@
     <LocationBoxBackoffice v-for="location in getBackofficeLocation" :key="location.name" :location='location'></LocationBoxBackoffice>
 	<h1>Balades <button @click="setActivePageBackoffice('FormAddWalk')" class="ml-1 btn btn-primary">Ajouter une balade</button></h1>
     <BaladeBoxBackoffice v-for="walk in getBackofficeWalk" :key="walk.name" :walk='walk'></BaladeBoxBackoffice>
-	
-    <!-- <FormAddLocation></FormAddLocation>
-    <FormDeleteLocation></FormDeleteLocation>
-    <FormAddWalk></FormAddWalk>
-    <FormDeleteWalk></FormDeleteWalk> -->
   </div>
 </template>
 
