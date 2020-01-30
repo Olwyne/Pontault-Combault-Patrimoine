@@ -58,8 +58,15 @@ export default {
             ]),
     },
 	mounted: function(){
-            let locOrientation = window.screen.lockOrientation || window.screen.mozLockOrientation || window.screen.msLockOrientation || window.screen.orientation.lock;
-            locOrientation('portrait');
+        console.log(navigator.userAgent)
+        if( navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+        ){
             let  elem=document.querySelector("#appContainer")
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
@@ -70,6 +77,10 @@ export default {
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
                 elem.msRequestFullscreen();
             }
+            screen.orientation.lock("portrait");
+        }
+        
+            
             this.setActivePage(this.activePage)
             this.setActiveTitle(this.pageTitle)
             if (localStorage.getItem('StorageLocations')) {
