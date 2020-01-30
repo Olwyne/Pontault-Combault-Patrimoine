@@ -33,7 +33,7 @@
     data () {
       return {
         markerList: [],
-        url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+        url: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
         //url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
         zoom: 13,
         center: [48.801255, 2.607598],
@@ -93,7 +93,7 @@
         trackPosition() {
             if (navigator.geolocation) {
             navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-                timeout: 15000,
+                //timeout: 15000,
                 maximumAge: 0,
                 })
             } 
