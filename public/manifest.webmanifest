@@ -2,7 +2,7 @@
     "name": "Découvrir Pontault Combault",
     "short_name": "Découvrir Pontault Combault",
     "theme_color": "#5b9bd5",
-    "background_color": "#5b9bd5",
+    "background_color": "white",
     "display": "fullscreen",
     "orientation": "portrait",
     "start_url": "/?utm_source=launcher",
