@@ -5,12 +5,10 @@
             <Navigation />
         </div>
         <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
-       <!-- <Backoffice /> -->
     </div>
 </template>
 
 <script>
-import Backoffice from "./view/backoffice";
 import Navigation from './view/Navigation'
 import Accueil from './view/Accueil'
 import VisiteLibre from './view/VisiteLibre'
@@ -24,7 +22,6 @@ import {mapActions, mapGetters} from 'vuex'
 export default {
     name: "app",
         components: {
-        Backoffice,
         Navigation,
         Accueil,
         VisiteLibre,
@@ -33,7 +30,6 @@ export default {
         Lieu,
         Balade,
         Jeu,
-        Backoffice
     },
     data: function () {
         return {
@@ -41,7 +37,6 @@ export default {
             pageTitle: 'Accueil',
             walk:null,
             lieu: null,
-            isFullscreenAvailable:null
         }
     },
     methods: {
