@@ -1,6 +1,8 @@
 // Get a RTDB instance
 import firebase from 'firebase/app'
 import 'firebase/database'
+import 'firebase/storage'
+
 
 export const db = firebase
   .initializeApp({
@@ -10,4 +12,12 @@ export const db = firebase
       projectId: "patrimoine-pontault-combault",
       storageBucket: "patrimoine-pontault-combault.appspot.com",
       messagingSenderId: "1069741740602" })
-  .database()
+  .database();
+
+export const fire=firebase;
+
+// Get a reference to the storage service, which is used to create references in your storage bucket
+export var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+export var storageRef = storage.ref();
