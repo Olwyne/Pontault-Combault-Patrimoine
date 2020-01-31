@@ -1,13 +1,18 @@
 <template>
-    <div>
-        <BaladeCarnetBox v-for="balade in baladesCarnet" :balade="balade" :key="balade.title" />
-        <LieuCarnetBox v-for="lieu in lieuxCarnet" :lieu="lieu" :key="lieu.title" />
+    <div class="carnetcontainer">
+        <div class="alert alert-primary" role="alert">
+             Les données du carnet de visite sont sauvegardées dans le cache du navigateur. Si vous videz votre cache, vous perdrez vos sauvegardes. 
+        </div>
+        <BaladeCarnetBox  v-for="balade in getLocalStoreWalk" :balade="balade" :key="balade.name" />
+        <LieuCarnetBox v-for="lieu in getLocalStoreLocation" :lieu="lieu" :key="lieu.name" />
     </div>
 </template>
 
 <script>
-    import BaladeCarnetBox from '../components/BaladeBox'
+    import BaladeCarnetBox from '../components/BaladeCarnetBox'
     import LieuCarnetBox from '../components/LieuCarnetBox'
+    import { mapGetters, mapActions } from 'vuex'
+
     export default {
         components: {
             BaladeCarnetBox,
@@ -15,31 +20,42 @@
         },
         data: function () {
             return {
-                baladesCarnet: [
-                    {
-                        imagePath : './15a-CPA.jpg',
-                        title: 'le titre balade carnet 1',
-                        distance: '5km',
-                        duration: '1h'
-                    },
-                    {
-                        imagePath : './15a-CPA.jpg',
-                        title: 'le titre balade carnet 2',
-                        distance: '8km',
-                        duration: '2h'
-                    }
-                ],
-                lieuxCarnet: [
-                    {
-                        imagePath : './home-image.jpg',
-                        title: 'le titre lieu 1'
-                    },
-                    {
-                        imagePath : './home-image.jpg',
-                        title: 'le titre lieu 2'
-                    }
-                ]
+                baladesCarnet: {
+                    name:null
+                },
+                lieuxCarnet: {
+                    name:null
+                }
             }
+        },
+        mounted:function(){
+        },
+        methods: {
+            ... mapActions([
+                'setActiveLocation',
+                'setActivePage',
+                'setActiveWalk',
+                'setActiveTitle'
+          ]),
+        
+        },
+        computed:{
+            ... mapGetters([
+                'getLocalStoreLocation',
+                'getLocalStoreWalk'
+            ])
         }
+  
     }
 </script>
+
+<style>
+    .carnetcontainer .alert {
+    font-size: 0.7em;
+    margin: 0.5em;
+    padding: 0.5em;
+    color:  var(--bluePC);
+    background-color: #e7f4ff;
+    border-color:   var(--bluePC);
+    }
+</style>

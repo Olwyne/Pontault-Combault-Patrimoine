@@ -1,0 +1,22 @@
+{
+    "name": "Découvrir Pontault Combault",
+    "short_name": "Découvrir Pontault Combault",
+    "theme_color": "#5b9bd5",
+    "background_color": "white",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "start_url": "/?utm_source=launcher",
+    "icons": [
+      {
+        "src": "img/icons/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "img/icons/android-chrome-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+
+  }

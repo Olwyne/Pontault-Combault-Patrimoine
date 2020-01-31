@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#5b9bd5">
+    <meta name="apple-mobile-web-app-title" content="Découvrir Pontault Combault">
+    <meta name="theme-color" content="#5b9bd5"> 
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi, viewport-fit=cover" >
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>Découvrir Pontault-Combault</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <script async src="https://cdn.jsdelivr.net/npm/pwacompat@2.0.10/pwacompat.min.js"
+    integrity="sha384-I1iiXcTSM6j2xczpDckV+qhhbqiip6FyD6R5CpuqNaWXvyDUvXN5ZhIiyLQ7uuTh"
+    crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but decouvrir-pontault-combault doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+
+<script>
+  if ('serviceWorker' in navigator) {
+     //console.log("Will the service worker register?");
+     navigator.serviceWorker.register('service-worker.js')
+       .then(function(reg){
+        // console.log("Yes, it did.");
+      }).catch(function(err) {
+      //   console.log("No it didn't. This happened:", err)
+     });
+    
+  }
+ 
+ </script>
