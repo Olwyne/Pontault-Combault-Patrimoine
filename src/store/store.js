@@ -32,6 +32,9 @@ const mutations= {
         if(props=="VisiteLibre"){
             props="Visite Libre"
         }
+        if(props=="Carnet"){
+            props="Carnet de visite"
+        }
         state.activeTitle=props
     },
     SET_ACTIVE_WALK(state, props){
