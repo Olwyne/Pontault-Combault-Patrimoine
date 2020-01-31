@@ -9,10 +9,7 @@ const state= {
     activeLocation: {},
     activePage:null,
     activeTitle:null,
-    activePageBackoffice:null,
     activeWalk:{},
-    backofficeLocation:[],
-    backofficeWalk:[],
     previousPage:null,
     previousLocation:null,
     previousWalk:null
@@ -37,9 +34,6 @@ const mutations= {
         }
         state.activeTitle=props
     },
-    SET_ACTIVE_PAGE_BACKOFFICE(state, props){
-        state.activePageBackoffice=props
-    },
     SET_ACTIVE_WALK(state, props){
         state.activeWalk=props
     },
@@ -48,18 +42,6 @@ const mutations= {
     },
     DELETE_WALK(state,props){
         state.localStoreWalk=state.localStoreWalk.filter((item) => item.name !== props.name)
-    },
-    DELETE_BACKOFFICE_LOCATION(state,props){
-        state.backofficeLocation=state.backofficeLocation.filter((item) => item.name !== props.name)
-    },
-    DELETE_BACKOFFICE_WALK(state,props){
-        state.backofficeWalk=state.backofficeWalk.filter((item) => item.name !== props.name)
-    },
-    SET_BACKOFFICE_LOCATION(state, props){
-        state.backofficeLocation=props
-    },
-    SET_BACKOFFICE_WALK(state, props){
-        state.backofficeWalk=props
     },
     SET_PREVIOUS_PAGE(state, props){
         state.previousPage=props
@@ -87,17 +69,8 @@ const getters={
     getActiveTitle(state){
         return state.activeTitle
     },
-    getActivePageBackoffice(state){
-        return state.activePageBackoffice
-    },
     getActiveWalk(state){
         return state.activeWalk
-    },
-    getBackofficeLocation(state){
-        return state.backofficeLocation
-    },
-    getBackofficeWalk(state){
-        return state.backofficeWalk
     },
     getPreviousPage(state){
         return state.previousPage
@@ -126,9 +99,6 @@ const actions={
     setActiveTitle : (store,props) => {
         store.commit('SET_ACTIVE_TITLE', props)
     },
-    setActivePageBackoffice : (store,props) => {
-        store.commit('SET_ACTIVE_PAGE_BACKOFFICE', props)
-    },
     setActiveWalk : (store,props) => {
         store.commit('SET_ACTIVE_WALK', props)
     },
@@ -137,18 +107,6 @@ const actions={
     },
     deleteWalkFromStore: (store, props) => {
         store.commit('DELETE_WALK', props)
-    },
-    deleteBackofficeLocation: (store, props) => {
-        store.commit('DELETE_BACKOFFICE_LOCATION', props)
-    },
-    deleteBackofficeWalk: (store, props) => {
-        store.commit('DELETE_BACKOFFICE_WALK', props)
-    },
-    setBackofficeLocation: (store, props) => {
-        store.commit('SET_BACKOFFICE_LOCATION', props)
-    },
-    setBackofficeWalk: (store, props) => {
-        store.commit('SET_BACKOFFICE_WALK', props)
     },
     setPreviousPage: (store, props) => {
         store.commit('SET_PREVIOUS_PAGE', props)
