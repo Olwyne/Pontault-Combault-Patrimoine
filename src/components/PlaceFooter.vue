@@ -39,7 +39,6 @@
                 const present = stored.filter((item) => item.name === this.lieu.name)
                 if (present.length === 0) {
                     this.addLocationToStore(this.lieu)
-                    console.log(this.lieu)
                     const parsed = JSON.stringify(this.getLocalStoreLocation); 
                     localStorage.setItem('StorageLocations', parsed);
                      this.heart="./img/heart-full-white.svg"

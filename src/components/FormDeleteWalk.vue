@@ -11,7 +11,7 @@
             </p>
 
             <div class="form-group">
-                <label for="walks">S�lectionner la balade � supprimer</label>
+                <label for="walks">Sélectionner la balade à supprimer</label>
                 <select multiple id="choiceWalkDelete" v-model="choiceWalkDelete" name="choiceWalkDelete" class="form-control">
                     <option v-for="walk in walks" v-bind:key="walk" v-bind:value="walk">
                         {{walk}}
@@ -61,6 +61,3 @@ export default {
     }
 }
 </script>
-
-<style >
-</style>

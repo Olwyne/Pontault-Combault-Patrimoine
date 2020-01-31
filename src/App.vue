@@ -78,7 +78,6 @@ export default {
                     walkCarnet.forEach(walk => {
                          this.addWalkToStore(walk)
                     });
-                    console.log(walkCarnet)
                    
                 } catch(e) {
                     localStorage.removeItem('StorageWalk');

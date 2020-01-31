@@ -117,53 +117,25 @@
             return latLng(coords)
         },
         increaseCenter() {
-            this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
-            //console.log(this.center)
+            this.center = [this.center[0] + 0.000000000001, this.center[1] + 0.000000000001]
         },  
         trackPosition() {
             if (navigator.geolocation) {
             navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-                timeout: 15000,
+                //timeout: 15000,
                 maximumAge: 0,
                 })
             } 
-            else {
-            alert(`Browser doesn't support Geolocation`)
-            }
-        },
-        successPosition: function(position) {
-            this.center = [position.coords.latitude, position.coords.longitude]
-            //console.log(this.center)
-        },
-        failurePosition: function(err) {
-            alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
-        },
-
-        formated(coords) {
-            return latLng(coords)
-        },
-        increaseCenter() {
-            this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
-            //console.log(this.center)
-        },
-        trackPosition() {
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 0,
-                })
-            }
-            else {
+            /*else {
                 alert(`Browser doesn't support Geolocation`)
             }
-        },
+*/        },
         successPosition: function (position) {
             this.center = [position.coords.latitude, position.coords.longitude]
-            //console.log(this.center)
         },
         failurePosition: function (err) {
-            alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+            //alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+            console.log(" ")
         },
         addMarkerLocation() {
             let self = this
@@ -214,24 +186,7 @@
                     var name = (childSnapshot.val());
                     if (name.name == self.walk.name) {
                         self.polyline.latlngs.push(name.gps)
-                        if (name.category == "Histoire") {
-                            self.polyline.color = "#741d89"
-                        }
-                        else if (name.category == "Culte") {
-                            self.polyline.color = "#a21414"
-                        }
-                        else if (name.category == "Nature") {
-                            self.polyline.color = "#539312"
-                        }
-                        else if (name.category == "Culture") {
-                            self.polyline.color = "#e66f13"
-                        }
-                        else if (name.category == "Parc") {
-                            self.polyline.color = "#d9d217"
-                        }
-                        else {
-                            self.polyline.color = "#000000"
-                        }
+                        self.polyline.color = "#5b9bd5"
                     }
                 });
             });
@@ -312,7 +267,7 @@
     }
 
     .leaflet-popup-tip, .leaflet-popup-content-wrapper {
-      background-color: #fff; /* à varier selon la couleur du marker */
+      background-color: #fff; 
     }
 
     .leaflet-interactive {

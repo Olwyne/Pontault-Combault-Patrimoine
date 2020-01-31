@@ -87,8 +87,7 @@
             return latLng(coords)
         },
         increaseCenter() {
-            this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
-            //console.log(this.center)
+            this.center = [this.center[0] + 0.000000000001, this.center[1] + 0.000000000001]
         },  
         trackPosition() {
             if (navigator.geolocation) {
@@ -97,43 +96,17 @@
                 maximumAge: 0,
                 })
             } 
-            else {
+            /*else {
             alert(`Browser doesn't support Geolocation`)
-            }
-        },
-        successPosition: function(position) {
-            this.center = [position.coords.latitude, position.coords.longitude]
-            //console.log(this.center)
-        },
-        failurePosition: function(err) {
-            alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
-        },
-
-        formated(coords) {
-            return latLng(coords)
-        },
-        increaseCenter() {
-            this.center = [this.center[0] + 0.0001, this.center[1] + 0.0001]
-            //console.log(this.center)
-        },
-        trackPosition() {
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 0,
-                })
-            }
-            else {
-                alert(`Browser doesn't support Geolocation`)
-            }
+            }*/
         },
         successPosition: function (position) {
             this.center = [position.coords.latitude, position.coords.longitude]
             //console.log(this.center)
         },
         failurePosition: function (err) {
-            alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+            //alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+            console.log(" ")
         },
         addMarkerLocation() {
             let self = this
@@ -175,9 +148,7 @@
                                         
                                         self.markerList.push({ coord: name.gps, text: textContent, category: catIcon })
                                     }
-                                }
-                       console.log(self.markerList)
-                            
+                                }                            
                         }
                     });
                 });

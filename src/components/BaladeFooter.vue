@@ -44,12 +44,8 @@ import { mapActions, mapGetters } from 'vuex'
                     localStorage.setItem('StorageWalk', parsed);
                     this.heart="./img/heart-full-white.svg"
                 }
-            
-                
             },
             openMap(){
-                console.log("this.walk.gps[0][0]")
-                console.log(this.walk.gps[0][0])
                 document.location.href="http://maps.google.com/?q="+ this.walk.gps[0][0] +" ," +this.walk.gps[0][1]; 
             },
             readStoreWalk(){
@@ -60,9 +56,7 @@ import { mapActions, mapGetters } from 'vuex'
                 }
                 else{
                     this.heart="./img/heart-full-white.svg"
-                }
-                
-               
+                }   
             }
         },
         mounted: function(){
@@ -77,7 +71,3 @@ import { mapActions, mapGetters } from 'vuex'
         }
     }
 </script>
-
-<style>
-</style>
-

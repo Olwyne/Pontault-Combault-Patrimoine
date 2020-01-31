@@ -127,7 +127,6 @@ import {mapActions, mapGetters} from 'vuex'
     watch:{
       newcoords:function(){
         this.polyline.latlngs=this.newcoords
-        //console.log("hola"+this.polyline.latlngs)
       }
     }, 
     components: {
@@ -146,31 +145,27 @@ import {mapActions, mapGetters} from 'vuex'
         ]),
       formated(coords) {
         return latLng(coords)
-      },
-      test() {
-        console.log("test")
-      },  
+      }, 
       increaseCenter() {
         this.center = [this.center[0] + 0.000000000001, this.center[1] + 0.000000000001]
-        //console.log(this.center)
       },  
       trackPosition() {
         if (navigator.geolocation) {
           navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-              timeout: 15000,
+              //timeout: 15000,
               maximumAge: 0,
               })
         } 
-        else {
+        /*else {
           alert(`Browser doesn't support Geolocation`)
-        }
+        }*/
       },
       successPosition: function(position) {
         this.center = [position.coords.latitude, position.coords.longitude]
-        //console.log(this.center)
       },
       failurePosition: function(err) {
-        alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+        //alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
+        console.log(" ")
       },
       addMarkerLocation(){
         let self=this
@@ -202,10 +197,8 @@ import {mapActions, mapGetters} from 'vuex'
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-parc.svg?alt=media&token=d6632431-5d31-4584-9071-b129b9f710b4'
               catColor = "#d9d217"
             }
-            /*let textContent = "<div onclick='console.log(\""+name.name+"\")'><div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div></div>"*/
             let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
             if(name.gps) {
-            //console.log(name.gps)
             self.markerList.push({coord: name.gps, text: textContent, category: catIcon, name:name.name})
             }
           });
@@ -215,13 +208,9 @@ import {mapActions, mapGetters} from 'vuex'
     mounted() {
       this.trackPosition()
       this.addMarkerLocation()
-      //this.testFonc()
     },
     updated: function () {
-      this.$nextTick(function () {
-        // var test = document.querySelector('.marker').on('click', console.log('ok'));
-        // console.log(test)
-      })
+      this.$nextTick(function () {})
     }
   };
 

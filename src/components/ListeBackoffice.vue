@@ -8,7 +8,6 @@
 </template>
 
 <script>
-// RecentDocuments.vue
 import { db,storageRef } from '../config/db'
 import {mapActions, mapGetters} from 'vuex'
 
@@ -84,6 +83,3 @@ import FormDeleteWalk from '../components/FormDeleteWalk'
 	}
 }
 </script>
-
-<style>
- </style>

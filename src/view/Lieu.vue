@@ -49,12 +49,10 @@
         },
         methods:{
             addLocationCarnet(love){
-                this.toSave.push(this.location)
-                console.log(this.toSave)    
+                this.toSave.push(this.location) 
                 this.saveLocationCarnet()   
             },
             saveLocationCarnet() {
-                console.log("save")
                 const parsed = JSON.stringify(this.toSave);
                 localStorage.setItem('lieuxCarnet', parsed);
             },

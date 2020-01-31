@@ -57,12 +57,3 @@ import { mapActions, mapGetters } from 'vuex'
         },
     }
 </script>
-
-<style>
-    /*.boxLink{
-        z-index:1;
-    }
-    .delete {
-        z-index: 2;
-    }*/
-</style>

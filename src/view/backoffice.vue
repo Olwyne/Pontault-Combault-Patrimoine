@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// RecentDocuments.vue
 import { db,storageRef } from '../config/db'
 import {mapActions, mapGetters} from 'vuex'
 

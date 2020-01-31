@@ -131,7 +131,6 @@ export default {
         }
         self.polyline.latlngs.push(
             [json.features[0].geometry.coordinates[1],json.features[0].geometry.coordinates[0]]
-
         )
       };
       reader.readAsText(file);
@@ -173,7 +172,6 @@ export default {
           this.locationsWalk.push(this.choiceLocationAddWalk[0])
         } 
     },
-   
     checkForm(e){
         this.errors = [];
 
