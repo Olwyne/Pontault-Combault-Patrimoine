@@ -4,6 +4,7 @@
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
         </div>
+        <UpdateNotification />
         <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
     </div>
 </template>
@@ -17,6 +18,8 @@ import Carnet from './view/Carnet'
 import Lieu from './view/Lieu'
 import Balade from './view/Balade'
 import Jeu from './view/Jeu'
+import UpdateNotification from './components/UpdateNotification'
+
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
@@ -30,6 +33,7 @@ export default {
         Lieu,
         Balade,
         Jeu,
+        UpdateNotification
     },
     data: function () {
         return {
