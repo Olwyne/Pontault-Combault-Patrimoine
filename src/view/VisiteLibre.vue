@@ -295,10 +295,6 @@ import {mapActions, mapGetters} from 'vuex'
         color:var(--darkbluePC);
     }
 
-    /*.leaflet-popup-tip, .leaflet-popup-content-wrapper {
-        background-color: var(--catCulte); 
-    }*/
-
     .leaflet-popup-tip-container{
         margin-top: -1px;
     }
