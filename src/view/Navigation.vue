@@ -113,6 +113,7 @@
 
     .icon-nav {
         height: 100%;
+        max-width:100%;
     }
 
    .colorNavDefault {
