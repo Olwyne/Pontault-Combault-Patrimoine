@@ -5,7 +5,7 @@
             <img class="gameImage" src="../img/poco-bientot.png" />
             </div>
             <div class="gameBody">
-                <div class="gamePresentation">Poco te fait découvrir le ville en t'amusant. Au fil de ta balade tu débloqueras des quizz et des badges. </div>
+                <div class="gamePresentation">Poco te fait découvrir la ville en t'amusant. Au fil de ta balade tu débloqueras des quizz et des badges. </div>
                 <div>
                     <label class="switch">
                         <input type="checkbox" checked>
