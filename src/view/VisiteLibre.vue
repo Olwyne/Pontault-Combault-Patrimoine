@@ -307,6 +307,7 @@ import {mapActions, mapGetters} from 'vuex'
         color: white;
         font-family: 'Roboto', sans-serif;
         border-radius: 0;
+        width: 15em;
     }
 
     .leaflet-popup-content{
