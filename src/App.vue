@@ -25,6 +25,7 @@ import UpdateNotification from './components/UpdateNotification'
 
     //Pour test
     import Question from './components/Question'
+    import QuestionResult from './components/QuestionResult'
 
 export default {
     name: "app",
@@ -37,15 +38,19 @@ export default {
         Lieu,
         Balade,
         Jeu,
-        UpdateNotification,
-        Question
+         UpdateNotification,
+
+
+        //pour tests
+        Question,
+        QuestionResult
     },
     data: function () {
         return {
             //activePage:  'Accueil',
 
             // pour test
-            activePage: 'Question',
+            activePage: 'QuestionResult',
 
 
             pageTitle: 'Accueil',
