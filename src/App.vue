@@ -20,7 +20,11 @@ import Balade from './view/Balade'
 import Jeu from './view/Jeu'
 import UpdateNotification from './components/UpdateNotification'
 
-import {mapActions, mapGetters} from 'vuex'
+    import { mapActions, mapGetters } from 'vuex'
+
+
+    //Pour test
+    import Question from './components/Question'
 
 export default {
     name: "app",
@@ -33,11 +37,17 @@ export default {
         Lieu,
         Balade,
         Jeu,
-        UpdateNotification
+        UpdateNotification,
+        Question
     },
     data: function () {
         return {
-            activePage:  'Accueil',
+            //activePage:  'Accueil',
+
+            // pour test
+            activePage: 'Question',
+
+
             pageTitle: 'Accueil',
             walk:null,
             lieu: null,
