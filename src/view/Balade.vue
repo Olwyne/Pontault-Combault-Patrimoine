@@ -8,12 +8,20 @@
                                 :color="polyline.color" />
                     <marker-popup :position="formated(center)"
                                   :text="'<b>Vous êtes ici</b>'"
-                                  :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fuser-location-darkblue.svg?alt=media&token=227a942e-1183-4252-99fe-9ea4cdebfa8e'" />
+                                  :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmy-location-nex.png?alt=media&token=657583c5-a9e5-45af-8f70-8cd90dfac952'" />
+
+
+                    <marker-popup :position="formated(starter)"
+                                  :text="'<b>Début de la balade</b>'"
+                                  :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fflag.svg?alt=media&token=d5b097c8-c902-4688-a762-7ce6743509ad'" />
+
+
                     <marker-popup v-for="(marker,i) in markerList" :key="i"
                                   :position="formated(marker.coord)"
                                   :text="marker.text"
                                   :icontest="marker.category" 
                                   :location="marker.name"/>
+
                     <l-control>
                         <div @click="increaseCenter" class="localisationButton"><img src="../img/target-me.svg" /></div>
                     </l-control>
@@ -71,6 +79,7 @@
         //url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
         zoom: 13,
         center: [48.801255, 2.607598],
+        starter: [],
         bounds: null, 
         attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -184,6 +193,7 @@
             query.once("value").then(function (snapshot) {
                 snapshot.forEach(function (childSnapshot) {
                     var name = (childSnapshot.val());
+                    self.start = name.gps[0]
                     if (name.name == self.walk.name) {
                         self.polyline.latlngs.push(name.gps)
                         self.polyline.color = "#5b9bd5"
@@ -197,6 +207,7 @@
       this.addMarkerLocation()
       this.addWalk()
       this.walk=this.getActiveWalk
+      this.starter = this.walk.gps[0]
     },
     computed:{
         ... mapGetters([
