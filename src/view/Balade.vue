@@ -2,7 +2,7 @@
     <div>
         <div class="marginFooter">
             <div class="baladeMap">
-                <l-map id="vuemap" :zoom="zoom" :center="center">
+                <l-map id="vuemap" :zoom="zoom" :center="center" @drag="updateDragMode(true)">
                     <l-tile-layer :url="url"></l-tile-layer>
                     <l-polyline :lat-lngs="polyline.latlngs"
                                 :color="polyline.color" />
@@ -23,8 +23,10 @@
                                   :location="marker.name"/>
 
                     <l-control>
-                        <div @click="increaseCenter" class="localisationButton"><img src="../img/target-me.svg" /></div>
-                    </l-control>
+                  <div @click="increaseCenter(); updateDragMode(false)" class="localisationButton">
+                      <img src="../img/target-me.svg" />
+                  </div>
+              </l-control>
                 </l-map>
             </div>
             <div class="baladeContainer">
@@ -80,7 +82,8 @@
         zoom: 13,
         center: [48.801255, 2.607598],
         starter: [],
-        bounds: null, 
+        bounds: null,
+        watchId : null, 
         attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         polyline: {
@@ -125,20 +128,29 @@
         formated(coords) {
             return latLng(coords)
         },
+        updateDragMode(drag){
+            if (drag){
+              navigator.geolocation.clearWatch(this.watchId);
+              this.watchId = null;
+            }
+            else {
+              this.trackPosition();
+            }
+        },
         increaseCenter() {
             this.center = [this.center[0] + 0.000000000001, this.center[1] + 0.000000000001]
         },  
         trackPosition() {
             if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-                //timeout: 15000,
-                maximumAge: 0,
-                })
+              this.watchId = navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
+                  //timeout: 15000,
+                  maximumAge: 0,
+                  })
             } 
-            /*else {
-                alert(`Browser doesn't support Geolocation`)
+            else {
+              alert(`Browser doesn't support Geolocation`)
             }
-*/        },
+        },
         successPosition: function (position) {
             this.center = [position.coords.latitude, position.coords.longitude]
         },

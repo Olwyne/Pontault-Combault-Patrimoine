@@ -149,12 +149,10 @@ import {mapActions, mapGetters} from 'vuex'
       }, 
       updateDragMode(drag){
         if (drag){
-          console.log("on clear")
           navigator.geolocation.clearWatch(this.watchId);
           this.watchId = null;
         }
         else {
-          console.log("geoloc active")
           this.trackPosition();
         }
       },
