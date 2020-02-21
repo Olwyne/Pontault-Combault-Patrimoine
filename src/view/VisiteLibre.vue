@@ -62,7 +62,7 @@
             </ul>
         </div>
         <div class="visiteMap">
-            <l-map id="vuemap" :zoom="zoom" :center="center">
+            <l-map id="vuemap" :zoom="zoom" :center="center" @drag="updateDragMode(true)">
               <l-tile-layer :url="url"></l-tile-layer>
               <l-polyline
                 :lat-lngs="polyline.latlngs"
@@ -81,7 +81,7 @@
                 :location="marker.name"
               ></marker-popup>
               <l-control>
-                  <div @click="increaseCenter" class="localisationButton">
+                  <div @click="increaseCenter(); updateDragMode(false)" class="localisationButton">
                       <img src="../img/target-me.svg" />
                   </div>
               </l-control>
@@ -113,6 +113,7 @@ import {mapActions, mapGetters} from 'vuex'
         zoom: 13,
         center: [48.801255, 2.607598],
         bounds: null, 
+        watchId : null,
         attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         polyline: {
@@ -146,19 +147,30 @@ import {mapActions, mapGetters} from 'vuex'
       formated(coords) {
         return latLng(coords)
       }, 
+      updateDragMode(drag){
+        if (drag){
+          console.log("on clear")
+          navigator.geolocation.clearWatch(this.watchId);
+          this.watchId = null;
+        }
+        else {
+          console.log("geoloc active")
+          this.trackPosition();
+        }
+      },
       increaseCenter() {
         this.center = [this.center[0] + 0.000000000001, this.center[1] + 0.000000000001]
       },  
       trackPosition() {
         if (navigator.geolocation) {
-          navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
+          this.watchId = navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
               //timeout: 15000,
               maximumAge: 0,
               })
         } 
-        /*else {
+        else {
           alert(`Browser doesn't support Geolocation`)
-        }*/
+        }
       },
       successPosition: function(position) {
         this.center = [position.coords.latitude, position.coords.longitude]
