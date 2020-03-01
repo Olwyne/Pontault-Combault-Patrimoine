@@ -259,6 +259,8 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        padding-right: 1em;
+        padding-left: 1em;
     }
 
     .baladeDistance, .baladeDuration, .baladeDetails {
