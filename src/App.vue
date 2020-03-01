@@ -1,5 +1,6 @@
 <template>
     <div id="appContainer">
+        <QuizNotification />
         <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
@@ -52,7 +53,7 @@ export default {
             //activePage:  'Accueil',
 
             // pour test
-            activePage: 'QuizNotification',
+            activePage: 'Accueil',
 
 
             pageTitle: 'Accueil',

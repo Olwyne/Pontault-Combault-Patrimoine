@@ -3,7 +3,9 @@
         <div class="NotifText d-flex justify-content-center">
             <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco à proximité</p>
         </div>
-        <div class="btn">Faire le quiz</div><div class="btn">Continuer la visite</div>
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn NotifBtn">Faire le quiz</button><button type="button" class="btn NotifBtn">Continuer la visite</button>
+        </div>
     </div>
 </template>
 
@@ -21,6 +23,7 @@
         background-color: var(--bluePC);
         margin: 1em;
         padding: 1em 1.3em;
+        border-radius: 1em;
     }
 
     .NotifPoco {
@@ -30,6 +33,7 @@
 
     .NotifText {
         color: white;
+        margin-bottom: 1em;
     }
 
     .NotifText p{
@@ -37,5 +41,11 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
+    }
+
+    .NotifBtn{
+        background-color: white;
+        color:var(--darkbluePC);
+        font-weight:600;
     }
 </style>
