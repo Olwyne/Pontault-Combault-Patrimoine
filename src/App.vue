@@ -6,8 +6,9 @@
             <Navigation />
         </div>
         <UpdateNotification />
+        <!-- <QuestionResult /> -->
         <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
-        <QuizNotification class="fixed-bottom"/>
+        <QuizNotification class="fixed-bottom" :previousPage="getActivePage"/>
     </div>
 </template>
 
@@ -74,7 +75,8 @@ export default {
             ... mapGetters([
                 'getActivePage',
                 'getActiveTitle',
-                'getGameState'
+                'getGameState',
+                'getPreviousPage'
             ]),
     },
 	mounted: function(){

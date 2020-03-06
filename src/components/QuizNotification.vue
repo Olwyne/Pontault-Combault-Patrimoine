@@ -4,16 +4,41 @@
             <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco à proximité</p>
         </div>
         <div class="d-flex justify-content-between">
-            <button type="button" class="btn NotifBtn">Faire le quiz</button><button type="button" class="btn NotifBtn">Continuer la visite</button>
+            <button @click="setActivePage('Question'),activePage='Question',setActiveTitle('Question'),setPreviousPage('VisiteLibre')" type="button" class="btn NotifBtn">Faire le quiz</button><button type="button" class="btn NotifBtn">Continuer la visite</button>
         </div>
     </div>
 </template>
 
 <script>
+ import { mapActions, mapGetters } from 'vuex'
+
     export default {
         name:'QuizNotification',
+        props: ["previousPage"],
+        data: function () {
+                return {
+                   
+                }
+        },
         methods: {
-
+            ... mapActions([
+                    'setActivePage',
+                    'setActiveTitle',
+                    'setPreviousPage'
+            ]),
+        },
+        computed:{
+            ... mapGetters([
+                'getActivePage',
+                'getActiveTitle',
+                'getGameState',
+                'getPreviousPage',
+                'getPreviousLocation'
+            ]),
+        },
+        mounted: function(){
+            
+           // console.log(this.getActivePage)
         }
     }
 </script>
