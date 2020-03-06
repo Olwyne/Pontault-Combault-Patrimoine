@@ -34,11 +34,9 @@ import {mapActions, mapGetters} from 'vuex'
         check(){
            if(this.toggle=="true"){
                this.setGameState(false)
-               console.log(this.getGameState)
            }
            else if(this.toggle=="false"){
                 this.setGameState(true)
-                 console.log(this.getGameState)
            }
         }
     },
@@ -47,7 +45,7 @@ import {mapActions, mapGetters} from 'vuex'
             this.toggle="true";
         }
         else{
-             this.toggle="false";
+            this.toggle="false";
         }
     },
     computed:{
