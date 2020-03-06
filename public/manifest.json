@@ -6,6 +6,7 @@
     "display": "fullscreen",
     "orientation": "portrait",
     "start_url": "/?utm_source=launcher",
+    "version": "0.1.0",
     "icons": [
       {
         "src": "img/icons/android-chrome-192x192.png",
