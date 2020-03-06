@@ -1,12 +1,13 @@
 <template>
     <div id="appContainer">
-         <!-- <QuizNotification /> -->
+        
         <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
         </div>
         <UpdateNotification />
         <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
+        <QuizNotification class="fixed-bottom"/>
     </div>
 </template>
 

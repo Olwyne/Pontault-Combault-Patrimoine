@@ -1,7 +1,7 @@
 <template>
     <div class="QuizNotification">
         <div class="NotifText d-flex justify-content-center">
-            <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco à proximité</p>
+            <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco Ã  proximitÃ©</p>
         </div>
         <div class="d-flex justify-content-between">
             <button type="button" class="btn NotifBtn">Faire le quiz</button><button type="button" class="btn NotifBtn">Continuer la visite</button>
