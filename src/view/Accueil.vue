@@ -21,9 +21,12 @@
 
 <style>
     .homeTitle {
-        color: var(--darkbluePC);
-        text-align: center;
-        font-size: 1.6em;
+        color: white;
+        text-shadow: 1px 1px 9px rgba(0,0,0, 0.8);
+        position: absolute;
+        margin-left: 1em;
+        text-shadow: 2px;
+        font-size: 2em;
         margin-top: 0.5em;
         margin-bottom: 0.5em;
         line-height: 1.2em;
@@ -35,19 +38,18 @@
     }
 
     .homeBody {
-        margin: 1em 2em;
+        margin: 1em 1.5em;
     }
 
     .logoAsso {
-        width: 7em;
-        margin-right: 0.5em;
+        width: 5em;
+        margin-right: 1em;
     }
 
     .caseLine {
-        text-align: center;
         margin: auto;
         color: var(--darkbluePC);
-        font-weight: 500;
+        font-weight: 600;
     }
 
     .homeText {
