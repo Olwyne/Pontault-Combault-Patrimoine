@@ -12,7 +12,8 @@ const state= {
     activeWalk:{},
     previousPage:null,
     previousLocation:null,
-    previousWalk:null
+    previousWalk:null,
+    gameActive:false
 }
 
 const mutations= {
@@ -55,6 +56,9 @@ const mutations= {
     SET_PREVIOUS_WALK(state, props){
         state.previousWalk=props
     },
+    SET_GAME(state, props){
+        state.gameActive=props
+    },
 }
 const getters={
     getLocalStoreLocation(state){
@@ -84,6 +88,9 @@ const getters={
     getPreviousWalk(state){
         return state.previousWalk
     },
+    getGameState(state){
+        return state.gameActive
+    }
 }
 
 const actions={
@@ -119,6 +126,9 @@ const actions={
     },
     setPreviousWalk: (store, props) => {
         store.commit('SET_PREVIOUS_WALK', props)
+    },
+    setGameState: (store, props) => {
+        store.commit('SET_GAME', props)
     }
 }
 
