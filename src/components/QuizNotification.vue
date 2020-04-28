@@ -4,7 +4,8 @@
             <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco à proximité</p>
         </div>
         <div class="d-flex justify-content-between">
-            <button @click="setActivePage('Question'),activePage='Question',setActiveTitle('Question'),setPreviousPage('VisiteLibre')" type="button" class="btn NotifBtn">Faire le quiz</button><button type="button" class="btn NotifBtn">Continuer la visite</button>
+            <button @click="setActivePage('Question'),activePage='Question',setActiveTitle('Question'),setPreviousPage('VisiteLibre')" type="button" class="btn NotifBtn">Faire le quiz</button>
+            <button  @click="setQuestionLocation(null)"  type="button" class="btn NotifBtn">Continuer la visite</button>
         </div>
     </div>
 </template>
@@ -24,7 +25,8 @@
             ... mapActions([
                     'setActivePage',
                     'setActiveTitle',
-                    'setPreviousPage'
+                    'setPreviousPage',
+                    'setQuestionLocation'
             ]),
             
            
