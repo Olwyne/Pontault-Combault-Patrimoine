@@ -13,7 +13,9 @@ const state= {
     previousPage:null,
     previousLocation:null,
     previousWalk:null,
-    gameActive:false
+    gameActive:false,
+    questionLocation : null,
+    questions : []
 }
 
 const mutations= {
@@ -59,6 +61,15 @@ const mutations= {
     SET_GAME(state, props){
         state.gameActive=props
     },
+    SET_QUESTION_LOCATION(state, props){
+        state.questionLocation=props
+    },
+    ADD_QUESTIONS(state, props){
+        state.questions.push(props)
+    },
+    DELETE_QUESTIONS(state,props){
+        state.questions=state.questions.filter((item) => item.id !== props.id)
+    },
 }
 const getters={
     getLocalStoreLocation(state){
@@ -90,6 +101,12 @@ const getters={
     },
     getGameState(state){
         return state.gameActive
+    },
+    getQuestionLocation(state){
+        return state.questionLocation
+    },
+    getQuestions(state){
+        return state.questions
     }
 }
 
@@ -129,6 +146,15 @@ const actions={
     },
     setGameState: (store, props) => {
         store.commit('SET_GAME', props)
+    },
+    setQuestionLocation: (store, props) => {
+        store.commit('SET_QUESTION_LOCATION', props)
+    },
+    addQuestions: (store, props) => {
+        store.commit('ADD_QUESTIONS', props)
+    },
+    deleteQuestions: (store, props) => {
+        store.commit('DELETE_QUESTIONS', props)
     }
 }
 

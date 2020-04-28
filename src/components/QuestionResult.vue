@@ -9,6 +9,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <div @click="setActivePage('VisiteLibre'), setActiveTitle('VisiteLibre')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
+            <div v-if="getQuestions.length>0" @click="setActivePage('Question'), setActiveTitle('Question')" class="backIcon"><img src="../img/back-blue.svg" /> Suivant </div>
         </div>
     </div>
 </template>
@@ -25,26 +26,34 @@
             return {
                 location:null,
                 questions:[],
-                question:{
-                    name:"En quelle année le hameau de Combault a-t-il été rattaché à Pontault ?",
-                    description : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-                    id: 1,
-                    lastUpdate: "28/02/2020 à 09:23:06",
-                    location: "Ancienne mairie de Pontault-Combault",
-                    goodAnswer: "1819",
-                    wrongAnswer1:"1829",
-                    wrongAnswer2: "1838",
-                    wrongAnswer3: "1849",
-                    photo : "https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Flocations%2Fimages%2F11%20Ancienne%20mairie.jpg?alt=media&token=ebcfce01-ded9-47b5-b7d9-e6c361cacf61"
-                }
+                question:{}
             }
         },
         mounted: function () {
+            this.getAnswer();
         },
         methods: {
             ... mapActions([
                     'setActivePage',
-                    'setActiveTitle'
+                    'setActiveTitle',
+                    'setQuestionLocation',
+                    'addQuestions',
+                    'deleteQuestions'
+            ]),
+            getAnswer(){
+                this.question=this.getQuestions[0];
+                this.deleteQuestions(this.question)
+
+            }
+        },
+        computed:{
+            ... mapGetters([
+                'getActivePage',
+                'getActiveTitle',
+                'getGameState',
+                'getPreviousPage',
+                'getQuestionLocation',
+                'getQuestions'
             ]),
         }
     }
