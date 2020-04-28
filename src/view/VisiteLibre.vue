@@ -18,7 +18,7 @@
                         <svg version="1.1" class="icon-cat" x="0px" y="0px"
                              viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
                         <path class="colorCatCulture" d="M12,0.2c-4.6,0-8.3,3.7-8.3,8.3c0,6.2,8.3,15.3,8.3,15.3s8.3-9.1,8.3-15.3C20.3,3.9,16.6,0.2,12,0.2z M12,11.4
-	                        c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
+                          c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
                     </svg>
                     </div>
                     <div class="categoriesText">Culture</div>
@@ -38,7 +38,7 @@
                         <svg version="1.1" class="icon-cat" x="0px" y="0px"
                              viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
                         <path class="colorCatCulte" d="M12,0.2c-4.6,0-8.3,3.7-8.3,8.3c0,6.2,8.3,15.3,8.3,15.3s8.3-9.1,8.3-15.3C20.3,3.9,16.6,0.2,12,0.2z M12,11.4
-	                        c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
+                          c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
 
 
 
@@ -51,7 +51,7 @@
                         <svg version="1.1" class="icon-cat" x="0px" y="0px"
                              viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
                         <path class="colorCatParc" d="M12,0.2c-4.6,0-8.3,3.7-8.3,8.3c0,6.2,8.3,15.3,8.3,15.3s8.3-9.1,8.3-15.3C20.3,3.9,16.6,0.2,12,0.2z M12,11.4
-	                        c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
+                          c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
 
 
 
@@ -62,7 +62,7 @@
             </ul>
         </div>
         <div class="visiteMap">
-            <l-map id="vuemap" :zoom="zoom" :center="center">
+            <l-map id="vuemap" :zoom="zoom" :center="center" @drag="updateDragMode(true)">
               <l-tile-layer :url="url"></l-tile-layer>
               <l-polyline
                 :lat-lngs="polyline.latlngs"
@@ -71,7 +71,7 @@
               <marker-popup
                 :position="formated(center)"
                 :text="'<b>Vous êtes ici</b>'"
-                :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fuser-location-darkblue.svg?alt=media&token=227a942e-1183-4252-99fe-9ea4cdebfa8e'"
+                :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fme-on-map3.svg?alt=media&token=f9c62a32-96a5-4274-b244-f65f9f9418e2'"
               />
               <marker-popup
                 v-for="(marker,i) in markerList" :key="i"
@@ -80,14 +80,18 @@
                 :icontest="marker.category"
                 :location="marker.name"
               ></marker-popup>
+
               <l-control>
-                  <div @click="increaseCenter" class="localisationButton">
+                  <div @click="increaseCenter(); updateDragMode(false)" class="localisationButton">
                       <img src="../img/target-me.svg" />
                   </div>
               </l-control>
 
             </l-map>
         </div>
+        <div class="popup"
+          <span class="popuptext" id="myPopup">Popup custom...</span>
+        </div> 
     </div>
 </template>
 
@@ -97,7 +101,7 @@
   import {LMap, LTileLayer, LMarker, LPolyline, LControl} from 'vue2-leaflet'
   import MarkerPopup from "./MarkerPopup";
   import { latLng } from "leaflet";
-import {mapActions, mapGetters} from 'vuex'
+  import {mapActions, mapGetters} from 'vuex'
 
 
   export default {
@@ -111,8 +115,10 @@ import {mapActions, mapGetters} from 'vuex'
         url: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
         //url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
         zoom: 13,
-        center: [48.801255, 2.607598],
+        //center: [48.801255, 2.607598],
+            center: [48.7825268, 2.6015003], // a supp
         bounds: null, 
+        watchId : null,
         attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         polyline: {
@@ -141,24 +147,36 @@ import {mapActions, mapGetters} from 'vuex'
        ... mapActions([
                 'setActivePage',
                 'setActiveTitle',
-                'setActiveLocation'
+				'setActiveLocation',
+				'setQuestionLocation'
         ]),
       formated(coords) {
         return latLng(coords)
       }, 
+      updateDragMode(drag){
+        if (drag){
+          navigator.geolocation.clearWatch(this.watchId);
+          this.watchId = null;
+          this.popUpQuestion2();
+        }
+        else {
+          this.trackPosition();
+          this.popUpQuestion2();
+        }
+      },
       increaseCenter() {
         this.center = [this.center[0] + 0.000000000001, this.center[1] + 0.000000000001]
       },  
       trackPosition() {
         if (navigator.geolocation) {
-          navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
+          this.watchId = navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
               //timeout: 15000,
               maximumAge: 0,
               })
         } 
-        /*else {
+        else {
           alert(`Browser doesn't support Geolocation`)
-        }*/
+        }
       },
       successPosition: function(position) {
         this.center = [position.coords.latitude, position.coords.longitude]
@@ -166,6 +184,101 @@ import {mapActions, mapGetters} from 'vuex'
       failurePosition: function(err) {
         //alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
         console.log(" ")
+      },
+      measure(lat1, lon1, lat2, lon2){ 
+          var R = 6378.137;
+          var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+          var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+          var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLon/2) * Math.sin(dLon/2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          var d = R * c;
+          return d * 1000;
+      },
+      popUpQuestion(){
+        var popup = document.getElementById("myPopup");
+        var locQ;
+          let self=this
+          var query =  db.ref('app/questions/').orderByKey();
+          query.once("value")
+          .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+              var name = (childSnapshot.val());
+              locQ = name.location;
+              console.log(locQ);
+              var query2 =  db.ref('app/locations/').orderByKey();
+              query2.once("value")
+              .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                  var name2 = (childSnapshot.val());
+                  //console.log(name2.name);
+
+                  if (locQ == name2.name){
+                    /*if (self.measure(self.center[0], self.center[1], name2.gps[0], name2.gps[1]) < 10){
+                      console.log("ok dist");
+                      self.markerListPoco.push("{coord: name.gps, text: textContent, category: catIcon, name:name.name}")
+                      popup.style.display = "block";
+                    }
+                    else {
+                      console.log("erreur distance > 10m")
+                      popup.style.display = "none";
+                    }*/
+
+                  }
+
+                });
+              });
+            });
+          });
+      },
+
+      popUpQuestion2(){
+          let self=this
+          var locQ;
+          var query =  db.ref('app/questions/').orderByKey();
+          query.once("value")
+          .then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+              var name = (childSnapshot.val());
+              locQ = name.location;
+              //console.log(locQ);
+              var query2 =  db.ref('app/locations/').orderByKey();
+              query2.once("value")
+              .then(function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                  var name2 = (childSnapshot.val());
+                  //console.log(name2.name);
+                  //console.log(name.location == name2.name)
+                  if (name.location == name2.name){
+                    if (self.measure(self.center[0], self.center[1], name2.gps[0], name2.gps[1]) < 10){
+           /*           console.log("----------------");
+                      console.log("ok dist");
+                      console.log(self.center);
+                      console.log(name2.name);
+
+                      console.log("----------------");*/
+
+
+                      var catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmy-location-nex.png?alt=media&token=657583c5-a9e5-45af-8f70-8cd90dfac952'                      
+                      let textContent = "<div class='popupTitle'></div>"
+                      
+                      self.markerList.push({coord: name2.gps, text: textContent, category: catIcon, name:name2.name})
+
+                      
+                      //popup.style.display = "block";
+                    }
+                    /*else {
+                      console.log("erreur distance > 10m")
+                      //popup.style.display = "none";
+                    }*/
+
+                  }
+
+                });
+              });
+            });
+          });
       },
       addMarkerLocation(){
         let self=this
@@ -206,12 +319,25 @@ import {mapActions, mapGetters} from 'vuex'
       },
     },
     mounted() {
-      this.trackPosition()
-      this.addMarkerLocation()
+		this.trackPosition()
+		this.addMarkerLocation()
+		this.popUpQuestion2()
+		this.setQuestionLocation("Ancienne mairie de Pontault-Combault")
+		this.$root.$emit('QuizNotification')
     },
     updated: function () {
       this.$nextTick(function () {})
-    }
+	},
+	computed:{
+            ... mapGetters([
+                'getActivePage',
+                'getActiveTitle',
+                'getGameState',
+                'getPreviousPage',
+                'getPreviousLocation',
+                'getQuestionLocation'
+            ]),
+    },
   };
 
 </script>

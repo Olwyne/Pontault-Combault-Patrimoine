@@ -43,6 +43,9 @@
             getAnswer(){
                 this.question=this.getQuestions[0];
                 this.deleteQuestions(this.question)
+                if(this.getQuestions.length==0){
+                    this.setQuestionLocation(null)
+                }
 
             }
         },

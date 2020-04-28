@@ -1,5 +1,5 @@
 <template>
-    <div class="QuizNotification">
+    <div class="QuizNotification" v-show="activeNotification">
         <div class="NotifText d-flex justify-content-center">
             <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco à proximité</p>
         </div>
@@ -26,6 +26,8 @@
                     'setActiveTitle',
                     'setPreviousPage'
             ]),
+            
+           
         },
         computed:{
             ... mapGetters([
@@ -33,12 +35,23 @@
                 'getActiveTitle',
                 'getGameState',
                 'getPreviousPage',
-                'getPreviousLocation'
+                'getPreviousLocation',
+                'getQuestionLocation'
             ]),
+            activeNotification(){
+                 if(this.getGameState==true && this.getQuestionLocation!=null && this.getActivePage == "VisiteLibre" ){
+                     return true
+                 }
+                 else{ 
+                     return false
+                }
+            }
+             
         },
         mounted: function(){
-            
-           // console.log(this.getActivePage)
+            this.$root.$on('QuizNotification', () => {
+               this.activeNotification
+            })
         }
     }
 </script>
