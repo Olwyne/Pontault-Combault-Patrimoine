@@ -110,7 +110,7 @@
 
     data () {
       return {
-        markerList: [],
+		markerList: [],
         //url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
         url: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
         //url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
@@ -172,15 +172,48 @@
           this.watchId = navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
               //timeout: 15000,
               maximumAge: 0,
-              })
+		})
+
         } 
         else {
           alert(`Browser doesn't support Geolocation`)
         }
       },
       successPosition: function(position) {
-        this.center = [position.coords.latitude, position.coords.longitude]
-      },
+		this.center = [ 48.7825269, 2.6015003]
+		//this.center = [position.coords.latitude, position.coords.longitude]
+		this.checkPopUp(position)
+		},
+		checkPopUp(position){
+			let self=this
+			this.markerList.forEach(function(item) {
+				//calcul mathématique distance entre deux coordonnées
+				let a = Math.PI / 180
+				let lat1 =  item.coord[0]
+				let lat2 = 48.7825269
+				let lon1 = item.coord[1]
+				let lon2  = 2.6015003
+				lat1 = lat1 * a;
+				lat2 = lat2 * a;
+				lon1 = lon1 * a;
+				lon2 = lon2 * a;
+			
+				let t1 = Math.sin(lat1) * Math.sin(lat2);
+				let t2 = Math.cos(lat1) * Math.cos(lat2);
+				let t3 = Math.cos(lon1 - lon2);
+				let t4 = t2 * t3;
+				let t5 = t1 + t4;
+				let rad_dist = Math.atan(-t5/Math.sqrt(-t5 * t5 +1)) + 2 * Math.atan(1);
+			
+
+				if(((rad_dist * 3437.74677 * 1.1508) * 1.6093470878864446 * 1000)<10){
+					self.setQuestionLocation(item.name)
+					self.$root.$emit('QuizNotification')
+					console.log(self.getQuestionLocation)
+				}
+                    
+            });
+		},
       failurePosition: function(err) {
         //alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
         console.log(" ")
@@ -286,7 +319,7 @@
         query.once("value")
         .then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
-            var name = (childSnapshot.val());
+			var name = (childSnapshot.val());
             let catIcon;
             let catColor;
             if (name.category == "Histoire"){
@@ -322,7 +355,6 @@
 		this.trackPosition()
 		this.addMarkerLocation()
 		this.popUpQuestion2()
-		this.setQuestionLocation("Ancienne mairie de Pontault-Combault")
 		this.$root.$emit('QuizNotification')
     },
     updated: function () {

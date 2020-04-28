@@ -2,7 +2,13 @@
     <div class="QuizNotification" v-show="activeNotification">
         <div class="NotifText d-flex justify-content-center">
             <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco à proximité</p>
+           
         </div>
+           <div class="NotifText d-flex justify-content-center">
+              <p>{{location}}</p>
+           
+        </div>
+       
         <div class="d-flex justify-content-between">
             <button @click="setActivePage('Question'),activePage='Question',setActiveTitle('Question'),setPreviousPage('VisiteLibre')" type="button" class="btn NotifBtn">Faire le quiz</button>
             <button  @click="setQuestionLocation(null)"  type="button" class="btn NotifBtn">Continuer la visite</button>
@@ -18,6 +24,7 @@
         props: ["previousPage"],
         data: function () {
                 return {
+                    location:null
                    
                 }
         },
@@ -41,6 +48,7 @@
                 'getQuestionLocation'
             ]),
             activeNotification(){
+               
                  if(this.getGameState==true && this.getQuestionLocation!=null && this.getActivePage == "VisiteLibre" ){
                      return true
                  }
@@ -51,7 +59,9 @@
              
         },
         mounted: function(){
+              this.location = this.getQuestionLocation
             this.$root.$on('QuizNotification', () => {
+                  this.location = this.getQuestionLocation
                this.activeNotification
             })
         }
