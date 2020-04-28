@@ -8,7 +8,7 @@
                 <div class="gamePresentation">Poco te fait découvrir la ville en t'amusant. Au fil de ta balade tu débloqueras des quizz et des badges. </div>
                 <div>
                     <label class="switch">
-                        <input type="checkbox" checked>
+                        <input type="checkbox" v-model="toggle" true-value="true" false-value="false" @click="check()">
                         <span class="slider round"></span>
                     </label>
                     <div class="switchText">Faire la visite avec Poco</div>
@@ -18,6 +18,43 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+
+  export default {
+
+    data () {
+      return {
+          toggle:true
+      };
+    },
+    methods: {
+        ... mapActions([
+            'setGameState'
+        ]),
+        check(){
+           if(this.toggle=="true"){
+               this.setGameState(false)
+           }
+           else if(this.toggle=="false"){
+                this.setGameState(true)
+           }
+        }
+    },
+    mounted() {
+        if(this.getGameState){
+            this.toggle="true";
+        }
+        else{
+            this.toggle="false";
+        }
+    },
+    computed:{
+        ... mapGetters([
+            'getGameState'
+        ])
+    },
+};
+
 </script>
 
 <style>

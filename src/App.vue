@@ -1,11 +1,14 @@
 <template>
     <div id="appContainer">
+        
         <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
         </div>
         <UpdateNotification />
+        <!-- <QuestionResult /> -->
         <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
+        <QuizNotification class="fixed-bottom" :previousPage="getActivePage"/>
     </div>
 </template>
 
@@ -20,7 +23,13 @@ import Balade from './view/Balade'
 import Jeu from './view/Jeu'
 import UpdateNotification from './components/UpdateNotification'
 
-import {mapActions, mapGetters} from 'vuex'
+    import { mapActions, mapGetters } from 'vuex'
+
+
+    //Pour test
+    import Question from './components/Question'
+    import QuestionResult from './components/QuestionResult'
+    import QuizNotification from './components/QuizNotification'
 
 export default {
     name: "app",
@@ -33,11 +42,22 @@ export default {
         Lieu,
         Balade,
         Jeu,
-        UpdateNotification
+         UpdateNotification,
+
+
+        //pour tests
+        Question,
+        QuestionResult,
+        QuizNotification
     },
     data: function () {
         return {
-            activePage:  'Accueil',
+            //activePage:  'Accueil',
+
+            // pour test
+            activePage: 'Accueil',
+
+
             pageTitle: 'Accueil',
             walk:null,
             lieu: null,
@@ -54,7 +74,9 @@ export default {
     computed:{
             ... mapGetters([
                 'getActivePage',
-                'getActiveTitle'
+                'getActiveTitle',
+                'getGameState',
+                'getPreviousPage'
             ]),
     },
 	mounted: function(){
