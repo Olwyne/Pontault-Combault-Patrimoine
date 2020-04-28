@@ -180,8 +180,8 @@
         }
       },
       successPosition: function(position) {
-		this.center = [ 48.7825269, 2.6015003]
-		//this.center = [position.coords.latitude, position.coords.longitude]
+	//	this.center = [ 48.7825269, 2.6015003]
+		this.center = [position.coords.latitude, position.coords.longitude]
 		this.checkPopUp(position)
 		},
 		checkPopUp(position){
@@ -190,9 +190,11 @@
 				//calcul mathématique distance entre deux coordonnées
 				let a = Math.PI / 180
 				let lat1 =  item.coord[0]
-				let lat2 = 48.7825269
+				let lat2 = position.coords.latitude
+				//let lat2 = 48.7825269 //coordonnée pour test pop up
 				let lon1 = item.coord[1]
-				let lon2  = 2.6015003
+				let lon2 =position.coords.longitude
+				//let lon2  =  2.6015003 //coordonnée pour test pop up
 				lat1 = lat1 * a;
 				lat2 = lat2 * a;
 				lon1 = lon1 * a;
@@ -207,9 +209,28 @@
 			
 
 				if(((rad_dist * 3437.74677 * 1.1508) * 1.6093470878864446 * 1000)<10){
-					self.setQuestionLocation(item.name)
-					self.$root.$emit('QuizNotification')
-					console.log(self.getQuestionLocation)
+					
+					let questions= [];
+					var query =  db.ref('app/questions/').orderByKey();
+					query.once("value")
+					.then(function(snapshot) {
+						snapshot.forEach(function(childSnapshot) {
+							
+							let result = childSnapshot.val()
+							if(result.location==item.name){
+								questions.push(result)
+							}
+						
+						});
+
+						if(questions.length>0){
+							self.setQuestionLocation(item.name)
+							self.$root.$emit('QuizNotification')
+
+						}
+					});
+					
+					
 				}
                     
             });
