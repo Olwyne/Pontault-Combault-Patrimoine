@@ -69,7 +69,8 @@ export default {
                 'setActivePage',
                 'addWalkToStore',
                 'setActiveTitle',
-                'setGameState'
+                'setGameState',
+                'setLastUpdateLocations'
         ]),
     },
     computed:{
@@ -78,7 +79,8 @@ export default {
                 'getActiveTitle',
                 'getGameState',
                 'getPreviousPage',
-                'getGameState'
+                'getGameState',
+                'getLastUpdateLocations'
             ]),
     },
 	mounted: function(){
@@ -106,29 +108,48 @@ export default {
                     localStorage.removeItem('StorageWalk');
                 }
             }
-
-        this.$nextTick(() => {
-             if( navigator.userAgent.match(/Android/i)
-        || navigator.userAgent.match(/webOS/i)
-        || navigator.userAgent.match(/iPhone/i)
-        || navigator.userAgent.match(/iPad/i)
-        || navigator.userAgent.match(/iPod/i)
-        || navigator.userAgent.match(/BlackBerry/i)
-        || navigator.userAgent.match(/Windows Phone/i)
-        ){
-            let  elem=document.getElementById("appContainer")
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                elem.msRequestFullscreen();
+            if (localStorage.getItem('LastUpdateLocations')) {
+                try {
+                    const lastUpdateLocations = JSON.parse(localStorage.getItem('LastUpdateLocations'));
+                    this.setLastUpdateLocations(lastUpdateLocations)
+                   
+                } catch(e) {
+                    localStorage.removeItem('LastUpdateLocations');
+                }
             }
-            screen.orientation.lock("portrait");
-        }         
-        });
+            if (localStorage.getItem('LocalLocations')) {
+                try {
+                    const LocalLocations = JSON.parse(localStorage.getItem('LocalLocations'));
+                    this.setLocalLocations(LocalLocations)
+                   
+                } catch(e) {
+                    localStorage.removeItem('LocalLocations');
+                }
+            }
+            console.log(localStorage.getItem('LastUpdateLocations'))
+            
+            this.$nextTick(() => {
+                if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                ){
+                    let  elem=document.getElementById("appContainer")
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.mozRequestFullScreen) { /* Firefox */
+                        elem.mozRequestFullScreen();
+                    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                        elem.webkitRequestFullscreen();
+                    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                        elem.msRequestFullscreen();
+                    }
+                    screen.orientation.lock("portrait");
+                }         
+            });
         
         if (localStorage.getItem('GameState')) {
                 try {
@@ -141,7 +162,6 @@ export default {
             const parsed = JSON.stringify(this.getGameState); 
             localStorage.setItem('GameState', parsed);
         }
-        console.log(localStorage.getItem('GameState'))
            
     }
 }

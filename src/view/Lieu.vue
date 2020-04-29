@@ -41,6 +41,7 @@
         mounted: function(){
             this.lieu=this.getActiveLocation
             this.readLocation()
+        
         },
          computed:{
             ... mapGetters([
@@ -68,7 +69,8 @@
                     
                     });
                 });
-            }
+            },
+           
         }
     }
 </script>

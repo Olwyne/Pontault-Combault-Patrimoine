@@ -16,7 +16,8 @@ const state= {
     gameActive:false,
     questionLocation : null,
     questions : [],
-    answer : null
+    answer : null,
+    lastUpdateLocation: null
 }
 
 const mutations= {
@@ -74,6 +75,9 @@ const mutations= {
     SET_ANSWER(state, props){
         state.answer=props
     },
+    SET_LAST_UPDATE_LOCATION(state, props){
+        state.lastUpdateLocation=props
+    },
 }
 const getters={
     getLocalStoreLocation(state){
@@ -114,6 +118,9 @@ const getters={
     },
     getAnswer(state){
         return state.answer
+    },
+    getlastUpdateLocation(state){
+        return state.lastUpdateLocation
     }
 }
 
@@ -165,6 +172,9 @@ const actions={
     },
     setAnswer: (store, props) => {
         store.commit('SET_ANSWER', props)
+    },
+    setLastUpdateLocation: (store, props) => {
+        store.commit('SET_LAST_UPDATE_LOCATION', props)
     },
 }
 

@@ -145,10 +145,11 @@
     },
     methods: {
        ... mapActions([
-                'setActivePage',
-                'setActiveTitle',
-				'setActiveLocation',
-				'setQuestionLocation'
+			'setActivePage',
+			'setActiveTitle',
+			'setActiveLocation',
+			'setQuestionLocation',
+			'setLastUpdateLocation'
         ]),
       formated(coords) {
         return latLng(coords)
@@ -370,13 +371,39 @@
             }
           });
         });
-      },
+	},
+	updateLocation(){
+                let self=this
+				const lastUpdate = null
+				const query = db.ref('app/lastUpdates/').orderByKey();
+                query.once("value").then(function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        if(childSnapshot.key=="locations"){
+                            lastUpdate = childSnapshot.val()
+                        }
+                    });
+				});
+				if(this.getLastUpdateLocation == null ){
+					this.setLastUpdateLocation(new Date().toLocaleString())
+				}
+				if(lastUpdate<this.getLastUpdateLocation)
+                const stored = this.getLastUpdateLocation
+                const present = stored.filter((item) => item.name === this.lieu.name)
+                if (present.length === 0) {
+                    this.addLocationToStore(this.lieu)
+                    const parsed = JSON.stringify(this.getLocalStoreLocation); 
+                    localStorage.setItem('StorageLocations', parsed);
+                     this.heart="./img/heart-full-white.svg"
+                }
+            }
     },
     mounted() {
+		this.updateLocation()
 		this.trackPosition()
 		this.addMarkerLocation()
 		this.popUpQuestion2()
 		this.$root.$emit('QuizNotification')
+		   
     },
     updated: function () {
       this.$nextTick(function () {})
@@ -388,7 +415,8 @@
                 'getGameState',
                 'getPreviousPage',
                 'getPreviousLocation',
-                'getQuestionLocation'
+				'getQuestionLocation',
+				'getLastUpdateLocation'
             ]),
     },
   };
