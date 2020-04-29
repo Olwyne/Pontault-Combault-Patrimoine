@@ -15,7 +15,8 @@ const state= {
     previousWalk:null,
     gameActive:false,
     questionLocation : null,
-    questions : []
+    questions : [],
+    answer : null
 }
 
 const mutations= {
@@ -70,6 +71,9 @@ const mutations= {
     DELETE_QUESTIONS(state,props){
         state.questions=state.questions.filter((item) => item.id !== props.id)
     },
+    SET_ANSWER(state, props){
+        state.answer=props
+    },
 }
 const getters={
     getLocalStoreLocation(state){
@@ -107,6 +111,9 @@ const getters={
     },
     getQuestions(state){
         return state.questions
+    },
+    getAnswer(state){
+        return state.answer
     }
 }
 
@@ -155,7 +162,10 @@ const actions={
     },
     deleteQuestions: (store, props) => {
         store.commit('DELETE_QUESTIONS', props)
-    }
+    },
+    setAnswer: (store, props) => {
+        store.commit('SET_ANSWER', props)
+    },
 }
 
 export default new Vuex.Store({

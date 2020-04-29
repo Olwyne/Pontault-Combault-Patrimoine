@@ -2,10 +2,10 @@
     <div>
         <div class="questionTitle">{{question.name}}</div>
         <div class="text-center">
-            <div class="result">Bonne réponse !</div>
+            <div class="result" id="result">Bonne réponse !</div>
         </div>
-        <div class="resultText">
-            {{question.description}}
+        <div class="resultText" v-html="question.description">
+
         </div>
         <div class="d-flex justify-content-center">
             <div @click="setActivePage('VisiteLibre'), setActiveTitle('VisiteLibre')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
@@ -30,7 +30,7 @@
             }
         },
         mounted: function () {
-            this.getAnswer();
+            this.checkAnswer();
         },
         methods: {
             ... mapActions([
@@ -40,8 +40,14 @@
                     'addQuestions',
                     'deleteQuestions'
             ]),
-            getAnswer(){
+            checkAnswer(){
                 this.question=this.getQuestions[0];
+                if(this.question.goodAnswer==this.getAnswer){
+                  document.getElementById("result").innerHTML ="Bonne réponse ! "
+                }
+                else{
+                    document.getElementById("result").innerHTML ="Mauvaise réponse ! "
+                }
                 this.deleteQuestions(this.question)
                 if(this.getQuestions.length==0){
                     this.setQuestionLocation(null)
@@ -56,7 +62,8 @@
                 'getGameState',
                 'getPreviousPage',
                 'getQuestionLocation',
-                'getQuestions'
+                'getQuestions',
+                'getAnswer'
             ]),
         }
     }

@@ -2,11 +2,11 @@
     <div>
         <div class="questionTitle">{{question.name}}</div>
         <div class="text-center"><img class="questionImage" v-bind:src="question.photo" /></div>
-        <div class="answers">
-            <div class="anAnswer" @click="activePage='QuestionResult', setActivePage('QuestionResult'), setActiveTitle('Réponse')">{{question.goodAnswer}}</div>
-            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse')" >{{question.wrongAnswer1}}</div>
-            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse')" >{{question.wrongAnswer2}}</div>
-            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse')">{{question.wrongAnswer3}}</div>
+        <div class="answers" id="answers">
+            <div class="anAnswer"  @click="activePage='QuestionResult', setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.goodAnswer)">{{question.goodAnswer}}</div>
+            <div class="anAnswer"  @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.wrongAnswer1)" >{{question.wrongAnswer1}}</div>
+            <div class="anAnswer"  @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.wrongAnswer2)" >{{question.wrongAnswer2}}</div>
+            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.wrongAnswer3)">{{question.wrongAnswer3}}</div>
         </div>
         <div class="d-flex justify-content-center">
         <div @click="setActivePage('VisiteLibre'), setActiveTitle('Visite Libre')"  class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
@@ -38,6 +38,10 @@
            else{
                this.getQuestion()
            }
+           var ul = document.getElementById('answers');
+            for (var i = ul.children.length; i >= 0; i--) {
+                ul.appendChild(ul.children[Math.random() * i | 0]);
+            }
           
         },
         methods: {
@@ -46,7 +50,8 @@
                     'setActiveTitle',
                     'setQuestionLocation',
                     'addQuestions',
-                    'deleteQuestions'
+                    'deleteQuestions',
+                    'setAnswer'
             ]),
             initQuestion(){
                 let self=this
