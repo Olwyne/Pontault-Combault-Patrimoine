@@ -34,14 +34,30 @@ import {mapActions, mapGetters} from 'vuex'
         check(){
            if(this.toggle=="true"){
                this.setGameState(false)
+               this.storeGame()
            }
            else if(this.toggle=="false"){
                 this.setGameState(true)
+                this.storeGame()
            }
-        }
+        },
+        storeGame(){
+            const parsed = JSON.stringify(this.getGameState); 
+            localStorage.setItem('GameState', parsed);
+        },
     },
     mounted() {
-        if(this.getGameState){
+        if (localStorage.getItem('GameState')) {
+                try {
+                    this.setGameState(JSON.parse(localStorage.getItem('GameState')))
+                } catch(e) {
+                    localStorage.removeItem('GameState');
+                }
+        }
+        else{
+            this.storeGame()
+        }
+        if(this.getGameState==true){
             this.toggle="true";
         }
         else{

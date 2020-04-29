@@ -68,7 +68,8 @@ export default {
                 'addLocationToStore',
                 'setActivePage',
                 'addWalkToStore',
-                'setActiveTitle'
+                'setActiveTitle',
+                'setGameState'
         ]),
     },
     computed:{
@@ -76,7 +77,8 @@ export default {
                 'getActivePage',
                 'getActiveTitle',
                 'getGameState',
-                'getPreviousPage'
+                'getPreviousPage',
+                'getGameState'
             ]),
     },
 	mounted: function(){
@@ -126,7 +128,20 @@ export default {
             }
             screen.orientation.lock("portrait");
         }         
-		});
+        });
+        
+        if (localStorage.getItem('GameState')) {
+                try {
+                    this.setGameState(JSON.parse(localStorage.getItem('GameState')))
+                } catch(e) {
+                    localStorage.removeItem('GameState');
+                }
+        }
+        else{
+            const parsed = JSON.stringify(this.getGameState); 
+            localStorage.setItem('GameState', parsed);
+        }
+        console.log(localStorage.getItem('GameState'))
            
     }
 }

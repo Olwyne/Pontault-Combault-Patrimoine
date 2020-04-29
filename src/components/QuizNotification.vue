@@ -1,10 +1,17 @@
 <template>
-    <div class="QuizNotification">
+    <div class="QuizNotification" v-show="activeNotification">
         <div class="NotifText d-flex justify-content-center">
             <img class="NotifPoco" src="../img/poco-head2.png" /><p>Quiz de Poco à proximité</p>
+           
         </div>
+           <div class="NotifText d-flex justify-content-center">
+              <p>{{location}}</p>
+           
+        </div>
+       
         <div class="d-flex justify-content-between">
-            <button @click="setActivePage('Question'),activePage='Question',setActiveTitle('Question'),setPreviousPage('VisiteLibre')" type="button" class="btn NotifBtn">Faire le quiz</button><button type="button" class="btn NotifBtn">Continuer la visite</button>
+            <button @click="setActivePage('Question'),activePage='Question',setActiveTitle('Question'),setPreviousPage('VisiteLibre')" type="button" class="btn NotifBtn">Faire le quiz</button>
+            <button  @click="setQuestionLocation(null)"  type="button" class="btn NotifBtn">Continuer la visite</button>
         </div>
     </div>
 </template>
@@ -17,6 +24,7 @@
         props: ["previousPage"],
         data: function () {
                 return {
+                    location:null
                    
                 }
         },
@@ -24,8 +32,11 @@
             ... mapActions([
                     'setActivePage',
                     'setActiveTitle',
-                    'setPreviousPage'
+                    'setPreviousPage',
+                    'setQuestionLocation'
             ]),
+            
+           
         },
         computed:{
             ... mapGetters([
@@ -33,12 +44,26 @@
                 'getActiveTitle',
                 'getGameState',
                 'getPreviousPage',
-                'getPreviousLocation'
+                'getPreviousLocation',
+                'getQuestionLocation'
             ]),
+            activeNotification(){
+               
+                 if(this.getGameState==true && this.getQuestionLocation!=null && this.getActivePage == "VisiteLibre" ){
+                     return true
+                 }
+                 else{ 
+                     return false
+                }
+            }
+             
         },
         mounted: function(){
-            
-           // console.log(this.getActivePage)
+              this.location = this.getQuestionLocation
+            this.$root.$on('QuizNotification', () => {
+                  this.location = this.getQuestionLocation
+               this.activeNotification
+            })
         }
     }
 </script>

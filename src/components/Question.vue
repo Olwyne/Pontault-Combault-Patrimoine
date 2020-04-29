@@ -2,11 +2,11 @@
     <div>
         <div class="questionTitle">{{question.name}}</div>
         <div class="text-center"><img class="questionImage" v-bind:src="question.photo" /></div>
-        <div class="answers">
-            <div class="anAnswer" @click="activePage='QuestionResult', setActivePage('QuestionResult'), setActiveTitle('Réponse')">{{question.goodAnswer}}</div>
-            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse')" >{{question.wrongAnswer1}}</div>
-            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse')" >{{question.wrongAnswer2}}</div>
-            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse')">{{question.wrongAnswer3}}</div>
+        <div class="answers" id="answers">
+            <div class="anAnswer"  @click="activePage='QuestionResult', setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.goodAnswer)">{{question.goodAnswer}}</div>
+            <div class="anAnswer"  @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.wrongAnswer1)" >{{question.wrongAnswer1}}</div>
+            <div class="anAnswer"  @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.wrongAnswer2)" >{{question.wrongAnswer2}}</div>
+            <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.wrongAnswer3)">{{question.wrongAnswer3}}</div>
         </div>
         <div class="d-flex justify-content-center">
         <div @click="setActivePage('VisiteLibre'), setActiveTitle('Visite Libre')"  class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
@@ -16,6 +16,7 @@
 
 <script>
  import { mapActions, mapGetters } from 'vuex'
+ import { db } from '../config/db'
 
     export default {
         name: 'Question',
@@ -26,28 +27,64 @@
             return {
                 location:null,
                 questions:[],
-                question:{
-                    name:"En quelle année le hameau de Combault a-t-il été rattaché à Pontault ?",
-                    description : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-                    id: 1,
-                    lastUpdate: "28/02/2020 à 09:23:06",
-                    location: "Ancienne mairie de Pontault-Combault",
-                    goodAnswer: "1819",
-                    wrongAnswer1:"1829",
-                    wrongAnswer2: "1838",
-                    wrongAnswer3: "1849",
-                    photo : "https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Flocations%2Fimages%2F11%20Ancienne%20mairie.jpg?alt=media&token=ebcfce01-ded9-47b5-b7d9-e6c361cacf61"
-                }
+                question:{}
             }
         },
         mounted:function(){
-           
+           this.setQuestionLocation("Ancienne mairie de Pontault-Combault")
+           if(this.getQuestions.length==0){
+                this.initQuestion();
+           }
+           else{
+               this.getQuestion()
+           }
+           var ul = document.getElementById('answers');
+            for (var i = ul.children.length; i >= 0; i--) {
+                ul.appendChild(ul.children[Math.random() * i | 0]);
+            }
+          
         },
         methods: {
             ... mapActions([
                     'setActivePage',
-                    'setActiveTitle'
-            ])
+                    'setActiveTitle',
+                    'setQuestionLocation',
+                    'addQuestions',
+                    'deleteQuestions',
+                    'setAnswer'
+            ]),
+            initQuestion(){
+                let self=this
+                var query =  db.ref('app/questions/').orderByKey();
+                query.once("value")
+                .then(function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        let result = childSnapshot.val()
+                        if(result.location==self.getQuestionLocation){
+                            self.addQuestions(childSnapshot.val())
+                            self.questions=self.getQuestions
+                            self.question=self.questions[0]
+                        }
+                      
+                    });
+                });
+                query =  db.ref('app/locations/').orderByKey();
+                query.once("value")
+                .then(function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        if(childSnapshot.key==self.getQuestionLocation){
+                            self.location=(childSnapshot.val());
+                            self.question.photo=self.location.photos
+                        }
+                    
+                    });
+                });
+                
+            },
+            getQuestion(){
+                this.questions=this.getQuestions
+                this.question=this.questions[0]
+            }
         },
         computed:{
             ... mapGetters([
@@ -55,6 +92,8 @@
                 'getActiveTitle',
                 'getGameState',
                 'getPreviousPage',
+                'getQuestionLocation',
+                'getQuestions'
             ]),
         }
         
