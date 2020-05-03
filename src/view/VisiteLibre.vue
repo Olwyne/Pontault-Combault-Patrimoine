@@ -508,5 +508,9 @@
         
         padding-bottom: 0.7em;
     }
+
+    .leaflet-marker-icon {
+      width: 35px !important;
+    }
            
 </style>

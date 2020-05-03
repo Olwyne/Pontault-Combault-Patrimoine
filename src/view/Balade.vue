@@ -300,5 +300,9 @@
         stroke-width: 6;
     }
 
+    .leaflet-marker-icon {
+      width: 35px !important;
+    }
+
 </style>
 
