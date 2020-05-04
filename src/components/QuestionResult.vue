@@ -8,8 +8,10 @@
 
         </div>
         <div class="d-flex justify-content-center">
-            <div @click="setActivePage('VisiteLibre'), setActiveTitle('VisiteLibre')" class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
-            <div v-if="getQuestions.length>0" @click="setActivePage('Question'), setActiveTitle('Question')" class="backIcon"><img src="../img/back-blue.svg" /> Suivant </div>
+            <div>
+                <div v-if="getQuestions.length>0" @click="setActivePage('Question'), setActiveTitle('Question')" class="backIcon"><img src="../img/next-blue.svg" /> Question suivante</div>
+                <div @click="setActivePage('VisiteLibre'), setActiveTitle('VisiteLibre')" class="backIcon"><img src="../img/back-blue.svg" /> Retour à la visite </div>
+            </div>
         </div>
     </div>
 </template>
