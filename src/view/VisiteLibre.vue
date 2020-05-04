@@ -288,51 +288,53 @@
       },
 
       popUpQuestion2(){
-          let self=this
-          var locQ;
-          var query =  db.ref('app/questions/').orderByKey();
-          query.once("value")
-          .then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-              var name = (childSnapshot.val());
-              locQ = name.location;
-              //console.log(locQ);
-              var query2 =  db.ref('app/locations/').orderByKey();
-              query2.once("value")
-              .then(function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                  var name2 = (childSnapshot.val());
-                  //console.log(name2.name);
-                  //console.log(name.location == name2.name)
-                  if (name.location == name2.name){
-                    if (self.measure(self.center[0], self.center[1], name2.gps[0], name2.gps[1]) < 10){
-           /*           console.log("----------------");
-                      console.log("ok dist");
-                      console.log(self.center);
-                      console.log(name2.name);
+          if (this.getGameState){
+            let self=this
+            var locQ;
+            var query =  db.ref('app/questions/').orderByKey();
+            query.once("value")
+            .then(function(snapshot) {
+              snapshot.forEach(function(childSnapshot) {
+                var name = (childSnapshot.val());
+                locQ = name.location;
+                //console.log(locQ);
+                var query2 =  db.ref('app/locations/').orderByKey();
+                query2.once("value")
+                .then(function(snapshot) {
+                  snapshot.forEach(function(childSnapshot) {
+                    var name2 = (childSnapshot.val());
+                    //console.log(name2.name);
+                    //console.log(name.location == name2.name)
+                    if (name.location == name2.name){
+                      if (self.measure(self.center[0], self.center[1], name2.gps[0], name2.gps[1]) < 10){
+             /*           console.log("----------------");
+                        console.log("ok dist");
+                        console.log(self.center);
+                        console.log(name2.name);
 
-                      console.log("----------------");*/
+                        console.log("----------------");*/
 
 
-                      var catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-poco-export.svg?alt=media&token=6a49615e-0c9f-4999-bf66-f33933cb9a3c'                      
-                      let textContent = "<div class='popupTitle'></div>"
-                      
-                      self.markerList.push({coord: name2.gps, text: textContent, category: catIcon, name:name2.name})
+                        var catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-poco-export.svg?alt=media&token=6a49615e-0c9f-4999-bf66-f33933cb9a3c'                      
+                        let textContent = "<div class='popupTitle'></div>"
+                        
+                        self.markerList.push({coord: name2.gps, text: textContent, category: catIcon, name:name2.name})
 
-                      
-                      //popup.style.display = "block";
+                        
+                        //popup.style.display = "block";
+                      }
+                      /*else {
+                        console.log("erreur distance > 10m")
+                        //popup.style.display = "none";
+                      }*/
+
                     }
-                    /*else {
-                      console.log("erreur distance > 10m")
-                      //popup.style.display = "none";
-                    }*/
 
-                  }
-
+                  });
                 });
               });
             });
-          });
+          }
       },
       addMarkerLocation(){
         let self=this
