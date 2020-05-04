@@ -288,6 +288,7 @@
       },
 
       popUpQuestion2(){
+          console.log("test : "+this.getGameState);
           if (this.getGameState){
             let self=this
             var locQ;
