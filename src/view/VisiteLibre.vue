@@ -314,7 +314,7 @@
                       console.log("----------------");*/
 
 
-                      var catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmy-location-nex.png?alt=media&token=657583c5-a9e5-45af-8f70-8cd90dfac952'                      
+                      var catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-poco-export.svg?alt=media&token=6a49615e-0c9f-4999-bf66-f33933cb9a3c'                      
                       let textContent = "<div class='popupTitle'></div>"
                       
                       self.markerList.push({coord: name2.gps, text: textContent, category: catIcon, name:name2.name})
