@@ -9,7 +9,7 @@
             <div class="anAnswer" @click="activePage='QuestionResult',setActivePage('QuestionResult'), setActiveTitle('Réponse'), setAnswer(question.wrongAnswer3)">{{question.wrongAnswer3}}</div>
         </div>
         <div class="d-flex justify-content-center">
-        <div @click="setActivePage('VisiteLibre'), setActiveTitle('Visite Libre')"  class="backIcon"><img src="../img/back-blue.svg" /> Retour </div>
+        <div @click="setActivePage('VisiteLibre'), setActiveTitle('Visite Libre')"  class="backIcon"><img src="../img/back-blue.svg" /> Retour à la visite </div>
         </div>
     </div>
 </template>
