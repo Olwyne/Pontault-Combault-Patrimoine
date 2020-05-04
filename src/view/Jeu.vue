@@ -4,16 +4,27 @@
         <div class="text-center">
             <img class="gameImage" src="../img/poco-jeu.png" />
             </div>
-            <div class="gameBody">
-                <div class="gamePresentation">Poco te fait découvrir la ville en t'amusant. Au fil de ta balade tu débloqueras des quizz et des badges. </div>
-                <div>
-                    <label class="switch">
-                        <input type="checkbox" v-model="toggle" true-value="true" false-value="false" @click="check()">
-                        <span class="slider round"></span>
-                    </label>
-                    <div class="switchText">Faire la visite avec Poco</div>
-                </div>
+        <div class="gameBody">
+            <div>
+                <label class="switch">
+                    <input type="checkbox" v-model="toggle" true-value="true" false-value="false" @click="check()">
+                    <span class="slider round"></span>
+                </label>
+                <div class="switchText">Faire la visite avec Poco</div>
             </div>
+            <div class="gamePresentation">
+                Poco te fait découvrir la ville en t'amusant. Active le jeu grâce au bouton ci-dessus puis rends-toi sur la carte
+                <span>
+                    <svg version="1.1" class="game-icon-map" x="0px" y="0px"
+                         viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+<path :class="activePage==='VisiteLibre'?'colorNavActive':'colorNavDefault'" d="M12,0.2c-4.6,0-8.3,3.7-8.3,8.3c0,6.2,8.3,15.3,8.3,15.3s8.3-9.1,8.3-15.3C20.3,3.9,16.6,0.2,12,0.2z M12,11.4
+	                        c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
+
+                    </svg>
+                </span>
+                . Une notification apparaîtra si tu es à proiximité d'un lieu pour lequel il existe un quizz Poco. Tu peux aussi cliquer sur n'importe quel Poco sur la carte pour faire les quizz correspondant.
+            </div>
+        </div>
         </div>
 </template>
 
@@ -74,6 +85,10 @@ import {mapActions, mapGetters} from 'vuex'
 </script>
 
 <style>
+    .game-icon-map {
+        height: 1.2em;
+    }
+
     .gameTitle {
         color: var(--darkbluePC);
         text-align: center;
