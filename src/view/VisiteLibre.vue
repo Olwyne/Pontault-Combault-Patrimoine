@@ -314,9 +314,9 @@
 
                         console.log("----------------");*/
 
-
+                        let catColor = "#435368";
                         var catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-poco-export.svg?alt=media&token=6a49615e-0c9f-4999-bf66-f33933cb9a3c'                      
-                        let textContent = "<div class='popupTitle'></div>"
+                        let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name2.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name2.photos+"' alt='err'></div>"
                         
                         self.markerList.push({coord: name2.gps, text: textContent, category: catIcon, name:name2.name})
 
