@@ -1,6 +1,6 @@
 <template>
     <div id="appContainer">
-        <PopUpAccessibilite />
+        <PopUpAccessibilite id="popupredirection" />
         <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
@@ -55,11 +55,8 @@ export default {
     data: function () {
         return {
             //activePage:  'Accueil',
-
             // pour test
             activePage: 'Accueil',
-
-
             pageTitle: 'Accueil',
             walk:null,
             lieu: null,
@@ -129,7 +126,10 @@ export default {
                 elem.msRequestFullscreen();
             }
             screen.orientation.lock("portrait");
-        }         
+
+        }
+
+      
         });
         
         if (localStorage.getItem('GameState')) {
