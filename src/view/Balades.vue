@@ -6,7 +6,7 @@
 
 <script>
     import BaladeBox from '../components/BaladeBox'
-    import { db,storageRef } from '../config/db'
+    import { db } from '../config/db'
     import { mapActions } from 'vuex'
 
 

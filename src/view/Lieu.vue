@@ -17,8 +17,8 @@
 
 <script>
     import PlaceFooter from '../components/PlaceFooter'
-    import { db,storageRef } from '../config/db'
-    import { mapActions, mapGetters } from 'vuex'
+    import { db } from '../config/db'
+    import { mapGetters } from 'vuex'
 
 
     export default {
@@ -48,7 +48,7 @@
             ]),
         },
         methods:{
-            addLocationCarnet(love){
+            addLocationCarnet(){
                 this.toSave.push(this.location) 
                 this.saveLocationCarnet()   
             },

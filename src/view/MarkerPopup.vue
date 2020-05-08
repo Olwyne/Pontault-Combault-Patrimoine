@@ -11,7 +11,7 @@
 
 <script>
 import { LMarker, LPopup, LIcon } from "vue2-leaflet";
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
   name: "MarkerPopup",
