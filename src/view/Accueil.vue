@@ -11,6 +11,10 @@
                 L'Association pour la protection du patrimoine de Pontault-Combault œuvre pour la sauvegarde et la valorisation du patrimoine de la ville.
                 <br />Attachés à le faire connaître à chacun, nous avons développé cette application. Nous vous souhaitons de belles découvertes !
             </div>
+            <div class="text-center mt-3">
+                <div><a href="https://www.pontault-combault-patrimoine.fr/">Vers le site de l'association</a></div>
+                <div><a href="https://www.pontault-combault-patrimoine.fr/mentionsLegales">Mentions légales</a></div>
+            </div>
         </div>
     </div>
 </template>
