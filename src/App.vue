@@ -1,13 +1,14 @@
 <template>
     <div id="appContainer">
-        <PopUpAccessibilite id="popupredirection" />
-        <div class="topPage sticky-top">
+        <!--<PopUpAccessibilite />-->
+        <div class="topPage fixed-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
         </div>
+        <div class="underTopPage"></div>
         <UpdateNotification />
         <!-- <QuestionResult /> -->
-        <component :is="this.getActivePage" :walk="walk" :lieu="lieu"></component>
+        <component class="app-content" :is="this.getActivePage" :walk="walk" :lieu="lieu"></component>
         <QuizNotification class="fixed-bottom" :previousPage="getActivePage" />
     </div>
 </template>
@@ -173,6 +174,10 @@ export default {
         height: 14vh;
     }
 
+    .underTopPage{
+         height: 14vh;
+    }
+
     .pageTitle {
         color: white;
         text-align: center;
@@ -188,13 +193,4 @@ export default {
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
     }
-
-    .popup-accessibility {
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba(255, 255, 255, 0.9);
-        position: absolute;
-        z-index: 1031;
-    }
-
 </style>
