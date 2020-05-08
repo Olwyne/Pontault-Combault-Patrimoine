@@ -141,7 +141,6 @@ export default {
             const parsed = JSON.stringify(this.getGameState); 
             localStorage.setItem('GameState', parsed);
         }
-        console.log(localStorage.getItem('GameState'))
            
     }
 }

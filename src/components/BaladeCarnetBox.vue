@@ -14,7 +14,7 @@
                         <div><img src="../img/chronometer-blue.svg" /></div>
                         <div class="align-self-end duration">{{ balade.duration}}</div>
                     </div>
-                    <div class="delete" @click.stop="removeWalkCarnet(balade.name), setActivePage('Carnet')"><img src="../img/garbage-blue.svg" /></div>
+                    <div class="delete" @click.stop="removeWalkCarnet(), setActivePage('Carnet')"><img src="../img/garbage-blue.svg" /></div>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@ import { mapActions, mapGetters } from 'vuex'
                 'setPreviousPage',
                 'setPreviousWalk'
             ]),
-            removeWalkCarnet(name) {
+            removeWalkCarnet() {
                 this.deleteWalkFromStore(this.balade)
                 const stored = this.getLocalStoreWalk
                 const parsed = JSON.stringify(stored); 

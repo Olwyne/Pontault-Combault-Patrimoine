@@ -79,7 +79,6 @@
         ]),
         setLocations(){
              this.locations.forEach(function(childSnapshot) {
-                let self=this
                 this.walk.push(childSnapshot)
              })
           },

@@ -10,7 +10,7 @@
                 </div>
                 <div class="baladeDuration d-flex">
                 </div>
-                <div @click.stop="removeLocationCarnet(lieu.name)" class="delete"><img src="../img/garbage-blue.svg" /></div>
+                <div @click.stop="removeLocationCarnet()" class="delete"><img src="../img/garbage-blue.svg" /></div>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@ import { mapActions, mapGetters } from 'vuex'
                 'setActiveTitle',
                 'setPreviousPage'
             ]),
-            removeLocationCarnet(name) {
+            removeLocationCarnet() {
                 this.deleteLocationFromStore(this.lieu)
                 const stored = this.getLocalStoreLocation
                 const parsed = JSON.stringify(stored); 
