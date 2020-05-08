@@ -190,11 +190,11 @@
 				//calcul mathématique distance entre deux coordonnées
 				let a = Math.PI / 180
 				let lat1 =  item.coord[0]
-				let lat2 = position.coords.latitude
-			//	let lat2 = 48.7825269 //coordonnée pour test pop up
+			//	let lat2 = position.coords.latitude
+				let lat2 = 48.7825269 //coordonnée pour test pop up
 				let lon1 = item.coord[1]
-				let lon2 =position.coords.longitude
-		//		let lon2  =  2.6015003 //coordonnée pour test pop up
+			//	let lon2 =position.coords.longitude
+				let lon2  =  2.6015003 //coordonnée pour test pop up
 				lat1 = lat1 * a;
 				lat2 = lat2 * a;
 				lon1 = lon1 * a;

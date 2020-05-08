@@ -21,8 +21,8 @@
 	                        c-1.6,0-2.9-1.3-2.9-2.9s1.3-2.9,2.9-2.9s2.9,1.3,2.9,2.9S13.6,11.4,12,11.4z" />
 
                     </svg>
-                </span>
-                . Une notification apparaîtra si tu es à proiximité d'un lieu pour lequel il existe un quizz Poco. Tu peux aussi cliquer sur n'importe quel Poco sur la carte pour faire les quizz correspondant.
+                </span>.
+                <br><br> Une notification apparaîtra si tu es à proximité d'un lieu pour lequel il existe un quizz Poco. Tu apprendras alors des faits et anectotes sur les lieux insolites de Pontault-Combault.
             </div>
         </div>
         </div>
