@@ -88,9 +88,6 @@
               </l-control>
 
             </l-map>
-        </div>
-        <div class="popup"
-          <span class="popuptext" id="myPopup">Popup custom...</span>
         </div> 
     </div>
 </template>
