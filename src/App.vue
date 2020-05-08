@@ -1,14 +1,14 @@
 <template>
     <div id="appContainer">
-        
+        <PopUpAccessibilite />
         <div class="topPage sticky-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
         </div>
         <UpdateNotification />
         <!-- <QuestionResult /> -->
-        <component :is="this.getActivePage"  :walk="walk" :lieu="lieu"></component>
-        <QuizNotification class="fixed-bottom" :previousPage="getActivePage"/>
+        <component :is="this.getActivePage" :walk="walk" :lieu="lieu"></component>
+        <QuizNotification class="fixed-bottom" :previousPage="getActivePage" />
     </div>
 </template>
 
@@ -22,6 +22,7 @@ import Lieu from './view/Lieu'
 import Balade from './view/Balade'
 import Jeu from './view/Jeu'
 import UpdateNotification from './components/UpdateNotification'
+import PopUpAccessibilite from './components/PopUpAccessibilite'
 
     import { mapActions, mapGetters } from 'vuex'
 
@@ -42,7 +43,8 @@ export default {
         Lieu,
         Balade,
         Jeu,
-         UpdateNotification,
+        UpdateNotification,
+        PopUpAccessibilite,
 
 
         //pour tests
@@ -186,4 +188,13 @@ export default {
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
     }
+
+    .popup-accessibility {
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        z-index: 1031;
+    }
+
 </style>
