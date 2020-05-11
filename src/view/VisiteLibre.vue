@@ -151,11 +151,11 @@
         if (drag){
           navigator.geolocation.clearWatch(this.watchId);
           this.watchId = null;
-          this.popUpQuestion2();
+          this.popUpQuestion();
         }
         else {
           this.trackPosition();
-          this.popUpQuestion2();
+          this.popUpQuestion();
         }
       },
       increaseCenter() {
