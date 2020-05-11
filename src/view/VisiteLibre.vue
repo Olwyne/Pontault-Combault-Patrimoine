@@ -257,7 +257,7 @@
             snapshot.forEach(function(childSnapshot) {
               var name = (childSnapshot.val());
               locQ = name.location;
-              console.log(locQ);
+              //console.log(locQ);
               var query2 =  db.ref('app/locations/').orderByKey();
               query2.once("value")
               .then(function(snapshot) {
