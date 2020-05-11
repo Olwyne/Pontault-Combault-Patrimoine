@@ -108,12 +108,9 @@
     data () {
       return {
 		markerList: [],
-        //url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
         url: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
-        //url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
         zoom: 13,
-        //center: [48.801255, 2.607598],
-            center: [48.7825268, 2.6015003], // a supp
+        center: [48.801255, 2.607598],
         bounds: null, 
         watchId : null,
         attribution:
@@ -142,10 +139,10 @@
     },
     methods: {
        ... mapActions([
-                'setActivePage',
-                'setActiveTitle',
-				'setActiveLocation',
-				'setQuestionLocation'
+              'setActivePage',
+              'setActiveTitle',
+      				'setActiveLocation',
+      				'setQuestionLocation'
         ]),
       formated(coords) {
         return latLng(coords)
@@ -167,74 +164,59 @@
       trackPosition() {
         if (navigator.geolocation) {
           this.watchId = navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-              //timeout: 15000,
+              timeout: 15000,
               maximumAge: 0,
-		})
-
+		        })
         } 
         else {
           alert(`Browser doesn't support Geolocation`)
         }
       },
       successPosition: function(position) {
-//		this.center = [ 48.7825269, 2.6015003]
-		this.center = [position.coords.latitude, position.coords.longitude]
-		this.checkPopUp(position)
-		},
-		checkPopUp(position){
-			let self=this
-			this.markerList.forEach(function(item) {
-				//calcul mathématique distance entre deux coordonnées
-				let a = Math.PI / 180
-				let lat1 =  item.coord[0]
-				let lat2 = position.coords.latitude
-			//	let lat2 = 48.7825269 //coordonnée pour test pop up
-				let lon1 = item.coord[1]
-				let lon2 =position.coords.longitude
-	//			let lon2  =  2.6015003 //coordonnée pour test pop up
-				lat1 = lat1 * a;
-				lat2 = lat2 * a;
-				lon1 = lon1 * a;
-				lon2 = lon2 * a;
-			
-				let t1 = Math.sin(lat1) * Math.sin(lat2);
-				let t2 = Math.cos(lat1) * Math.cos(lat2);
-				let t3 = Math.cos(lon1 - lon2);
-				let t4 = t2 * t3;
-				let t5 = t1 + t4;
-				let rad_dist = Math.atan(-t5/Math.sqrt(-t5 * t5 +1)) + 2 * Math.atan(1);
-			
-
-				if(((rad_dist * 3437.74677 * 1.1508) * 1.6093470878864446 * 1000)<10){
-					
-					let questions= [];
-					var query =  db.ref('app/questions/').orderByKey();
-					query.once("value")
-					.then(function(snapshot) {
-						snapshot.forEach(function(childSnapshot) {
-							
-							let result = childSnapshot.val()
-							if(result.location==item.name){
-								questions.push(result)
-							}
-						
-						});
-
-						if(questions.length>0){
-							self.setQuestionLocation(item.name)
-							self.$root.$emit('QuizNotification')
-
-						}
-					});
-					
-					
-				}
-                    
-            });
-		},
+    		this.center = [position.coords.latitude, position.coords.longitude]
+    		this.checkPopUp(position)
+    	},
+  		checkPopUp(position){
+  			let self=this
+  			this.markerList.forEach(function(item) {
+  				//calcul mathématique distance entre deux coordonnées
+  				let a = Math.PI / 180
+  				let lat1 =  item.coord[0]
+  				let lat2 = position.coords.latitude
+  				let lon1 = item.coord[1]
+  				let lon2 =position.coords.longitude
+  				lat1 = lat1 * a;
+  				lat2 = lat2 * a;
+  				lon1 = lon1 * a;
+  				lon2 = lon2 * a;
+  				let t1 = Math.sin(lat1) * Math.sin(lat2);
+  				let t2 = Math.cos(lat1) * Math.cos(lat2);
+  				let t3 = Math.cos(lon1 - lon2);
+  				let t4 = t2 * t3;
+  				let t5 = t1 + t4;
+  				let rad_dist = Math.atan(-t5/Math.sqrt(-t5 * t5 +1)) + 2 * Math.atan(1);
+  				if(((rad_dist * 3437.74677 * 1.1508) * 1.6093470878864446 * 1000)<10){
+  					let questions= [];
+  					var query =  db.ref('app/questions/').orderByKey();
+  					query.once("value")
+  					.then(function(snapshot) {
+  						snapshot.forEach(function(childSnapshot) {
+  							
+  							let result = childSnapshot.val()
+  							if(result.location==item.name){
+  								questions.push(result)
+  							}
+  						});
+  						if(questions.length>0){
+  							self.setQuestionLocation(item.name)
+  							self.$root.$emit('QuizNotification')
+  						}
+  					});  					
+  				}       
+        });
+  		},
       failurePosition: function(err) {
-        //alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
-        console.log(" ")
+        console.log("failure position")
       },
       measure(lat1, lon1, lat2, lon2){ 
           var R = 6378.137;
@@ -248,43 +230,6 @@
           return d * 1000;
       },
       popUpQuestion(){
-        var popup = document.getElementById("myPopup");
-        var locQ;
-          let self=this
-          var query =  db.ref('app/questions/').orderByKey();
-          query.once("value")
-          .then(function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-              var name = (childSnapshot.val());
-              locQ = name.location;
-              //console.log(locQ);
-              var query2 =  db.ref('app/locations/').orderByKey();
-              query2.once("value")
-              .then(function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                  var name2 = (childSnapshot.val());
-                  //console.log(name2.name);
-
-                  if (locQ == name2.name){
-                    /*if (self.measure(self.center[0], self.center[1], name2.gps[0], name2.gps[1]) < 10){
-                      console.log("ok dist");
-                      self.markerListPoco.push("{coord: name.gps, text: textContent, category: catIcon, name:name.name}")
-                      popup.style.display = "block";
-                    }
-                    else {
-                      console.log("erreur distance > 10m")
-                      popup.style.display = "none";
-                    }*/
-
-                  }
-
-                });
-              });
-            });
-          });
-      },
-
-      popUpQuestion2(){
           if (this.getGameState){
             let self=this
             var locQ;
@@ -294,39 +239,19 @@
               snapshot.forEach(function(childSnapshot) {
                 var name = (childSnapshot.val());
                 locQ = name.location;
-                //console.log(locQ);
                 var query2 =  db.ref('app/locations/').orderByKey();
                 query2.once("value")
                 .then(function(snapshot) {
                   snapshot.forEach(function(childSnapshot) {
                     var name2 = (childSnapshot.val());
-                    //console.log(name2.name);
-                    //console.log(name.location == name2.name)
                     if (name.location == name2.name){
                       if (self.measure(self.center[0], self.center[1], name2.gps[0], name2.gps[1]) < 10){
-             /*           console.log("----------------");
-                        console.log("ok dist");
-                        console.log(self.center);
-                        console.log(name2.name);
-
-                        console.log("----------------");*/
-
                         let catColor = "#435368";
                         var catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-poco-export.svg?alt=media&token=6a49615e-0c9f-4999-bf66-f33933cb9a3c'                      
                         let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name2.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name2.photos+"' alt='err'></div>"
-                        
                         self.markerList.push({coord: name2.gps, text: textContent, category: catIcon, name:name2.name})
-
-                        
-                        //popup.style.display = "block";
                       }
-                      /*else {
-                        console.log("erreur distance > 10m")
-                        //popup.style.display = "none";
-                      }*/
-
                     }
-
                   });
                 });
               });
@@ -339,34 +264,34 @@
         query.once("value")
         .then(function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
-			var name = (childSnapshot.val());
-            let catIcon;
-            let catColor;
-            if (name.category == "Histoire"){
+			     var name = (childSnapshot.val());
+           let catIcon;
+           let catColor;
+           if (name.category == "Histoire"){
               catIcon = "https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-histoire.svg?alt=media&token=ef37c804-6ddb-4505-a3c3-c62aad80e139"
               catColor = "#741d89"
-            }
-            if (name.category == "Culte"){
+           }
+           if (name.category == "Culte"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culte.svg?alt=media&token=6f1b79fd-d690-489f-abd8-4e4b964a9155'
               catColor = "#a21414"
 
-            }
-            if (name.category == "Nature"){
+           }
+           if (name.category == "Nature"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-nature.svg?alt=media&token=92822626-4c3b-47c8-9b3c-e1a4a9b96dcf'
               catColor = "#539312"
-            }
-            if (name.category == "Culture"){
+           }
+           if (name.category == "Culture"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-culture.svg?alt=media&token=6fdea4b4-2d43-4027-ae24-7ad838a171e3'
               catColor = "#e66f13"
-            }
-            if (name.category == "Parc"){
+           }
+           if (name.category == "Parc"){
               catIcon = 'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmarker-parc.svg?alt=media&token=d6632431-5d31-4584-9071-b129b9f710b4'
               catColor = "#d9d217"
-            }
-            let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
-            if(name.gps) {
-            self.markerList.push({coord: name.gps, text: textContent, category: catIcon, name:name.name})
-            }
+           }
+           let textContent = "<div class='popupTitle' style='color:"+catColor+";'><b>"+name.name+"</b></div>"+"<div class='text-center'><img class='popupImage' src='"+name.photos+"' alt='err'></div>"
+           if(name.gps) {
+           self.markerList.push({coord: name.gps, text: textContent, category: catIcon, name:name.name})
+           }
           });
         });
       },
@@ -374,7 +299,7 @@
     mounted() {
 		this.trackPosition()
 		this.addMarkerLocation()
-		this.popUpQuestion2()
+		this.popUpQuestion()
 		this.$root.$emit('QuizNotification')
     },
     updated: function () {
