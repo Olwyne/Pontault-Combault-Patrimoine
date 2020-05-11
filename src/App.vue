@@ -1,6 +1,6 @@
 <template>
     <div id="appContainer">
-        <!--<PopUpAccessibilite />-->
+        <PopUpAccessibilite />
         <div class="topPage fixed-top">
             <div class="pageTitle d-flex justify-content-center"><div class="centerPageTitle">{{ getActiveTitle }}</div></div>
             <Navigation />
