@@ -32,12 +32,9 @@
 		l56.5-75.9c1.9-2.5,3.2-5.3,4-8.3l16.3-61.4l44.5,40.9l-6.1,88.6c-0.9,13.4,9.2,25,22.6,25.9c0.6,0,1.1,0.1,1.7,0.1
 		c12.7,0,23.3-9.8,24.2-22.6l6.9-100.3c0.5-7.4-2.4-14.6-7.8-19.6l-46-42.2l14-90.6l19.3,27.4c3.8,5.4,10,8.6,16.6,8.6h70.9
 		l1.3,232.3c0,4.5,3.6,8.1,8.1,8.1c4.5,0,8.1-3.6,8.1-8.1l-1.3-234C381.6,218.2,386.6,211.1,386.6,202.9z" />
-
-
-
-</g>
-</svg>
-                </a>
+            </g>
+            </svg>
+            </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" @click="setActivePage('Carnet'),activePage='Carnet',setActiveTitle('Carnet')">
@@ -49,9 +46,9 @@
                     <path :class="activePage==='Carnet'?'colorNavActive':'colorNavDefault'" d="M60,0v30H30v30h30v30.3H30v30h30v30.3H30v30h30v30.3H30v30h30v30.3H30v30h30v30.3H30v30h30v30.3H30v30h30V452
 		H30v30h30v30H482V0L60,0z M120,270.1V60H422v210.1H120z" />
 
-</g>
-</svg>
-                </a>
+            </g>
+            </svg>
+            </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" @click="setActivePage('Jeu'),activePage='Jeu',setActiveTitle('Jeu')">

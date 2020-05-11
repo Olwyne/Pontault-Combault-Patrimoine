@@ -7,7 +7,6 @@
             </div>
             <div class="placeBody">
                 <div class="placeAddress">{{  location.address }}</div>
-                <!--<div class="placeText" v-html="location.description"></div>-->
                 <div class="placeText" v-html="location.description"></div>
             </div>
         </div>
