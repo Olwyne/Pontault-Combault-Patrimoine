@@ -8,7 +8,7 @@
                                 :color="polyline.color" />
                     <marker-popup :position="formated(center)"
                                   :text="'<b>Vous êtes ici</b>'"
-                                  :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fmy-location-nex.png?alt=media&token=657583c5-a9e5-45af-8f70-8cd90dfac952'" />
+                                  :icontest="'https://firebasestorage.googleapis.com/v0/b/patrimoine-pontault-combault.appspot.com/o/app%2Fmarkers%2Fme-on-map3.svg?alt=media&token=f9c62a32-96a5-4274-b244-f65f9f9418e2'" />
 
 
                     <marker-popup :position="formated(starter)"
