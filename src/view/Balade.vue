@@ -50,7 +50,6 @@
                 <img class="placeImage" v-bind:src="walk.photos" />
             </div>
             <div class="lieuxList">
-                <!-- mettre le lien du lieu dans le src suivant -->
                 <div>Sur le parcours :</div>
                 <a src="" @click="setActivePage('Lieu', lieuBalade); setActiveLocation(lieuBalade),setActiveTitle('Lieu')" v-for="lieuBalade in walk.locations" v-bind:key="lieuBalade">- {{ lieuBalade }}</a>
             </div>
@@ -78,7 +77,6 @@
       return {
         markerList: [],
         url: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png',
-        //url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
         zoom: 13,
         center: [48.801255, 2.607598],
         starter: [],
@@ -143,7 +141,7 @@
         trackPosition() {
             if (navigator.geolocation) {
               this.watchId = navigator.geolocation.watchPosition(this.successPosition, this.failurePosition, {enableHighAccuracy: true,
-                  //timeout: 15000,
+                  timeout: 15000,
                   maximumAge: 0,
                   })
             } 
@@ -155,8 +153,7 @@
             this.center = [position.coords.latitude, position.coords.longitude]
         },
         failurePosition: function (err) {
-            //alert('Error Code: ' + err.code + ' Error Message: ' + err.message)
-            console.log(" ")
+            console.log("failure position")
         },
         addMarkerLocation() {
             let self = this
