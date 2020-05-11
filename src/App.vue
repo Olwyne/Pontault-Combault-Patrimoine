@@ -45,7 +45,7 @@ export default {
         Balade,
         Jeu,
         UpdateNotification,
-        /*PopUpAccessibilite,*/
+        PopUpAccessibilite,
 
 
         //pour tests
