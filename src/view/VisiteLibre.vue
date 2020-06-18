@@ -195,7 +195,7 @@
   				let t4 = t2 * t3;
   				let t5 = t1 + t4;
   				let rad_dist = Math.atan(-t5/Math.sqrt(-t5 * t5 +1)) + 2 * Math.atan(1);
-  				if(((rad_dist * 3437.74677 * 1.1508) * 1.6093470878864446 * 1000)<10){
+  				if(((rad_dist * 3437.74677 * 1.1508) * 1.6093470878864446 * 1000)<100){
   					let questions= [];
   					var query =  db.ref('app/questions/').orderByKey();
   					query.once("value")
